@@ -6,7 +6,7 @@ namespace Singleton {
             Console.WriteLine ("Hello World!");
             MyClass.Instance.UserName = "홍길동";
             MyClass.Instance.Print ();
-            MyClass.Instance.UserName = "마바리";
+            MyClass.Instance.UserName = "홍길순";
             Console.WriteLine (MyClass.Instance.UserName);
             Calculate.Instance.a = "a";
             Calculate.Instance.b = "b";
