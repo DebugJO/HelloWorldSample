@@ -35,7 +35,7 @@ public:
         font.setFamily(QString::fromUtf8("\353\247\221\354\235\200 \352\263\240\353\224\225"));
         QtGuiApplication1Class->setFont(font);
         QIcon icon;
-        icon.addFile(QStringLiteral("E:/A_C_project20181023/A_Work/ImageLibrary/Windows10/Icon_21.ico"), QSize(), QIcon::Normal, QIcon::Off);
+        icon.addFile(QStringLiteral("Icon_21.ico"), QSize(), QIcon::Normal, QIcon::Off);
         QtGuiApplication1Class->setWindowIcon(icon);
         centralWidget = new QWidget(QtGuiApplication1Class);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
@@ -43,7 +43,7 @@ public:
         pushButton->setObjectName(QStringLiteral("pushButton"));
         pushButton->setGeometry(QRect(140, 110, 131, 61));
         QIcon icon1;
-        icon1.addFile(QStringLiteral("E:/A_C_project20181023/A_Work/ImageLibrary/Windows10/Icon_271.ico"), QSize(), QIcon::Normal, QIcon::Off);
+        icon1.addFile(QStringLiteral("Icon_271.ico"), QSize(), QIcon::Normal, QIcon::Off);
         pushButton->setIcon(icon1);
         label = new QLabel(centralWidget);
         label->setObjectName(QStringLiteral("label"));
