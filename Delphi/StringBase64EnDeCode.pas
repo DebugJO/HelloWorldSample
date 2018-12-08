@@ -1,3 +1,4 @@
+//uses Soap.EncdDecd, System.NetEncoding, IdCoderMIME, IdGlobal;
 function Base64Encode(s : string) : string;
 var base64 : TIdEncoderMIME;
     tmpBytes : TBytes;
