@@ -33,6 +33,7 @@ $server = new SoapServer('http://192.168.10.2/ws/server.php?wsdl', array(
 ));
 $server->setClass('serverclass');
 $server->handle();
+```
 
 **2. serverclass.php (server.php에서 사용하는 class)**
 ```
