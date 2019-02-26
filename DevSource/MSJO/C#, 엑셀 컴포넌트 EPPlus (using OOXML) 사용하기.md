@@ -23,3 +23,63 @@ using (var pck = new ExcelPackage())
 		pck.SaveAs(fs); 
 	}
 }
+
+##### LoadFromDataTable 예제
+```
+using (var pck = new ExcelPackage())
+{
+	var ws = pck.Workbook.Worksheets.Add("Sheet1");
+	ws.Cells["A1"].LoadFromDataTable(ToDataTable(DGViewSearch), false);
+	ws.Cells.Style.Numberformat.Format = "@";
+	ws.Cells.Style.Font.Name = "굴림";
+	ws.Cells.Style.Font.Size = 9;
+	ws.Cells.AutoFitColumns();
+	using (var fs = new FileStream("out.xlsx", FileMode.Create))
+	{
+		pck.SaveAs(fs);
+	}
+}
+Process.Start(Path.GetDirectoryName(Application.ExecutablePath) + @"\out.xlsx");
+```
+
+##### DataGridView to DataTable 변환 함수 (LoadFromDataTable 예제에서 사용)
+```
+private static DataTable ToDataTable(DataGridView dataGridView)
+{
+	var cnt = 0;
+	var dt = new DataTable();
+	foreach (DataGridViewColumn dataGridViewColumn in dataGridView.Columns)
+	{
+		if (!dataGridViewColumn.Visible) continue;
+		dt.Columns.Add(dataGridViewColumn.HeaderText);
+		cnt = cnt + 1;
+	}
+	var cell = new object[cnt];
+	foreach (DataGridViewRow dataGridViewRow in dataGridView.Rows)
+	{
+		if (dataGridView.Rows[dataGridViewRow.Index].Cells[0].Value == null) continue;
+		for (var i = 0; i < cnt; i++)
+		{
+			cell[i] = dataGridViewRow.Cells[i].Value;
+		}
+		dt.Rows.Add(cell);
+	}
+	return dt;
+}
+```
+
+##### ASP.NET MVC : File Download 예제
+```
+public ActionResult ChargeSummaryData(ChargeSummaryRptParams rptParams)
+{
+	var fileDownloadName = "sample.xlsx";
+	var contentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+	var package = CreatePivotTable(rptParams);
+	var fileStream = new MemoryStream();
+	package.SaveAs(fileStream);
+	fileStream.Position = 0;
+	var fsr = new FileStreamResult(fileStream, contentType);
+	fsr.FileDownloadName = fileDownloadName;
+	return fsr;
+}
+```
