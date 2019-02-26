@@ -53,3 +53,56 @@ namespace SOAPClient
 }
 ```
 
+**예제에 사용한 확장 Helper Method (옵션)**
+위의 예제에서 추가적으로 사용한 Method을 정리하였다3. Array타입을 초기화4, DataGridView 속도향상을 위한 DoubleBuffer, 해당 컨트롤의 BeginUpdate/EndUpdate 등 이다.
+```
+public partial class frmMain : Form
+{ // 위의 소스의 상단 부분에…
+	[DllImport("user32.dll")]
+	public static extern IntPtr SendMessage(HandleRef hWnd, int msg, IntPtr wParam, IntPtr lParam);
+	private const int WM_SETREDRAW = 0x000B;
+	public static void BeginControlUpdate(Control control)
+	{
+		SendMessage(new HandleRef(control, control.Handle), WM_SETREDRAW, IntPtr.Zero, IntPtr.Zero);
+	}
+	public static void EndControlUpdate(Control control)
+	{
+		SendMessage(new HandleRef(control, control.Handle), WM_SETREDRAW, new IntPtr(1), IntPtr.Zero);
+		control.Invalidate();
+	}
+
+// 위의 2. 클라이언트 예제 소스 부분
+
+// 위의 소스 하단 부분에 ... (상단에 작성하면 폼디자이너가 사라지는 경우 발생)
+public static class MyHelperClass
+{
+	public static void DisposeAll(this IEnumerable set)
+	{
+		foreach (object obj in set)
+		{
+			IDisposable disp = obj as IDisposable;
+			if (disp != null) { disp.Dispose(); }
+		}
+	}
+
+	public static void DoubleBuffered(this DataGridView dgv, bool setting)
+	{
+		Type dgvType = dgv.GetType();
+		PropertyInfo pinfo = dgvType.GetProperty("DoubleBuffered", BindingFlags.Instance | BindingFlags.NonPublic);
+		pinfo.SetValue(dgv, setting, null);
+	}
+}
+```
+다음 장에서는 Delphi 클라이언트, gSOAP을 이용한 C++ 클라이언트를 알아보겠다.
+
+
+
+
+
+
+
+
+
+
+
+
