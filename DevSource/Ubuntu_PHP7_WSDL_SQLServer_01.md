@@ -20,3 +20,41 @@ echo 'export PATH="$PATH:/opt/mssql-tools/bin"' >> ~/.bash_profile
 echo 'export PATH="$PATH:/opt/mssql-tools/bin"' >> ~/.bashrc
 source ~/.bashrc
 ```
+
+**2. Install the Microsoft PHP Drivers for SQL Server**
+```
+sudo pecl install sqlsrv
+sudo pecl install pdo_sqlsrv
+```
+
+**3. Add the Microsoft PHP Drivers for SQL Server to php.ini**
+```
+// echo 명령이 동작하지 않을 때는 shell을 root로 변경 또는 직접 sudo로 각각 편집
+echo "extension=/usr/lib/php/20151012/sqlsrv.so" >> /etc/php/7.0/apache2/php.ini
+echo "extension=/usr/lib/php/20151012/pdo_sqlsrv.so" >> /etc/php/7.0/apache2/php.ini
+echo "extension=/usr/lib/php/20151012/sqlsrv.so" >> /etc/php/7.0/cli/php.ini
+echo "extension=/usr/lib/php/20151012/pdo_sqlsrv.so" >> /etc/php/7.0/cli/php.ini
+```
+
+**4. Apache 서버 재시작**
+```
+sudo systemctl stop apache2.service
+sudo systemctl start apache2.service
+// <?php phpinfo(); 로 sqlsrv, pdo_sqlsrv가 로드 되는지 확인
+```
+
+**5. SQL Server에 접속하여 결과 가져오는 간단한 예제(테스트)**
+```
+<?php
+	$serverName = "xxx.xxx.xxx.xxx,1433";
+	$connectionOptions = array("Database"=>"UserDB", "Uid"=>"UserID", "PWD"=>"UserPW");
+	$conn = sqlsrv_connect($serverName, $connectionOptions);
+	$tsql = "select id, nm from usertable ";
+	$result = sqlsrv_query($conn, $tsql);
+	while($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC))
+	{
+		echo($row["id"]." : ".$row["nm"]);
+		echo("<br/>");
+	}
+	sqlsrv_free_stmt($result);
+```
