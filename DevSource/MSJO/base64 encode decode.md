@@ -6,6 +6,10 @@ Base64란 8비트 이진 데이터(파일)를 문자 코드에 영향을 받지 
 
 ##### 델파이 예제
 ```delphi
+// uses System.NetEncoding
+TNetEncoding.Base64.Encode('string');
+TNetEncoding.Base64.Decode('string');
+
 // File -> Base64 String
 function EncodeFileBase64(const FileName: string): AnsiString;
 var
