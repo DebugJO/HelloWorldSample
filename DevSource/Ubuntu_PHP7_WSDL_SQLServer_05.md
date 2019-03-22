@@ -9,7 +9,7 @@ brew install jsoncpp
 ```
 
 **클라이언트 예제 (client.cpp)**
-```
+```cpp
 #include "RsltSoapServerBinding.nsmap"
 #include "soapRsltSoapServerBindingProxy.h"
 #include <string>
