@@ -9,7 +9,7 @@
 기본 Winform을 생성하고 프로젝트 인스펙터에서 서비스 참조(http://192.168.10.2/ws/server.php?wsdl)를 한다. 버전이 맞지 않아 서비스 참조가 완벽하지 않을 경우 서비스 참조 화면 하단의 고급에서 구 버전의 웹서비스 참조를 하여 추가한다. 그리고 프로젝트에 Nuget을 이용하여 Newtonsoft.Json 패키지를 추가한다.
 
 **2. 클라이언트 예제**
-```
+```cs
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using SOAPClient.MyService;
@@ -55,7 +55,7 @@ namespace SOAPClient
 
 **예제에 사용한 확장 Helper Method (옵션)**
 위의 예제에서 추가적으로 사용한 Method을 정리하였다3. Array타입을 초기화4, DataGridView 속도향상을 위한 DoubleBuffer, 해당 컨트롤의 BeginUpdate/EndUpdate 등 이다.
-```
+```cs
 public partial class frmMain : Form
 { // 위의 소스의 상단 부분에…
 	[DllImport("user32.dll")]
