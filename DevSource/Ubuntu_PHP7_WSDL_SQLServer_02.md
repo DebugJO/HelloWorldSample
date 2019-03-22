@@ -11,7 +11,7 @@ composer require piotrooo/wsdl-creator
 ```
 
 **1. server.php (서버 IP는 현재 서버가 운영되고 있은 자신의 주소)**
-```
+```php
 <?php
 use WSDL\WSDLCreator;
 require_once './vendor/autoload.php';
@@ -36,7 +36,7 @@ $server->handle();
 ```
 
 **2. serverclass.php (server.php에서 사용하는 class)**
-```
+```php
 <?php
 class serverclass {
     /**
