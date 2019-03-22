@@ -1,7 +1,7 @@
 ### Delphi, C#, 초간단 공인아이피(Public IP) 알아오기
 
 http://ipinfo.io/ip를 이용한다. 확장된 정보가 필요하면 JSON(http://ipinfo.io/json)형태로 데이터를 볼 수 있다. 또는 다음과 같이 자신의 서버(ASP.NET)에 요청(request)하여 응답(response)을 받을 수 있다.
-```
+```cs
 protected void Page_Load(object sender, EventArgs e)
 {
 	Response.Clear();
@@ -22,7 +22,7 @@ public string GetIPAddress()
 ```
 
 ##### Delphi 예제
-```
+```delphi
 // 아이피 확인 정규식 예제
 function RegExpIP(aValue: string): Boolean;
 var
@@ -57,7 +57,7 @@ end;
 ```
 
 ##### C# 예제
-```
+```cs
 // using System.Net; using System.Text.RegularExpressions;
 private void Button1_Click(object sender, EventArgs e)
 {
