@@ -5,7 +5,7 @@
 #### Windows에서 Web Service Client 사용 예제 : Delphi
 
 **1. WSDL Importer로 자동 생성된 유닛 살펴보기**
-```
+```delphi
 unit api;
 interface
 uses Soap.InvokeRegistry, Soap.SOAPHTTPClient, System.Types, Soap.XSBuiltIns;
@@ -25,7 +25,7 @@ const
 ```
 
 **2. 클라이언트 예제**
-```
+```delphi
 // 추가 : uses api, System.JSON;
 procedure TForm1.Button2Click(Sender: TObject);
 var
