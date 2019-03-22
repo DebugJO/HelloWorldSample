@@ -1,7 +1,7 @@
 ### C#, Delphi(TLIST) Collection Generic, 자원 해제
 
 ##### Delphi 예제
-```
+```delphi
 unit Unit1;
 // 중략 ...
   TCust = class
@@ -80,14 +80,14 @@ end;
 ```
 
 List에 Set, Get은 다음과 같이 사용 가능
-```
+```delphi
 TCust(cList.Items[i]).Name
 cList.List[i].Name
 cList.Items[i].Name
 ```
 
 ##### C#에서 List<T>, Collection Dispose 적용하기
-```
+```cs
 using System;
 using System.Collections;
 using System.Collections.Generic;
