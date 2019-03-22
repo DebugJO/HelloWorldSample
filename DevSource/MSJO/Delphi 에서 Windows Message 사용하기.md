@@ -1,7 +1,7 @@
 ### Delphi 에서 Windows Message 사용하기
 
 #### Delphi 메시지 사용
-```
+```delphi
 type
   TMyPanel = class(TPanel)
   protected
@@ -50,7 +50,7 @@ end;
 ```
 
 #### Delphi 메시지 전달 : Form1(Main), Form2/Notepad(메시지 수신)
-```
+```delphi
 //Form1
 procedure TForm1.btnMemoSendClick(Sender: TObject);
 var
