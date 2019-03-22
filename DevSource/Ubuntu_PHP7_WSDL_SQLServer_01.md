@@ -46,15 +46,15 @@ sudo systemctl start apache2.service
 **5. SQL Server에 접속하여 결과 가져오는 간단한 예제(테스트)**
 ```php
 <?php
-	$serverName = "xxx.xxx.xxx.xxx,1433";
-	$connectionOptions = array("Database"=>"UserDB", "Uid"=>"UserID", "PWD"=>"UserPW");
-	$conn = sqlsrv_connect($serverName, $connectionOptions);
-	$tsql = "select id, nm from usertable ";
-	$result = sqlsrv_query($conn, $tsql);
-	while($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC))
-	{
-		echo($row["id"]." : ".$row["nm"]);
-		echo("<br/>");
-	}
-	sqlsrv_free_stmt($result);
+$serverName = "xxx.xxx.xxx.xxx,1433";
+$connectionOptions = array("Database"=>"UserDB", "Uid"=>"UserID", "PWD"=>"UserPW");
+$conn = sqlsrv_connect($serverName, $connectionOptions);
+$tsql = "select id, nm from usertable ";
+$result = sqlsrv_query($conn, $tsql);
+while($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC))
+{
+	echo($row["id"]." : ".$row["nm"]);
+	echo("<br/>");
+}
+sqlsrv_free_stmt($result);
 ```
