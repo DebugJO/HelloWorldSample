@@ -1,7 +1,7 @@
 ### Delphi, JSON Database 활용 예제
 
 #### Database에 질의하여 JSON 데이터 만들기 (GetJSON 함수)
-```
+```delphi
 function TForm1.jGetJSON: string;
 var
   NewArr: TJSONArray;
@@ -47,7 +47,7 @@ end;
 ```
 
 JSON은 해당 Value에 값이 없으면 반환하지 않기 때문에 다음과 같은 조치를 해준다. 일반적으로 2가지 정도의 방법으로 해결한다.
-```
+```delphi
 // 1. 빈 문자열을 더해서 데이터가 있는 것처럼 사용하고 클라이언트에 Trim을 사용
 NewObj.AddPair('usercontent', TestQry.Fields[2].AsString + ' '); 
 // 2. 데이터베이스에서 질의할 때 결과값이 null, empty이면 빈 문자열을 더해서 리턴
@@ -55,7 +55,7 @@ select iif((col1 is null) or (col1 = ''), ' ', col1) as col1 from usertable
 ```
 
 #### JSON 데이터를 파싱하여 원하는 형태로 사용하기
-```
+```delphi
 procedure TForm1.Button1Click(Sender: TObject);
 var
   jResponse: TJSONObject;
@@ -83,7 +83,7 @@ end;
 
 #### Convert JSON to DataSet
 GitHub에 공개된 DataSetConverter4Delphi 라이브러리를 활용한다. 메인페이지에 사용 예제를 보면 쉽게 설명이 되어 있어서 사용하는 데 큰 무리가 없을 것이다. 위의 JSON 데이터를 파싱하여 원하는 형태로 사용하기의 jResult를 활용한다. Convert DataSet to JSON / Convert JSON to DataSet
-```
+```delphi
 // uses에 DataSetConverter4D, DataSetConverter4D.Impl 추가
 ClientDataSet1.Close;
 ClientDataSet1.CreateDataSet;
