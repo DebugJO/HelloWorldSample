@@ -86,7 +86,7 @@ Test.1.BuildTestData.sql : 설치 확인 쿼리
 Test.2.DemoFunctions.sql : 사용 예제
 ```
 
-\3. 사용방법
+3. 사용방법
 ```sql
 -- Test.2.DemoFunctions.sql에 포함된 예제
 SELECT  DocID, dbo.GROUP_CONCAT(ErrorDetail) AS FieldTypeDetail
