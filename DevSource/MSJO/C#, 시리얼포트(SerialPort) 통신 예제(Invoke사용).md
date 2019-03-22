@@ -1,6 +1,6 @@
 ### 시리얼 포트 통신 예제 (C#)
 
-```
+```cs
 using System.IO.Ports;
 
 namespace SerialExm
