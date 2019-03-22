@@ -44,7 +44,7 @@ sudo systemctl start apache2.service
 ```
 
 **5. SQL Server에 접속하여 결과 가져오는 간단한 예제(테스트)**
-```
+```php
 <?php
 	$serverName = "xxx.xxx.xxx.xxx,1433";
 	$connectionOptions = array("Database"=>"UserDB", "Uid"=>"UserID", "PWD"=>"UserPW");
