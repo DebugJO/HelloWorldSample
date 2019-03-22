@@ -1,7 +1,7 @@
 ### Delphi(IdHTTP)에서 PHP로 파일 업/다운로드
 
 #### PHP 소스
-```
+```php
 <?php
 $upload_dir = './data';
 $upload_name = $_FILES["upfile"]["name"];
@@ -29,7 +29,7 @@ if(is_uploaded_file($_FILES["upfile"]["tmp_name"])) {
 ```
 
 #### Delphi에서 파일 업로드/다운로드
-```
+```delphi
 // uses IdGlobal, IdMultipartFormData
 // 파일 크기에 따라 TFileStream.Create(FileName, fmCreate) 이용한다.
 procedure TForm1.Button1Click(Sender: TObject); //업로드
