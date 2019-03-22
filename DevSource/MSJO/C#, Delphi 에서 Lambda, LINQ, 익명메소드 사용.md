@@ -1,7 +1,7 @@
 ### C#, Delphi 에서 Lambda, LINQ, 익명메소드 사용
 
 ##### C# 에서 Array, List, Generic, LINQ, Lambda 예제
-```
+```cs
 class Program
 {
 	static void Main(string[] args)
@@ -35,7 +35,7 @@ class Program
 ```
 
 ##### Delphi 에서 익명 메소스 사용하기
-```
+```delphi
 type
 	TForm1 = class(TForm)
 	end;
