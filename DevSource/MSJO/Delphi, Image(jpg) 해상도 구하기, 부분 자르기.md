@@ -3,7 +3,7 @@
 델파이 소스에서 uses 절에 JPEG를 추가한다.
 
 #### 이미지(JPG) 해상도 구하기
-```
+```delphi
 procedure TForm1.Button2Click(Sender: TObject);
 var
   pic: TPicture;
@@ -20,7 +20,7 @@ end
 ```
 
 #### 원하는 부분만 이미지 자르기
-```
+```delphi
 procedure TForm1.Button1Click(Sender: TObject);
 var
   jpg: TJPEGImage;
@@ -53,7 +53,7 @@ end;
 [참고 동영상](https://t.umblr.com/redirect?z=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3D8Od6f7MkzkA&t=ZTM5YzFiMDI3NzZmYzk3NzBhYjFmZDFmNWYzODBjZDc0MjNkYWQwNyx3ZGplVHNNbQ%3D%3D&b=t%3AazS33qDqhliDzp1P0RQcxg&p=http%3A%2F%2Fkoreaotn.tumblr.com%2Fpost%2F156711052754%2Fdelphi-imagejpg-%ED%95%B4%EC%83%81%EB%8F%84-%EA%B5%AC%ED%95%98%EA%B8%B0-%EB%B6%80%EB%B6%84-%EC%9E%90%EB%A5%B4%EA%B8%B0&m=0)
 
 #### JPG 이미지 해상도 구하기
-```
+```delphi
 function ReadMWord(f: TFileStream): word;
 type
   TMotorolaWord = record
