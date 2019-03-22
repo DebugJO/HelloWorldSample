@@ -7,7 +7,7 @@ Visual Studio를 사용하고 있다면 nuget 패키지 관리자를 이용하�
 예제는 데이터를 불러오는 LoadFrom…() 함수 중에서 LoadFromCollection, LoadFromDataTable 이 두 가지 정도의 함수만 살펴볼 것이다. LoadFromCollection은 데이터 리스트를 불러와 엑셀 파일로 저장하는 예제이고 LoadFromDataTable은 화면의 DataGridView를 Table로 변환한 후 이것을 엑셀로 저장하는 것이다.
 
 ##### LoadFromCollection 예제
-```
+```cs
 using (var pck = new ExcelPackage())
 {
 	var ws = pck.Workbook.Worksheets.Add("Sheet1");
@@ -26,7 +26,7 @@ using (var pck = new ExcelPackage())
 ```
 
 ##### LoadFromDataTable 예제
-```
+```cs
 using (var pck = new ExcelPackage())
 {
 	var ws = pck.Workbook.Worksheets.Add("Sheet1");
@@ -44,7 +44,7 @@ Process.Start(Path.GetDirectoryName(Application.ExecutablePath) + @"\out.xlsx");
 ```
 
 ##### DataGridView to DataTable 변환 함수 (LoadFromDataTable 예제에서 사용)
-```
+```cs
 private static DataTable ToDataTable(DataGridView dataGridView)
 {
 	var cnt = 0;
@@ -70,7 +70,7 @@ private static DataTable ToDataTable(DataGridView dataGridView)
 ```
 
 ##### ASP.NET MVC : File Download 예제
-```
+```cs
 public ActionResult ChargeSummaryData(ChargeSummaryRptParams rptParams)
 {
 	var fileDownloadName = "sample.xlsx";
