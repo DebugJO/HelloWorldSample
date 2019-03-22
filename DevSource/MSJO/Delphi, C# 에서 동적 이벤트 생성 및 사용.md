@@ -1,7 +1,7 @@
 ### Delphi, C# 에서 동적 이벤트 생성 및 사용
 
 ##### Delphi 동적 이벤트 작성하기
-```
+```delphi
 // 첫번째 방법
 type
   TfrmSort = class(TForm)
@@ -50,7 +50,7 @@ end;
 ```
 
 ##### C# Winform 예제
-```
+```cs
 Button button = new Button();
 button.Click += (s,e) => { your code; };
 //button.Click += new EventHandler(button_Click);
@@ -94,7 +94,7 @@ private void NewButton_Click(object sender, EventArgs e)
 ```
 
 ##### ASP.NET(C#) 예제
-```
+```cs
 // 예제 1
 <asp:PlaceHolder runat="server" ID="PlaceHolder1" />
 <asp:Label runat="server" ID="Label1"/>
