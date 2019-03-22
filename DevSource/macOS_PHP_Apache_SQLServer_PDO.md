@@ -84,7 +84,7 @@ mssql.secure_connection = On
 ```
 
 ##### 4. SQL Server PHP(PDO)샘플 (charset=UTF-8:한글)
-```
+```php
 <?php
 try {
     $hostname = "xxx.xxx.xxx.xxx";
@@ -108,7 +108,7 @@ $dbh = null;
 ```
 
 ##### 5. SQL Server PHP(mssql)샘플 (‘mssql.charset’.’UTF-8’:한글)
-```
+```php
 <?php
 ini_set('mssql.charset','UTF-8');
 $myServer = "xxx.xxx.xxx.xxx";
