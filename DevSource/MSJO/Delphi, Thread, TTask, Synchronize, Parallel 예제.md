@@ -1,7 +1,7 @@
 ### Delphi, Thread, TTask, Synchronize, Parallel 예제
 
 #### 델파이 Thread (Synchronize) 기본 예제
-```
+```delphi
 // uses System.Threading, System.SyncObjs, System.Diagnostics
 var
   Th: TThread;
@@ -49,7 +49,7 @@ end;
 ```
 
 #### TTask, ITask를 이용한 Thread 예제
-```
+```delphi
 procedure TForm1.Button3Click(Sender: TObject); //Start
 var
   aTask: ITask;
@@ -83,7 +83,7 @@ end;
 ```
 
 #### Parallel 사용 예제
-```
+```delphi
 procedure TForm1.Button5Click(Sender: TObject);
 var
   tasks: array of ITask;
