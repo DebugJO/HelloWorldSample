@@ -4,14 +4,14 @@
 
 #### Database
 테이블 타입 생성
-```
+```sql
 CREATE TYPE dbo.IDList AS TABLE (
 	ID varchar(11) COLLATE Korean_Wansung_CI_AS NULL
 )
 ```
 
 스토어드 프로시저 생성 : 테이블명은 SomeTable로 가정
-```
+```sql
 CREATE PROCEDURE [dbo].[SP_DeleteList]
 	@IDList IDList READONLY
 AS
@@ -23,7 +23,7 @@ END
 
 #### Model, Dapper Operation
 DapperORM class
-```
+```cs
 public void ExecuteWithoutReturn(string procedureName, DynamicParameters param)
 {
 	using (_connection)
@@ -45,7 +45,7 @@ public SqlMapper.ICustomQueryParameter ReturnTableParameter(string[] rows)
 ```
 
 Repository class
-```
+```cs
 private readonly DapperORM _dapperOrm = new DapperORM();
 public void DeleteList(string[] rows, string userID)
 {
@@ -57,7 +57,7 @@ public void DeleteList(string[] rows, string userID)
 
 #### Controller, View
 Controller
-```
+```cs
 Repository _repository = new Repository();
 [HttpPost]
 public ActionResult Delete(string[] rows, userID)
@@ -67,7 +67,7 @@ public ActionResult Delete(string[] rows, userID)
 }
 ```
 View
-```
+```razor
 @foreach (var item in Model)
 {
 	<tr><td><input type="checkbox" name="rows" value="@item.ID" /></td>
