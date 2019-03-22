@@ -5,7 +5,7 @@
 * Resource_type : RCDATA , Resource_identifier : Resource_1(고유한 이름)
 
 #### 리소스 파일 사용 예제
-```
+```delphi
 procedure TForm1.FormCreate(Sender: TObject);
 begin
   _LoadFont;
