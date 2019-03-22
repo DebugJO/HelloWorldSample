@@ -44,21 +44,21 @@ class serverclass {
      * @param string $userid
      * @return string $result
      */
-    public function getResult($userid) {
-		$serverName = "xxx.xxx.xxx.xxx,1433";
-		$database = "database";
-		$uid = "databaseID";
-		$pwd = "databasePassword";
-		$conn = new PDO("sqlsrv:server=$serverName; Database=$database", $uid, $pwd);
-		$tsql = "select r.userid, r.username from usertable r where r.userid = :userid";
-		$stmt = $conn->prepare($tsql);
-		$stmt->bindParam(':userid', $userid, PDO::PARAM_STR);
-		$stmt->execute();
-		$row = $stmt->fetchAll(PDO::FETCH_ASSOC);
-		return json_encode($row, JSON_UNESCAPED_UNICODE);
-		$stmt = null;
-		$conn = null;
-	}
+public function getResult($userid) {
+	$serverName = "xxx.xxx.xxx.xxx,1433";
+	$database = "database";
+	$uid = "databaseID";
+	$pwd = "databasePassword";
+	$conn = new PDO("sqlsrv:server=$serverName; Database=$database", $uid, $pwd);
+	$tsql = "select r.userid, r.username from usertable r where r.userid = :userid";
+	$stmt = $conn->prepare($tsql);
+	$stmt->bindParam(':userid', $userid, PDO::PARAM_STR);
+	$stmt->execute();
+	$row = $stmt->fetchAll(PDO::FETCH_ASSOC);
+	return json_encode($row, JSON_UNESCAPED_UNICODE);
+	$stmt = null;
+	$conn = null;
+}
 }
 ```
 
