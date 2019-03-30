@@ -56,6 +56,7 @@ end;
 
 또는
 ```delphi
+// uses Vcl.Forms, System.Classes, Winapi.Windows, Winapi.Messages,
 // 전역
 var FontHandle1, FontHandle2: DWORD;
 
