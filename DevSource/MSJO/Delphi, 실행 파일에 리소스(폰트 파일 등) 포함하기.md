@@ -72,12 +72,12 @@ begin
   SendMessage(HWND_BROADCAST, WM_FONTCHANGE, 0, 0);
 end;
 
-  procedure Removefont;
-  begin
-    RemoveFontMemResourceEx(FontHandle1);
-    RemoveFontMemResourceEx(FontHandle2);
-    SendMessage(HWND_BROADCAST, WM_FONTCHANGE, 0, 0);
-  end;
+procedure Removefont;
+begin
+  RemoveFontMemResourceEx(FontHandle1);
+  RemoveFontMemResourceEx(FontHandle2);
+  SendMessage(HWND_BROADCAST, WM_FONTCHANGE, 0, 0);
+end;
 ```
 
 https://stackoverflow.com/questions/556147/how-to-quickly-and-easily-embed-fonts-in-winforms-app-in-c-sharp
