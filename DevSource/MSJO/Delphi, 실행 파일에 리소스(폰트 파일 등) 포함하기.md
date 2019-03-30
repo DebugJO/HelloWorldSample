@@ -54,6 +54,21 @@ begin
 end;
 ```
 
+또는
+```delphi
+procedure LoadFont;
+var
+  ResStream1, ResStream2: TResourceStream;
+  FontsCount: Integer;
+begin
+  ResStream1 := TResourceStream.Create(hInstance, 'Resource_1', RT_RCDATA);
+  ResStream2 := TResourceStream.Create(hInstance, 'Resource_2', RT_RCDATA);
+  AddFontMemResourceEx(ResStream1.Memory, ResStream1.Size, nil, @FontsCount);
+  AddFontMemResourceEx(ResStream2.Memory, ResStream2.Size, nil, @FontsCount);
+  SendMessage(HWND_BROADCAST, WM_FONTCHANGE, 0, 0);
+end;
+```
+
 https://stackoverflow.com/questions/556147/how-to-quickly-and-easily-embed-fonts-in-winforms-app-in-c-sharp
 
 https://stackoverflow.com/questions/15949057/addfontfile-from-resources
