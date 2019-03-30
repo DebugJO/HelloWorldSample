@@ -80,6 +80,22 @@ begin
 end;
 ```
 
+Delphi: Event Order of a Form - From OnCreate to OnDestroy
+```delphi
+// https://www.askingbox.com/info/delphi-event-order-of-a-form-from-oncreate-to-ondestroy
+OnCreate
+OnShow
+OnActivate
+OnPaint
+OnResize
+
+OnCloseQuery
+OnClose
+OnDeactivate
+OnHide
+OnDestroy
+```
+
 https://stackoverflow.com/questions/556147/how-to-quickly-and-easily-embed-fonts-in-winforms-app-in-c-sharp
 
 https://stackoverflow.com/questions/15949057/addfontfile-from-resources
