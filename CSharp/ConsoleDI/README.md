@@ -1,1 +1,1 @@
-### Program - User -> INotification <- [ConsoleNotification, WebNotification]
+### Program - User -> INotificationService <- [ConsoleNotification, WebNotification]
