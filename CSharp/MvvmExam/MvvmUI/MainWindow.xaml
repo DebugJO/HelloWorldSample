@@ -1,0 +1,22 @@
+﻿<Window x:Class="MvvmUI.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MvvmUI"
+        mc:Ignorable="d"
+        xmlns:m="clr-namespace:MvvmUI.Models"
+        Title="MainWindow" Height="450" Width="800">
+
+    <Window.Resources>
+        <m:Person x:Key="person"/>
+    </Window.Resources>
+
+    <Grid DataContext="{Binding Source={StaticResource person}}" Background="AliceBlue"  Width="400">
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+            <TextBox Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" MinWidth="100"/>
+            <TextBox Text="{Binding LastName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" MinWidth="100"/>
+            <TextBlock Text="{Binding FullName, UpdateSourceTrigger=PropertyChanged}" Foreground="Blue" FontSize="20"/>
+        </StackPanel>
+    </Grid>
+</Window>
