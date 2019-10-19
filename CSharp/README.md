@@ -28,3 +28,26 @@ https://namu.wiki/w/%EC%BD%94%EB%94%A9%20%EC%8A%A4%ED%83%80%EC%9D%BC
 
 ### LINQ Tutorial
 * [LINQ Tutorial-kudvenkat](https://www.youtube.com/playlist?list=PL6n9fhu94yhWi8K02Eqxp3Xyh_OmQ0Rp6)
+
+```
+// vscode
+솔루션 파일 생성
+dotnet new sln -n "HelloSln"
+
+콘솔 프로젝트 생성
+dotnet new console -n "HelloUI"
+ 
+클래스 라이브러리 생성
+dotnet new classlib -n "HelloLib"
+
+프로젝트 등록
+bash : dotnet sln HelloSln.sln add **/*.csproj
+windows : dotnet sln HelloSln.sln add .\HelloUI\HelloUI.csproj
+
+프로젝트에 라이브러리 참조 추가
+dotnet add HelloUI\HelloUI.csproj reference HelloLib\HelloLib.csproj
+
+클래스 라이브러리에 패키지 추가(클래스라이브러리 폴더에서)
+dotnet add package dapper
+또는 패키지 매니저 사용
+```
