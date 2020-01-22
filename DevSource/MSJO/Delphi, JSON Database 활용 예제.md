@@ -91,4 +91,7 @@ TConverter.New.JSON.Source(jResult).ToDataSet(ClientDataSet1);
 // DBGrid에서 스크롤바가 사리지는 것을 방지하기 위한 간단한 팁
 DBGrid1.Width := DBGrid1.Width + 1;
 DBGrid1.Width := DBGrid1.Width - 1;
+
+// DataSet to JSON
+TConverter.New.dataSet.Source(DM.DBQry).AsJSONObject.ToString;
 ```
