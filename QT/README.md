@@ -79,13 +79,14 @@ class Person {
     double salary;
 };
 
-Person::~Person() { cout << "...END..." << endl; }
+Person::~Person() { cout << "...Person Class END..." << endl; }
 
 double Person::GetSalary() const { return salary; }
 
 class People : public Person {
   public:
     People();
+    ~People() override;
 
     void Speak(const string &words) const override;
 
@@ -97,6 +98,8 @@ class People : public Person {
 };
 
 People::People() { salary = 0.0; }
+
+People::~People() { cout << "...People Class END..." << endl; }
 
 void People::Speak(const string &words) const { cout << words << endl; }
 
