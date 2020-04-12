@@ -2,10 +2,8 @@
 
 #include <windows.h>
 
-LRESULT CALLBACK WndProc(HWND hwnd, UINT iMsg, 
-						 WPARAM wParam, LPARAM lParam);
-int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, 
-				   LPSTR lpszCmdLine, int nCmdShow)
+LRESULT CALLBACK WndProc(HWND hwnd, UINT iMsg, WPARAM wParam, LPARAM lParam);
+int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdLine, int nCmdShow)
 {
 	HWND 	 hwnd;
 	MSG 	 msg;
@@ -43,8 +41,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	return (int)msg.wParam;
 }
 
-LRESULT CALLBACK WndProc(HWND hwnd, UINT iMsg, 
-						 WPARAM wParam, LPARAM lParam)
+LRESULT CALLBACK WndProc(HWND hwnd, UINT iMsg, WPARAM wParam, LPARAM lParam)
 {
 	HDC			hdc;
 	PAINTSTRUCT ps;
