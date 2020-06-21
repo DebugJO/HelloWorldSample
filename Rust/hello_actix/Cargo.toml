@@ -1,0 +1,13 @@
+[package]
+name = "hello_actix"
+version = "0.1.0"
+authors = ["DebugJO <me@msjo.kr>"]
+edition = "2018"
+
+[dependencies]
+actix-rt = "1.1.1"
+actix-web = "2.0.0"
+actix-web-httpauth = "0.4.1"
+serde = {version = "1.0.113", features = ["derive"]}
+dotenv = "0.15.0"
+config = "0.10.1"

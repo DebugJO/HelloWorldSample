@@ -1,0 +1,16 @@
+[package]
+name = "hello_rocket"
+version = "0.1.0"
+authors = ["DebugJO <me@msjo.kr>"]
+edition = "2018"
+
+[dependencies]
+rocket = "0.4.5"
+serde = "1.0.113"
+serde_derive = "1.0.113"
+serde_json = "1.0.55"
+
+[dependencies.rocket_contrib]
+version = "0.4.5"
+default-features = false
+features = ["tera_templates", "json", "serve"]
