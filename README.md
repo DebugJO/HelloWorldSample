@@ -2,4 +2,4 @@
 
 Hello World Template, Example by programming language
 
-* C/C++, Python, Java, C#, Object Pascal(Delphi)
+* C#, C/C++, Rust, Python, Java, Object Pascal(Delphi), Database
