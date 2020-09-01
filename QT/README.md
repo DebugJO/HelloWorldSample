@@ -223,3 +223,64 @@ int main()
     return 0;
 }
 ```
+
+### 스마트 포인터(Smart Pointer)
+
+```cpp
+#include <iostream>
+#include <memory>
+#include <windows.h>
+
+using namespace std;
+
+class Person
+{
+  private:
+    string mName;
+    int mAge;
+    static int cCount;
+    static int dCount;
+
+  public:
+    Person(const string &name, int age);
+    ~Person()
+    {
+        dCount++;
+        cout << "소멸자가 호출되었습니다 : " << dCount << ":" << mAge << endl;
+    }
+    void ShowPersonInfo();
+};
+
+Person::Person(const string &name, int age)
+{
+    mName = name;
+    mAge = age;
+    cCount++;
+    cout << "생성자가 호출되었습니다 : " << cCount << ":" << mAge << endl;
+}
+
+void Person::ShowPersonInfo()
+{
+    cout << mName << "의 나이는 " << mAge << "살입니다." << endl;
+}
+
+int Person::cCount = 0;
+int Person::dCount = 0;
+
+int main(void)
+{
+#ifdef WIN32
+    SetConsoleOutputCP(CP_UTF8);
+#endif
+    // unique_ptr<Person> hong = make_unique<Person>("길동", 29);
+    auto hong1 = make_unique<Person>("길동", 29);
+    hong1->ShowPersonInfo();
+
+    // hong.reset();
+
+    auto hong2 = make_unique<Person>("길서", 30);
+    hong2->ShowPersonInfo();
+
+    return 0;
+}
+```
