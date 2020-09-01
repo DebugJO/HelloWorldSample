@@ -1,3 +1,72 @@
+### Qt/C++ 포인터, 레퍼런트, 베열 및 문자열 처리
+
+```cpp
+#include <QCoreApplication>
+#include <QDebug>
+#include <fcntl.h>
+#include <iostream>
+
+using namespace std;
+
+unsigned int ToINT(QString StrNumber, bool &ok);
+
+int main(int argc, char *argv[])
+{
+    QCoreApplication a(argc, argv);
+
+    int iNum = 10;
+    int *pNum = &iNum;
+    int &rNum = iNum;
+
+    cout << "--- pointer ---" << endl;
+    cout << *pNum << endl; // 10
+    cout << pNum << endl;  // 0x...
+    cout << &iNum << endl; // 0x...
+    cout << "--- reference ---" << endl;
+    cout << rNum << endl;  // 10
+    cout << &rNum << endl; // 0x...
+    cout << "-----------------" << endl;
+
+    _setmode(_fileno(stdout), _O_U16TEXT);
+
+    QString snum = "12345";
+    bool ok = false;
+    unsigned int num = ToINT(snum, ok);
+    if (ok)
+        qDebug() << QLocale::system().toString(num).toStdString().c_str(); // 12,345
+    else
+        qDebug() << "숫자가 아닙니다.";
+
+    QString qstr = "헬로우월드";
+    qDebug() << qstr;                                              // "헬로우월드"
+    qDebug() << QString(QChar(qstr[0])).toStdString().c_str();     //헬
+    qDebug() << QString(QChar(qstr[1])) + QString(QChar(qstr[2])); // "로우"
+
+    wchar_t *ustr = new wchar_t[qstr.length()];
+    qstr.toWCharArray(ustr);
+    wcout << ustr[3] << ustr[4]; //월드
+    wcout << "" << endl;
+
+    int const size = wcslen(ustr);
+    for (int i = 0; i < size; ++i) {
+        qDebug() << QString(QChar(ustr[i])).toStdString().c_str(); //헬 로 우 월 드
+    }
+
+    qDebug() << QString::fromWCharArray(ustr).toStdString().c_str(); //헬로우월드
+
+    return a.exec();
+}
+
+unsigned int ToINT(QString StrNumber, bool &ok)
+{
+    unsigned int num = StrNumber.toUInt(&ok);
+    if (ok)
+        return num;
+    else
+        return 0;
+}
+```
+
 ### QT(C++) Default Windows Console Template
 
 ```cpp
