@@ -1,6 +1,33 @@
-### Qt/C\+\+ 포인터, 레퍼런트, 베열 및 문자열 처리
+### /C\+\+ 포인터와 레퍼런스 차이
 
-##### 
+1. 포인터 : 메모리의 주소를 가지고 있는 변수, 주소 값을 통한 메모리 접근(간접 참조)
+2. 레퍼런스 : 자신이 참조하는 변수를 대신할 수 있는 또 하나의 이름(별칭추가), 변수 명을 통해서 메모리 참조(직접 참조)
+3. 포인터/레퍼런스 차이
+    1. NULL 초기화 : 포인터는 NULL(nullptr) 초기화를 할 수 있지만 레퍼런스는 반드시 선언과 동시에 초기화 해야 한다.
+    2. 포인터는 주소 값을 저장하기 위해 별도의 메모리 공간을 소모, 레퍼런스는 같은 메모리 공간을 참조하므로 메모리 공간을 소모하지 않는다.
+    3. 매개 변수로 함수 인자 전달 : call by pointer 메모리 소모가 일어나고, 값 복사가 발생 / call by reference 메모리 소모가 없고, 값 복사 발생하지 않는다.
+
+```cpp
+int iNum = 10;
+int *pNum = nullptr;
+int &rNum = nullptr; //에러
+
+void SwapPointer(int *pNum1, int *pNum2)
+{
+    int iTemp = *pNum1;
+    *pNum1 = *pNum2;
+    *pNum2 = iTemp;
+}
+
+void SwapReference(int &rNum1, int &rNum2)
+{
+    int iTemp = rNum1;
+    rNumm = rNum2;
+    rNum2 = iTemp;
+}
+```
+
+### Qt/C\+\+ 포인터, 레퍼런트, 베열 및 문자열 처리
 
 ```cpp
 #include <QCoreApplication>
