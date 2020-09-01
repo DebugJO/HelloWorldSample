@@ -27,7 +27,7 @@ void SwapReference(int &rNum1, int &rNum2)
 }
 ```
 
-### Qt/C\+\+ 포인터, 레퍼런트, 베열 및 문자열 처리
+### Qt/C\+\+ 포인터, 레퍼런스, 베열 및 문자열 처리
 
 ```cpp
 #include <QCoreApplication>
