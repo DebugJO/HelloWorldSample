@@ -36,24 +36,24 @@ https://namu.wiki/w/%EC%BD%94%EB%94%A9%20%EC%8A%A4%ED%83%80%EC%9D%BC
 private async void Button_Click(object sender, RoutedEventArgs e)
 {
     var progress = new Progress<int>(value =>
-	{
-		_progressBar.Value = value;
-		_textBlock.Text = $"{value}%";
-	});
+    {
+        _progressBar.Value = value;
+        _textBlock.Text = $"{value}%";
+    });
 
-	await Task.Run(() => LoopThroughNumbers(100, progress));
+    await Task.Run(() => LoopThroughNumbers(100, progress));
 	
-	_textBlock.Text = "completed";
+    _textBlock.Text = "completed";
 }
 
 void LoopThroughNumbers(int count, IProgress<int> progress)
 {
-	for (var x = 0; x < count; x++)
-	{
-		Thread.Sleep(100);
-		var percentComplete = (x * 100) / count;
-		progress.Report(percentComplete);
-	}
+    for (var x = 0; x < count; x++)
+    {
+        Thread.Sleep(100);
+        var percentComplete = (x * 100) / count;
+        progress.Report(percentComplete);
+    }
 }
 ```
 
