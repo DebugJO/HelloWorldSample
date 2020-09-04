@@ -29,6 +29,36 @@ https://namu.wiki/w/%EC%BD%94%EB%94%A9%20%EC%8A%A4%ED%83%80%EC%9D%BC
 ### LINQ Tutorial
 * [LINQ Tutorial-kudvenkat](https://www.youtube.com/playlist?list=PL6n9fhu94yhWi8K02Eqxp3Xyh_OmQ0Rp6)
 
+
+### Async / Await
+
+```cs
+private async void Button_Click(object sender, RoutedEventArgs e)
+{
+	var progress = new Progress<int>(value =>
+	{
+		_progressBar.Value = value;
+		_textBlock.Text = $"{value}%";
+	});
+
+	await Task.Run(() => LoopThroughNumbers(100, progress));
+	
+	_textBlock.Text = "completed";
+}
+
+void LoopThroughNumbers(int count, IProgress<int> progress)
+{
+	for (var x = 0; x < count; x++)
+	{
+		Thread.Sleep(100);
+		var percentComplete = (x * 100) / count;
+		progress.Report(percentComplete);
+	}
+}
+```
+
+
+### Visual Studio Code 사용법
 ```
 // vscode
 솔루션 파일 생성
