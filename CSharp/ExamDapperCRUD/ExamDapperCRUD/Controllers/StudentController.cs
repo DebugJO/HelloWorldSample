@@ -1,4 +1,4 @@
-﻿using ExamDapperCRUD.IServices;
+using ExamDapperCRUD.IServices;
 using ExamDapperCRUD.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
@@ -16,19 +16,31 @@ namespace ExamDapperCRUD.Controllers
             _oStudentService = oStudentService;
         }
 
-        [Route("/getStudent")]
-        [HttpPost]
-        public Student GetStudent(Student oStudent)
-        {
-            var result = _oStudentService.Get(oStudent.StudentID);
+        //Add, Update, Save(insert or update), Delete, Get, GetXxxList
 
+        //[Route("/GetStudent")]
+        //[HttpPost]
+        //public async Task<IActionResult> GetStudent(Student oStudent)
+        //{
+        //    var result = await Task.Run(() => _oStudentService.Get(oStudent.StudentID));
+        //    if (result.StudentID > 0)
+        //        return Ok(result);
+        //    result.Message = "조회결과가 없습니다";
+        //    return Ok(result);
+        //}
+
+        [Route("/GetStudent")]
+        [HttpPost]
+        public async Task<Student> GetStudent(Student oStudent)
+        {
+            var result = await Task.Run(() => _oStudentService.Get(oStudent.StudentID));
             if (result.StudentID > 0)
                 return result;
             result.Message = "조회결과가 없습니다";
             return result;
         }
 
-        [Route("/getStudentList")]
+        [Route("/GetStudentList")]
         [HttpPost]
         public async Task<IEnumerable<Student>> GetStudentList()
         {
@@ -43,18 +55,18 @@ namespace ExamDapperCRUD.Controllers
             return result;
         }
 
-        [Route("/setStudent")]
+        [Route("/SaveStudent")]
         [HttpPost]
-        public Student SetStudent(Student oStudent)
+        public async Task<Student> SaveStudent(Student oStudent)
         {
-            return ModelState.IsValid ? _oStudentService.Save(oStudent) : oStudent;
+            return ModelState.IsValid ? await Task.Run(() => _oStudentService.Save(oStudent)) : oStudent;
         }
 
-        [Route("/deleteStudent")]
+        [Route("/DeleteStudent")]
         [HttpPost]
-        public string DeleteStudent(Student oStudent)
+        public async Task<string> DeleteStudent(Student oStudent)
         {
-            return _oStudentService.Delete(oStudent.StudentID);
+            return await Task.Run(() => _oStudentService.Delete(oStudent.StudentID));
         }
     }
 }
