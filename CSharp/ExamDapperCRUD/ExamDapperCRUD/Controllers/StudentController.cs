@@ -16,7 +16,7 @@ namespace ExamDapperCRUD.Controllers
             _oStudentService = oStudentService;
         }
 
-        //Add, Update, Save(insert or update), Delete, Get, GetXxxList, GetXxxListPage
+        //Add, Update, Save(insert or update), Delete, Get, GetXxxList, GetXxxPage
 
         //[Route("/GetStudent")]
         //[HttpPost]
