@@ -1,0 +1,33 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Assets\applogoexample.png" />
+    <None Remove="Assets\closewhite.png" />
+    <None Remove="Assets\cloud.png" />
+    <None Remove="Assets\contacts.png" />
+    <None Remove="Assets\mmc.png" />
+    <None Remove="Assets\settings.png" />
+    <None Remove="Assets\sms.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Assets\applogoexample.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\closewhite.png" />
+    <Resource Include="Assets\cloud.png" />
+    <Resource Include="Assets\contacts.png" />
+    <Resource Include="Assets\mmc.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\settings.png" />
+    <Resource Include="Assets\sms.png" />
+  </ItemGroup>
+
+</Project>
