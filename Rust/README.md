@@ -13,7 +13,7 @@ set OPENSSL_INCLUDE_DIR=C:\A_Library\OpenSSL64\include\openssl
 set OPENSSL_LIBRARIES=C:\A_Library\OpenSSL64\lib\VC
 ```
 
-### [dependencies] paho-mqtt = "0.1.12"
+### [dependencies] paho-mqtt = "0.7.1"
 
 * https://crates.io/crates/paho-mqtt
 * https://github.com/eclipse/paho.mqtt.rust
