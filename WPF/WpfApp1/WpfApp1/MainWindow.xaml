@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="MainWindow" Height="768" Width="1024" WindowStyle="None" ResizeMode="CanResize" AllowsTransparency="True" Background="Transparent" WindowStartupLocation="CenterScreen"
+        Title="MainWindow" Height="760" Width="1020" WindowStyle="None" ResizeMode="CanResize" AllowsTransparency="True" Background="Transparent" WindowStartupLocation="CenterScreen"
         Icon="Assets/applogoexample.png">
     <Window.Resources>
         <Style x:Key="FocusVisual">
@@ -25,7 +25,7 @@
         <SolidColorBrush x:Key="Button.Disabled.Background" Color="#FFF4F4F4" />
         <SolidColorBrush x:Key="Button.Disabled.Border" Color="#FFADB2B5" />
         <SolidColorBrush x:Key="Button.Disabled.Foreground" Color="#FF838383" />
-        <Style x:Key="menuButtonTemplate" TargetType="{x:Type Button}">
+        <Style x:Key="MenuButtonTemplate" TargetType="{x:Type Button}">
             <Setter Property="Height" Value="40" />
             <Setter Property="Width" Value="40" />
             <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}" />
@@ -99,27 +99,27 @@
                         </Grid.RowDefinitions>
 
                         <!-- Adding Menu Button -->
-                        <Button Style="{DynamicResource menuButtonTemplate}" Grid.Row="0">
+                        <Button Style="{DynamicResource MenuButtonTemplate}" Grid.Row="0">
                             <Button.Content>
                                 <Image Source="/Assets/mmc.png" Stretch="Uniform" Width="26" />
                             </Button.Content>
                         </Button>
-                        <Button Style="{DynamicResource menuButtonTemplate}" Grid.Row="1">
+                        <Button Style="{DynamicResource MenuButtonTemplate}" Grid.Row="1">
                             <Button.Content>
                                 <Image Source="/Assets/contacts.png" Stretch="Uniform" Width="26" />
                             </Button.Content>
                         </Button>
-                        <Button Style="{DynamicResource menuButtonTemplate}" Grid.Row="2">
+                        <Button Style="{DynamicResource MenuButtonTemplate}" Grid.Row="2">
                             <Button.Content>
                                 <Image Source="/Assets/sms.png" Stretch="Uniform" Width="26" />
                             </Button.Content>
                         </Button>
-                        <Button Style="{DynamicResource menuButtonTemplate}" Grid.Row="3">
+                        <Button Style="{DynamicResource MenuButtonTemplate}" Grid.Row="3">
                             <Button.Content>
                                 <Image Source="/Assets/cloud.png" Stretch="Uniform" Width="26" />
                             </Button.Content>
                         </Button>
-                        <Button Style="{DynamicResource menuButtonTemplate}" Grid.Row="5">
+                        <Button Style="{DynamicResource MenuButtonTemplate}" Grid.Row="5">
                             <Button.Content>
                                 <Image Source="/Assets/settings.png" Stretch="Uniform" Width="26" />
                             </Button.Content>
@@ -129,6 +129,14 @@
                 <Grid Grid.Column="1">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="30" />
+                        <RowDefinition Height="50" />
+                        <RowDefinition Height="50" />
+                        <RowDefinition Height="50" />
+                        <RowDefinition Height="50" />
+                        <RowDefinition Height="50" />
+                        <RowDefinition Height="50" />
+                        <RowDefinition Height="50" />
+                        <RowDefinition Height="50" />
                         <RowDefinition Height="50" />
                         <RowDefinition Height="50" />
                         <RowDefinition Height="50" />
@@ -155,24 +163,64 @@
                     </Border>
                     <Grid Grid.Column="8" Grid.Row="0">
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                            <Button Style="{DynamicResource menuButtonTemplate}" VerticalAlignment="Bottom" Width="26" Height="26" Click="ButtonMinimize_OnClick">
+                            <Button Style="{DynamicResource MenuButtonTemplate}" VerticalAlignment="Bottom" Width="24" Height="24" Click="ButtonMinimize_OnClick">
                                 <Button.Content>
-                                    <TextBlock Text="▼" Foreground="White" />
+                                    <Image Source="/Assets/ReversSort_32x32.png" Stretch="Uniform" />
                                 </Button.Content>
                             </Button>
                             <TextBlock Width="4" />
-                            <Button Style="{DynamicResource menuButtonTemplate}" VerticalAlignment="Bottom" Width="24" Height="24" Click="ButtonClose_OnClick">
+                            <Button Style="{DynamicResource MenuButtonTemplate}" VerticalAlignment="Bottom" Width="24" Height="24" Click="ButtonClose_OnClick">
                                 <Button.Content>
                                     <Image Source="/Assets/closewhite.png" Stretch="Uniform" />
                                 </Button.Content>
                             </Button>
                         </StackPanel>
                     </Grid>
-                    <Grid Grid.Column="0" Grid.Row="1" Background="#87D5E1" />
-                    <Grid Grid.Column="1" Grid.Row="2" Background="#87D5E1" />
-                    <Grid Grid.Column="2" Grid.Row="3" Background="#87D5E1" />
-                    <Grid Grid.Column="3" Grid.Row="4" Background="#87D5E1" />
-                    <Grid Grid.Column="4" Grid.Row="5" Background="#87D5E1" />
+                    <Grid Grid.Column="0" Grid.Row="1" Background="#87D5E1" >
+                        <TextBlock Text="[0, 1]" Foreground="Black" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </Grid>
+                    <Grid Grid.Column="1" Grid.Row="2" Background="#87D5E1">
+                        <TextBlock Text="[1, 2]" Foreground="Black" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </Grid>
+                    <Grid Grid.Column="2" Grid.Row="3" Background="#87D5E1">
+                        <TextBlock Text="[2, 3]" Foreground="Black" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </Grid>
+                    <Grid Grid.Column="3" Grid.Row="4" Background="#87D5E1">
+                        <TextBlock Text="[3, 4]" Foreground="Black" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </Grid>
+                    <Grid Grid.Column="4" Grid.Row="5" Background="#87D5E1" >
+                        <TextBlock Text="[4, 5]" Foreground="Black" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </Grid>
+                    <Grid Grid.Column="5" Grid.Row="6" Background="Red" >
+                        <TextBlock Text="[5, 6]" Foreground="Black" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </Grid>
+                    <Grid Grid.Column="6" Grid.Row="7" Background="Red" >
+                        <TextBlock Text="[6, 7]" Foreground="Black" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </Grid>
+                    <Grid Grid.Column="7" Grid.Row="8" Background="Red" >
+                        <TextBlock Text="[7, 8]" Foreground="Black" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </Grid>
+                    <Grid Grid.Column="0" Grid.Row="9" ColumnSpan="6" Background="#9A58CB" >
+                        <TextBlock Text="[0-6, 9]" Foreground="Black" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </Grid>
+                    <Grid Grid.Column="8" Grid.Row="9" Background="Red" >
+                        <TextBlock Text="[8, 9]" Foreground="Black" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </Grid>
+                    <Grid Grid.Column="7" Grid.Row="10" Background="#E4A300" >
+                        <TextBlock Text="[7, 10]" Foreground="Black" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </Grid>
+                    <Grid Grid.Column="6" Grid.Row="11" Background="#E4A300" >
+                        <TextBlock Text="[6, 11]" Foreground="Black" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </Grid>
+                    <Grid Grid.Column="5" Grid.Row="12" Background="#E4A300" >
+                        <TextBlock Text="[5, 12]" Foreground="Black" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </Grid>
+                    <Grid Grid.Column="4" Grid.Row="13" Background="#E4A300" >
+                        <TextBlock Text="[4, 13]" Foreground="Black" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </Grid>
+                    <Grid Grid.Column="3" Grid.Row="14" Background="#00A105" >
+                        <TextBlock Text="[3, 14]" Foreground="Black" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </Grid>
                 </Grid>
             </Grid>
         </Border>

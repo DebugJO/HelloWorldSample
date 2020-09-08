@@ -11,21 +11,21 @@
     <None Remove="Assets\closewhite.png" />
     <None Remove="Assets\cloud.png" />
     <None Remove="Assets\contacts.png" />
+    <None Remove="Assets\logoutwhite.png" />
     <None Remove="Assets\mmc.png" />
+    <None Remove="Assets\ReversSort_32x32.png" />
     <None Remove="Assets\settings.png" />
     <None Remove="Assets\sms.png" />
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Assets\applogoexample.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
+    <Resource Include="Assets\applogoexample.png" />
     <Resource Include="Assets\closewhite.png" />
     <Resource Include="Assets\cloud.png" />
     <Resource Include="Assets\contacts.png" />
-    <Resource Include="Assets\mmc.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
+    <Resource Include="Assets\logoutwhite.png" />
+    <Resource Include="Assets\mmc.png" />
+    <Resource Include="Assets\ReversSort_32x32.png"/>
     <Resource Include="Assets\settings.png" />
     <Resource Include="Assets\sms.png" />
   </ItemGroup>
