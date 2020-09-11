@@ -1,0 +1,7 @@
+[package]
+name = "rust_struct"
+version = "0.1.0"
+authors = ["DebugJO <python@outlook.kr>"]
+edition = "2018"
+
+[dependencies]
