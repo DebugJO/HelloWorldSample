@@ -19,4 +19,4 @@ set OPENSSL_LIBRARIES=C:\A_Library\OpenSSL64\lib\VC
 * https://github.com/eclipse/paho.mqtt.rust
 
 ### rust get json from webSite
-* ust_get_json.rs
+* [ust_get_json.rs](https://github.com/DebugJO/HelloWorldSample/blob/master/Rust/rust_get_json.rs)
