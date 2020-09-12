@@ -1,3 +1,10 @@
+/*
+[dependencies]
+reqwest = { version = "0.10", features = ["json"] }
+tokio = { version = "0.2", features = ["full"] }
+serde = { version = "1.0", features = ["derive"] }
+*/
+
 extern crate reqwest;
 extern crate serde;
 
