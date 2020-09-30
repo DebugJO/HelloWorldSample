@@ -25,4 +25,4 @@ go build
 ### Reference
 
 * Reference youtube : [Traversy Media, Golang REST API With Mux](https://www.youtube.com/watch?v=SonwZ6MF5BE)
-* Reference full source : [bradtraversy, Simple GO Lang REST API]](https://github.com/bradtraversy/go_restapi)
+* Reference full source : [bradtraversy, Simple GO Lang REST API](https://github.com/bradtraversy/go_restapi)
