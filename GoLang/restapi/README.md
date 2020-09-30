@@ -1,6 +1,6 @@
-Reference youtube : [bradtraversy, Simple GO Lang REST API](https://www.youtube.com/watch?v=SonwZ6MF5BE)
+## Go example
 
-Reference full source : [bradtraversy, SOURCE](https://github.com/bradtraversy/go_restapi)
+**REST API with Mux**
 
 ### Install mux router
 
@@ -21,3 +21,8 @@ cd src/restapi/
 go build
 
 ./restapi.exe
+
+### Reference
+
+* Reference youtube : [Traversy Media, Golang REST API With Mux](https://www.youtube.com/watch?v=SonwZ6MF5BE)
+* Reference full source : [bradtraversy, Simple GO Lang REST API]](https://github.com/bradtraversy/go_restapi)
