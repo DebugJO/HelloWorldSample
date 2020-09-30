@@ -1,3 +1,5 @@
+Reference : [bradtraversy, Simple GO Lang REST API](https://www.youtube.com/watch?v=SonwZ6MF5BE) , [SOURCE](https://github.com/bradtraversy/go_restapi)
+
 ### Install mux router
 
 go get -u github.com/gorilla/mux
