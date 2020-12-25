@@ -25,3 +25,5 @@ from (select (make_dates + level - 1) dates
       connect by (make_dates + level - 1) <= last_day(make_dates))
 group by decode(to_char(dates, 'D'), 1, to_char(dates, 'IW') + 1, to_char(dates, 'IW'))
 order by decode(to_char(dates, 'D'), 1, to_char(dates, 'IW') + 1, to_char(dates, 'IW'));  
+
+                                                                          
