@@ -6,9 +6,7 @@ from hr.employees e
 start with e.manager_id is null
 connect by prior e.employee_id = e.manager_id;
 
-
 select to_char(to_date('20201225') + level - 1, 'yyyyMMdd') from dual connect by level <= 100;
-
 
 select to_char(max(dates), 'W') as a, 
        to_char(min(dates), 'W') as b,
@@ -24,6 +22,4 @@ from (select (make_dates + level - 1) dates
       from (select to_date('20201201', 'yyyyMMdd') make_dates from dual)
       connect by (make_dates + level - 1) <= last_day(make_dates))
 group by decode(to_char(dates, 'D'), 1, to_char(dates, 'IW') + 1, to_char(dates, 'IW'))
-order by decode(to_char(dates, 'D'), 1, to_char(dates, 'IW') + 1, to_char(dates, 'IW'));  
-
-                                                                          
+order by decode(to_char(dates, 'D'), 1, to_char(dates, 'IW') + 1, to_char(dates, 'IW'));
