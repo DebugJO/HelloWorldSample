@@ -29,3 +29,5 @@ public class MyDelegate
 
 	public int Invoke() => (int)_info.Invoke(_obj, null);
 }
+
+// [Reference] Raw Coding, "C# Delegates Explained +Func +Action +Closure", https://www.youtube.com/watch?v=KaxNwGA9fiY
