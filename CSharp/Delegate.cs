@@ -1,7 +1,7 @@
 void Main()
 {
-	MyLambda l = new MyLambda();
-	if (l.myDelegate == null)
+    MyLambda l = new MyLambda();
+    if (l.myDelegate == null)
 	{
 		MyDelegate d = new MyDelegate(l, typeof(MyLambda).GetMethod("Main"));
 		l.myDelegate = d;
