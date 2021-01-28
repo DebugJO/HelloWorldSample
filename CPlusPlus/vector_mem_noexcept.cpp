@@ -49,3 +49,5 @@ int main()
     2. noexcept 키워드 사용하고  reserve 키워드 사용하지 않을 때
     3. reserve 키워드 사용
 */
+
+// [Reference] 코드없는 프로그래밍, "벡터 메모리 ,noexcept", https://www.youtube.com/watch?v=HDOzrf_lebU
