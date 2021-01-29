@@ -2,7 +2,7 @@
 
 [https://github.com/TurboPack/LockBox3](https://github.com/TurboPack/LockBox3)
 
-### 델파이 폼 찾기(불러오기) : 아래의 방법보다 singleton으로 하는게 더 좋음
+### 델파이 폼 찾기(불러오기) : 아래의 방법(무식한방법)보다 singleton으로 하는게 더 좋음
 
 ```delphi
 procedure TFormMain.ShowForm(form: TClass);
