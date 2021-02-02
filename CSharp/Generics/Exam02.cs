@@ -1,55 +1,52 @@
 void Main()
 {
-	//new Duck().Eat(new Seeds());
-	//new AnimalFeedingContext<Duck, Seeds, Pond>(new Duck()).Arrive().Feed(new Seeds());
-	Factory.Create(new Duck()).Arrive().Feed(new Seeds());
+	Hasher.Hash(new Post()).Dump();
+	Hasher.Hash(new Comment()).Dump();
 }
 
-public abstract class Animal<F, L> where F : Food where L : Location
+public interface IHashingStrategy
 {
-	public void Eat(F food)
+	int Hash(Content content);
+}
+
+public class Content
+{
+	public string Id { get; set; } = "id";
+	public string Author { get; set; } = "author";
+	public string Text { get; set; } = "text";
+}
+
+public class Content<T> : Content where T : IHashingStrategy { }
+
+public class Post : Content<ContentHashingStrategy> { }
+
+public class Comment : Content<CommentHashingStrategy>
+{
+	public string PostId { get; set; } = "postid";
+}
+
+public class ContentHashingStrategy : IHashingStrategy
+{
+	public int Hash(Content content)
 	{
-		$"{this.GetType().Name} is eating {typeof(F).Name} at {typeof(L).Name}".Dump();
+		return content.Text.Length + content.Author.Length;
 	}
 }
 
-public class Duck : Animal<Seeds, Pond>
+public class CommentHashingStrategy : IHashingStrategy
 {
-}
-
-public interface Food { }
-public class Bread : Food { }
-public class Seeds : Food { }
-
-public interface Location { }
-public class Pond : Location { }
-public class Lake { }
-
-public class Factory
-{
-	public static AnimalFeedingContext<Animal<F, L>, F, L> Create<F, L>(Animal<F, L> a) where F : Food where L : Location
+	public int Hash(Content content)
 	{
-		return new AnimalFeedingContext<Animal<F, L>, F, L>(a);
+		var comment = content as Comment;
+		return comment.Text.Length + comment.Author.Length + comment.PostId.Length;
 	}
 }
 
-public class AnimalFeedingContext<A, F, L> where A : Animal<F, L> where F : Food where L : Location
+public class Hasher
 {
-	Animal<F, L> _animal;
-	public AnimalFeedingContext(A animal)
+	public static int Hash<T>(Content<T> content) where T : IHashingStrategy, new()
 	{
-		_animal = animal;
-	}
-
-	public AnimalFeedingContext<A, F, L> Arrive()
-	{
-		$"Arrived at {typeof(L).Name}".Dump();
-		return this;
-	}
-
-	public void Feed(F food)
-	{
-		_animal.Eat(food);
+		return Activator.CreateInstance<T>().Hash(content);
 	}
 }
 
