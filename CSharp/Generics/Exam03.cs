@@ -1,6 +1,6 @@
 void Main()
 {
-	var handler = new RequestHandler();
+    var handler = new RequestHandler();
 	handler.Handle(new GetAge()).Dump();
 	handler.Handle(new GetName()).Dump();
 }
