@@ -17,10 +17,10 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdLi
 	WndClass.hCursor = LoadCursor(NULL, IDC_ARROW);	
 	WndClass.hbrBackground = (HBRUSH)GetStockObject(WHITE_BRUSH);	
 	WndClass.lpszMenuName = NULL;		
-	WndClass.lpszClassName = "Window Class Name";	
+	WndClass.lpszClassName = TEXT("Window Class Name");	
 	RegisterClass(&WndClass);	
-	hwnd = CreateWindow("Window Class Name",
-		"Window Title Name",
+	hwnd = CreateWindow(TEXT("Window Class Name"),
+		TEXT("Window Title Name"),
 		WS_OVERLAPPEDWINDOW,
 		CW_USEDEFAULT,	
 		CW_USEDEFAULT,	
