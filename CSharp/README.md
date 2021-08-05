@@ -80,4 +80,7 @@ dotnet add HelloUI\HelloUI.csproj reference HelloLib\HelloLib.csproj
 클래스 라이브러리에 패키지 추가(클래스라이브러리 폴더에서)
 dotnet add package dapper
 또는 패키지 매니저 사용
+
+SSL reset
+dotnet dev-certs https --trust
 ```
