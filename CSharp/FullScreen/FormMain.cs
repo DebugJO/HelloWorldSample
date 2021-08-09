@@ -55,6 +55,7 @@ namespace WindowsFormsApp
             Bounds = rect;
         }
 
+        // https://stackoverflow.com/a/8868761
         private void GoFullscreen(bool fullscreen)
         {
             if (fullscreen)
@@ -62,6 +63,7 @@ namespace WindowsFormsApp
                 WindowState = FormWindowState.Normal;
                 FormBorderStyle = FormBorderStyle.None;
                 Bounds = Screen.PrimaryScreen.Bounds;
+                //this.Bounds = Screen.GetBounds(this);
             }
             else
             {
