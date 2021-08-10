@@ -83,4 +83,8 @@ dotnet add package dapper
 
 SSL reset
 dotnet dev-certs https --trust
+
+싱글 파일 배포
+dotnet publish -r win-x64 --self-contained true -p:PublishSingleFile=true -p:IncludeAllContentForSelfExtract=true
+- win-x64, win-x86, linux-x64, linux-arm, linux-arm64, osx-x64
 ```
