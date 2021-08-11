@@ -1,5 +1,6 @@
 ### 프로젝트 템플릿
 * MvxStarter : MVVMCROSS 템플릿
+* WPFApp : [BinaryBunny, "WPF C# Professional Modern Chat App UI Tutorial"](https://www.youtube.com/watch?v=V9DkvcT27WI)
 * WpfApp1 : WPF 템플릿
 
 ### WPF High-DPI (app.manifest)
