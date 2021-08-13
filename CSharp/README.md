@@ -82,6 +82,7 @@ dotnet add package dapper
 또는 패키지 매니저 사용
 
 SSL reset
+dotnet dev-certs https --clean
 dotnet dev-certs https --trust
 
 싱글 파일 배포
