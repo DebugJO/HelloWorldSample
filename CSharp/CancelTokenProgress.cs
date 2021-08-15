@@ -15,6 +15,7 @@ namespace CancelTokenExam
         public FormMain()
         {
             InitializeComponent();
+            ProgressBarExam.SetState(UIHelperExtension.Color.Yellow, 0);
         }
 
         private async void ButtonStart_Click(object sender, EventArgs e)
@@ -100,6 +101,21 @@ namespace CancelTokenExam
             {
                 action(obj);
             }
+        }
+        
+        [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = false)]
+        static extern IntPtr SendMessage(IntPtr hWnd, uint Msg, IntPtr w, IntPtr l);
+        public enum Color { None, Green, Red, Yellow }
+
+        public static void SetState(this ProgressBar pBar, Color newColor, int newValue)
+        {
+            if (pBar.Value == pBar.Minimum)
+            {
+                SendMessage(pBar.Handle, 1040, (IntPtr)(int)Color.Green, IntPtr.Zero);
+            }
+            pBar.Value = newValue;
+            SendMessage(pBar.Handle, 1040, (IntPtr)(int)Color.Green, IntPtr.Zero);
+            SendMessage(pBar.Handle, 1040, (IntPtr)(int)newColor, IntPtr.Zero);
         }
     }
 }
