@@ -20,26 +20,35 @@ namespace CancelTokenExam
 
         private async void ButtonStart_Click(object sender, EventArgs e)
         {
+            if (cts != null)
+            {
+                (sender as Button).RunUIThread(b => b.Text = "동작중...");
+                return;
+            }
+            
             cts = new CancellationTokenSource();
 
             var progress = new Progress<int>(value =>
            {
-               // [1] 사용
+                ProgressBarExam.RunUIThread(c => c.Value = value);
+                TextBoxBlock.RunUIThread(t => t.Text = value.ToString());       
+                
+               // [1] 
                //ProgressBarExam.Value = value;
                //TextBoxBlock.Text = $"{value}";
 
-               // [2] 미사용
-               if (ProgressBarExam.InvokeRequired)
-               {
-                   ProgressBarExam.Invoke(new Action(() => { ProgressBarExam.Value = value; })); // '() =>' 또는 'delegate'
-               }
-               else
-               {
-                   ProgressBarExam.Value = value;
-               }
+               // [2] 
+               //if (ProgressBarExam.InvokeRequired)
+               //{
+               //    ProgressBarExam.Invoke(new Action(() => { ProgressBarExam.Value = value; })); // '() =>' 또는 'delegate'
+               //}
+               //else
+               //{
+               //    ProgressBarExam.Value = value;
+               //}
 
-               // [3] 미사용 : 확장메서드 테스트
-               TextBoxBlock.RunUIThread(c => c.Text = $"{value}");
+               // [3] 
+               //TextBoxBlock.RunUIThread(c => c.Text = $"{value}");
            });
 
             try
@@ -58,6 +67,7 @@ namespace CancelTokenExam
             }
             finally
             {
+                (sender as Button).RunUIThread(t => t.Text = "Start");            
                 cts.Dispose();
                 cts = null;
             }
