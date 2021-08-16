@@ -7,8 +7,12 @@ namespace ConsoleApp1
         private static void Main()
         {
             Person p = new("Jone", new ClockTower());
-            p.ChimeFivePM();
-            p.ChimeSixAM();
+            for (int i = 1; i <= 24; i++)
+            {
+                Console.WriteLine($"Time : {i}");
+                p.OnChime(i);
+                Console.WriteLine("-----------------------------------------------");
+            }
         }
     }
 
@@ -40,14 +44,9 @@ namespace ConsoleApp1
             };
         }
 
-        public void ChimeFivePM()
+        public void OnChime(int i)
         {
-            tower.ChimeFivePM();
-        }
-
-        public void ChimeSixAM()
-        {
-            tower.ChimeSixAM();
+            tower.ChimeEvent(i);
         }
     }
 
@@ -61,7 +60,6 @@ namespace ConsoleApp1
     public class ClockTower
     {
         public event ChimeEventHandler Chime;
-        public void ChimeFivePM() => Chime?.Invoke(this, new ClockTowerEventArgs { Time = 17 });
-        public void ChimeSixAM() => Chime?.Invoke(this, new ClockTowerEventArgs { Time = 6 });
+        public void ChimeEvent(int i) => Chime?.Invoke(this, new ClockTowerEventArgs { Time = i });
     }
 }
