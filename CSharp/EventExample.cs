@@ -44,7 +44,7 @@ namespace EventExam {
     public delegate void ChimeEventHandler (object sender, ClockTowerEventArgs args);
     public class ClockTower {
         public event ChimeEventHandler Chime;
-        public void ChimeFivePM () => Chime (this, new ClockTowerEventArgs { Time = 17 });
-        public void ChimeSixAM () => Chime (this, new ClockTowerEventArgs { Time = 6 });
+        public void ChimeFivePM () => Chime?.Invoke(this, new ClockTowerEventArgs { Time = 17 });
+        public void ChimeSixAM () => Chime?.Invoke(this, new ClockTowerEventArgs { Time = 6 });
     }
 }
