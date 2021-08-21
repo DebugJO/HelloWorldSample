@@ -4,6 +4,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
+        xmlns:fa5="http://schemas.fontawesome.com/icons/"
+        xmlns:local="clr-namespace:WPFApp"
         Title="MainWindow"
         Height="600"
         Width="1000"
@@ -11,8 +13,11 @@
         FontSize="12"
         FontWeight="Normal">
 
+
     <Window.Resources>
-        <Style TargetType="{x:Type Button}"
+        <local:MyButton x:Key="MyButton" />
+
+        <Style TargetType="{x:Type local:MyButton}"
                x:Key="ButtonStyle">
             <Setter Property="FontSize"
                     Value="12" />
@@ -25,20 +30,27 @@
             <Setter Property="BorderBrush"
                     Value="Gainsboro" />
             <Setter Property="Height"
-                    Value="30" />
+                    Value="28" />
             <Setter Property="Width"
-                    Value="120" />
+                    Value="100" />
             <Setter Property="Template">
                 <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type Button}">
+                    <ControlTemplate TargetType="{x:Type local:MyButton}">
                         <Border x:Name="border"
                                 Background="{TemplateBinding Background}"
                                 BorderBrush="{TemplateBinding BorderBrush}"
                                 BorderThickness="{TemplateBinding BorderThickness}"
-                                CornerRadius="{Binding Path=Tag,  RelativeSource={RelativeSource TemplatedParent}}">
+                                CornerRadius="{Binding Path=Radius, RelativeSource={RelativeSource AncestorType=Button}}">
                             <StackPanel HorizontalAlignment="Center"
                                         VerticalAlignment="Center"
-                                        Orientation="Horizontal">
+                                        Orientation="Horizontal"
+                                        x:Name="stackPanel">
+                                <fa5:SvgAwesome Icon="{Binding Path=Icon, RelativeSource={RelativeSource AncestorType=Button}}"
+                                                VerticalAlignment="Center"
+                                                HorizontalAlignment="Center"
+                                                Margin="0, 4, 6, 4"
+                                                Foreground="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}}"
+                                                x:Name="awesome" />
                                 <ContentPresenter x:Name="contentPresenter"
                                                   HorizontalAlignment="Center"
                                                   VerticalAlignment="Center"
@@ -54,33 +66,42 @@
                                 <Setter TargetName="border"
                                         Property="Background"
                                         Value="White" />
-                                <Setter Property="Foreground"
-                                        Value="SteelBlue" />
-                                <Setter Property="BorderBrush"
-                                        TargetName="border"
-                                        Value="SteelBlue" />
+                                <Setter TargetName="awesome"
+                                        Property="Foreground"
+                                        Value="{Binding Background, RelativeSource={RelativeSource AncestorType=Button}}" />
+                                <Setter TargetName="stackPanel"
+                                        Property="TextBlock.Foreground"
+                                        Value="{Binding Background, RelativeSource={RelativeSource AncestorType=Button}}" />
+                                <Setter TargetName="border"
+                                        Property="BorderBrush"
+                                        Value="{Binding Background, RelativeSource={RelativeSource AncestorType=Button}}" />
                             </Trigger>
                             <Trigger Property="IsPressed"
                                      Value="True">
                                 <Setter TargetName="border"
                                         Property="Background"
                                         Value="Gainsboro" />
-                                <Setter Property="Foreground"
-                                        Value="SteelBlue" />
+                                <Setter TargetName="awesome"
+                                        Property="Foreground"
+                                        Value="{Binding Background, RelativeSource={RelativeSource AncestorType=Button}}" />
                             </Trigger>
                             <Trigger Property="IsEnabled"
                                      Value="False">
                                 <Setter TargetName="border"
                                         Property="Background"
                                         Value="Gainsboro" />
-                                <Setter Property="Foreground"
+                                <Setter TargetName="stackPanel"
+                                        Property="TextBlock.Foreground"
                                         Value="#555555" />
-                                <Setter Property="BorderBrush"
-                                        TargetName="border"
+                                <Setter TargetName="awesome"
+                                        Property="Foreground"
                                         Value="#555555" />
-                                <Setter Property="Content"
-                                        Value="처리 중..."
-                                        TargetName="contentPresenter" />
+                                <Setter TargetName="border"
+                                        Property="BorderBrush"
+                                        Value="#555555" />
+                                <Setter TargetName="contentPresenter"
+                                        Property="Content"
+                                        Value="처리 중..." />
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -90,11 +111,14 @@
     </Window.Resources>
 
     <Grid>
-        <!-- Button Tag 속성으로 Border의 CornerRadius에 속성값 전달-->
-        <Button x:Name="ButtonSearch"
-                Style="{StaticResource ButtonStyle}"
-                Content="클릭예제"
-                Tag="10">
-        </Button>
+        <!-- Button : Icon, Radius 속성 만들고 사용하기-->
+        <!-- Button : 마우스오버 및 클릭 : Background/Foreground 반전 -->
+        <local:MyButton x:Name="ButtonSearch"
+                        Style="{StaticResource ButtonStyle}"
+                        Content="버튼클릭"
+                        Icon="Solid_CheckCircle"
+                        Radius="4"
+                        Background="SteelBlue"
+                        Foreground="White" />
     </Grid>
 </Window>
