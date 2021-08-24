@@ -1,0 +1,288 @@
+﻿<Window x:Class="WPFApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPFApp.Themes"
+        xmlns:mainWindow="clr-namespace:WPFApp"
+        mc:Ignorable="d"
+        Title="MainWindow"
+        Icon="Images/Main.ico"
+        Height="800" Width="1200" FontFamily="Malgun Gothic" FontSize="12" FontWeight="Normal">
+
+    <Window.DataContext>
+        <mainWindow:TextSample />
+    </Window.DataContext>
+
+    <Window.Resources>
+        <Style x:Key="ComboBoxDefault" TargetType="{x:Type ComboBox}">
+            <Setter Property="SelectedIndex" Value="0" />
+            <Setter Property="Height" Value="28" />
+            <Setter Property="Width" Value="100" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="Margin" Value="4" />
+            <Style.Resources>
+                <Style TargetType="ComboBoxItem">
+                    <Setter Property="Height" Value="24" />
+                </Style>
+            </Style.Resources>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="10" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="10" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+
+        <WrapPanel Grid.Column="0" Orientation="Vertical">
+            <TextBlock Background="#3F51B5" Text="3F51B5" Foreground="White" Width="100" Height="100" TextAlignment="Center" Padding="0, 40, 0, 0" />
+            <TextBlock Background="#009688" Text="009688" Foreground="White" Width="100" Height="100" TextAlignment="Center" Padding="0, 40, 0, 0" />
+            <TextBlock Background="#FF5722" Text="FF5722" Foreground="White" Width="100" Height="100" TextAlignment="Center" Padding="0, 40, 0, 0" />
+            <TextBlock Background="#607D8B" Text="607D8B" Foreground="White" Width="100" Height="100" TextAlignment="Center" Padding="0, 40, 0, 0" />
+            <TextBlock Background="#FF9800" Text="FF9800" Foreground="White" Width="100" Height="100" TextAlignment="Center" Padding="0, 40, 0, 0" />
+            <TextBlock Background="#9C27B0" Text="9C27B0" Foreground="White" Width="100" Height="100" TextAlignment="Center" Padding="0, 40, 0, 0" />
+            <TextBlock Background="#2196F3" Text="2196F3" Foreground="White" Width="100" Height="100" TextAlignment="Center" Padding="0, 40, 0, 0" />
+            <TextBlock Background="#EA676C" Text="EA676C" Foreground="White" Width="100" Height="100" TextAlignment="Center" Padding="0, 40, 0, 0" />
+            <TextBlock Background="#E41A4A" Text="E41A4A" Foreground="White" Width="100" Height="100" TextAlignment="Center" Padding="0, 40, 0, 0" />
+            <TextBlock Background="#5978BB" Text="5978BB" Foreground="White" Width="100" Height="100" TextAlignment="Center" Padding="0, 40, 0, 0" />
+            <TextBlock Background="#018790" Text="018790" Foreground="White" Width="100" Height="100" TextAlignment="Center" Padding="0, 40, 0, 0" />
+            <TextBlock Background="#0E3441" Text="0E3441" Foreground="White" Width="100" Height="100" TextAlignment="Center" Padding="0, 40, 0, 0" />
+            <TextBlock Background="#00B0AD" Text="00B0AD" Foreground="White" Width="100" Height="100" TextAlignment="Center" Padding="0, 40, 0, 0" />
+            <TextBlock Background="#721D47" Text="721D47" Foreground="White" Width="100" Height="100" TextAlignment="Center" Padding="0, 40, 0, 0" />
+            <TextBlock Background="#EA4833" Text="EA4833" Foreground="White" Width="100" Height="100" TextAlignment="Center" Padding="0, 40, 0, 0" />
+            <TextBlock Background="#EF937E" Text="EF937E" Foreground="White" Width="100" Height="100" TextAlignment="Center" Padding="0, 40, 0, 0" />
+            <TextBlock Background="#F37521" Text="F37521" Foreground="White" Width="100" Height="100" TextAlignment="Center" Padding="0, 40, 0, 0" />
+            <TextBlock Background="#A12059" Text="A12059" Foreground="White" Width="100" Height="100" TextAlignment="Center" Padding="0, 40, 0, 0" />
+            <TextBlock Background="#126881" Text="126881" Foreground="White" Width="100" Height="100" TextAlignment="Center" Padding="0, 40, 0, 0" />
+            <TextBlock Background="#8BC240" Text="8BC240" Foreground="White" Width="100" Height="100" TextAlignment="Center" Padding="0, 40, 0, 0" />
+            <TextBlock Background="#364D5B" Text="364D5B" Foreground="White" Width="100" Height="100" TextAlignment="Center" Padding="0, 40, 0, 0" />
+            <TextBlock Background="#C7DC5B" Text="C7DC5B" Foreground="White" Width="100" Height="100" TextAlignment="Center" Padding="0, 40, 0, 0" />
+            <TextBlock Background="#0094BC" Text="0094BC" Foreground="White" Width="100" Height="100" TextAlignment="Center" Padding="0, 40, 0, 0" />
+            <TextBlock Background="#E4126B" Text="E4126B" Foreground="White" Width="100" Height="100" TextAlignment="Center" Padding="0, 40, 0, 0" />
+            <TextBlock Background="#43B76E" Text="43B76E" Foreground="White" Width="100" Height="100" TextAlignment="Center" Padding="0, 40, 0, 0" />
+            <TextBlock Background="#7BCFE9" Text="7BCFE9" Foreground="White" Width="100" Height="100" TextAlignment="Center" Padding="0, 40, 0, 0" />
+            <TextBlock Background="#B71C46" Text="B71C46" Foreground="White" Width="100" Height="100" TextAlignment="Center" Padding="0, 40, 0, 0" />
+        </WrapPanel>
+
+        <WrapPanel Grid.Column="2" Orientation="Vertical">
+            <local:MyButton x:Name="ButtonSearch" Content="SteelBlue" Icon="Solid_CheckCircle" IconMargin="0, 5, 4, 5" Radius="4" Background="SteelBlue" />
+            <local:MyButton x:Name="ButtonOther" Content="RoyalBlue" Background="RoyalBlue" />
+            <local:MyButton Content="DodgerBlue" Background="DodgerBlue" />
+            <local:MyButton Content="SaddleBrown" Background="SaddleBrown" />
+            <local:MyButton Content="SlateGray" Background="SlateGray" />
+            <local:MyButton Content="A59F5D" Background="#A59F5D" />
+            <local:MyButton Content="217346" Background="#217346" />
+            <local:MyButton Content="DarkSlateGray" Background="DarkSlateGray" />
+            <local:MyButton Content="DarkCyan" Background="DarkCyan" />
+            <local:MyButton Content="DarkGoldenrod" Background="DarkGoldenrod" />
+            <local:MyButton Content="2B579A" Background="#2B579A" />
+            <local:MyButton Content="IndianRed" Background="IndianRed" />
+
+            <Grid x:Name="ProgressBar1" Width="100" Height="24" Margin="0, 20, 0, 0">
+                <ProgressBar Name="PbStatus" Minimum="0" Maximum="100" Value="5" Foreground="DodgerBlue" Background="WhiteSmoke" BorderThickness="1" BorderBrush="DodgerBlue" />
+                <TextBlock Text="{Binding ElementName=PbStatus, Path=Value, StringFormat={}{0:0}%}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+            </Grid>
+
+            <Grid x:Name="ProgressBar2" Width="100" Height="24" Margin="0, 4, 0, 0">
+                <ProgressBar Name="PbUsrLvl" Minimum="1" Maximum="100" Value="30" Foreground="RoyalBlue" Background="WhiteSmoke" BorderThickness="1" BorderBrush="RoyalBlue" />
+                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <TextBlock.Text>
+                        <MultiBinding StringFormat="{}{0}/{1}">
+                            <Binding Path="Value" ElementName="PbUsrLvl" />
+                            <Binding Path="Maximum" ElementName="PbUsrLvl" />
+                        </MultiBinding>
+                    </TextBlock.Text>
+                </TextBlock>
+            </Grid>
+        </WrapPanel>
+
+        <WrapPanel Grid.Column="4" Orientation="Vertical">
+            <Border x:Name="CheckBox1" BorderBrush="#6D7FB5" BorderThickness="1" Width="140" Height="28" Background="#3F51B5" CornerRadius="4" Margin="0, 1, 0, 1">
+                <StackPanel Orientation="Horizontal" Margin="4, 0, 0, 0">
+                    <CheckBox VerticalContentAlignment="Center" Background="White" IsChecked="True" BorderThickness="0">
+                        <CheckBox.LayoutTransform>
+                            <ScaleTransform ScaleX="1.2" ScaleY="1.2" />
+                        </CheckBox.LayoutTransform>
+                        <CheckBox.RenderTransform>
+                            <RotateTransform CenterX="10" CenterY="10" Angle="-45"/>
+                        </CheckBox.RenderTransform>
+                    </CheckBox>
+                    <TextBlock Text="체크박스 테스트" FontSize="12" Margin="6, 0, 0, 0" Foreground="White" VerticalAlignment="Center" />
+                </StackPanel>
+            </Border>
+            <Border x:Name="CheckBox2" BorderBrush="#6D7FB5" BorderThickness="1" Width="140" Height="28" Background="#3F51B5" CornerRadius="4" Margin="0, 1, 0, 1">
+                <StackPanel Orientation="Horizontal" Margin="4, 0, 0, 0">
+                    <CheckBox VerticalContentAlignment="Center" Background="White" IsChecked="True" BorderThickness="0">
+                        <CheckBox.LayoutTransform>
+                            <ScaleTransform ScaleX="1.2" ScaleY="1.2" />
+                        </CheckBox.LayoutTransform>
+                    </CheckBox>
+                    <TextBlock Text="체크박스 테스트" FontSize="12" Margin="4, 0, 0, 0" Foreground="White" VerticalAlignment="Center" />
+                </StackPanel>
+            </Border>
+            <Border x:Name="CheckBox3" BorderBrush="#6D7FB5" BorderThickness="1" Width="140" Height="28" Background="#3F51B5" CornerRadius="4" Margin="0, 1, 0, 1">
+                <StackPanel Orientation="Horizontal" Margin="4, 0, 0, 0">
+                    <CheckBox VerticalContentAlignment="Center" Background="White" IsChecked="True" BorderThickness="0">
+                        <CheckBox.Resources>
+                            <Style TargetType="{x:Type CheckBox}">
+                                <Setter Property="Content" Value="체크박스 테스트 1"/>
+                                <Setter Property="FontSize" Value="10"/>
+                                <Setter Property="Foreground" Value="White"/>
+                            </Style>
+                        </CheckBox.Resources>
+                        <CheckBox.LayoutTransform>
+                            <ScaleTransform ScaleX="1.2" ScaleY="1.2" />
+                        </CheckBox.LayoutTransform>
+                    </CheckBox>
+                </StackPanel>
+            </Border>
+
+            <Grid Margin="10" />
+            <Border x:Name="RadioButton1" BorderBrush="#6D7FB5" BorderThickness="1" Width="140" Height="28" Background="#5978BB" CornerRadius="4" Margin="0, 1, 0, 1">
+                <StackPanel Orientation="Horizontal" Margin="4, 0, 0, 0">
+                    <RadioButton x:Name="Radio1" VerticalContentAlignment="Center" Background="White" IsChecked="True" BorderThickness="1" GroupName="A">
+                        <RadioButton.LayoutTransform>
+                            <ScaleTransform ScaleX="1.4" ScaleY="1.4" />
+                        </RadioButton.LayoutTransform>
+                    </RadioButton>
+                    <TextBlock Text="체크박스 테스트" FontSize="12" Margin="2, 0, 0, 0" Foreground="White" VerticalAlignment="Center" />
+                </StackPanel>
+            </Border>
+            <Border x:Name="RadioButton2" BorderBrush="#6D7FB5" BorderThickness="1" Width="140" Height="28" Background="#5978BB" CornerRadius="4" Margin="0, 1, 0, 1">
+                <StackPanel Orientation="Horizontal" Margin="4, 0, 0, 0">
+                    <RadioButton x:Name="Radio2" VerticalContentAlignment="Center" Background="White" IsChecked="False" BorderThickness="1" GroupName="A">
+                        <RadioButton.LayoutTransform>
+                            <ScaleTransform ScaleX="1.4" ScaleY="1.4" />
+                        </RadioButton.LayoutTransform>
+                    </RadioButton>
+                    <TextBlock Text="체크박스 테스트" FontSize="12" Margin="2, 0, 0, 0" Foreground="White" VerticalAlignment="Center" />
+                </StackPanel>
+            </Border>
+
+            <Grid Margin="10" />
+            <TextBox Padding="1, 4, 1, 4" BorderThickness="1" BorderBrush="#2196F3" Background="GhostWhite" Text="가나닭" Margin="0, 0, 0, 4" />
+            <TextBox Padding="1, 4, 1, 4" BorderThickness="1" BorderBrush="Blue" Background="White" Height="100" VerticalContentAlignment="Top"
+                     VerticalScrollBarVisibility="Visible" AcceptsReturn="True" TextWrapping="Wrap" TextBlock.LineHeight="16" TextBlock.LineStackingStrategy="BlockLineHeight">
+                <TextBox.Resources>
+                    <Style TargetType="{x:Type ScrollBar}">
+                        <Setter Property="Foreground" Value="Blue" />
+                        <Setter Property="Background" Value="#9EB9FF" />
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type ScrollBar}">
+                                    <Grid x:Name="GridRoot" Width="19" Background="{TemplateBinding Background}" Margin="2">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="0.00001*" />
+                                        </Grid.RowDefinitions>
+
+                                        <Track x:Name="PART_Track" IsDirectionReversed="true" Focusable="false" Margin="-2">
+                                            <Track.Thumb>
+                                                <Thumb x:Name="Thumb" Background="{TemplateBinding Foreground}" Margin="-2" />
+                                            </Track.Thumb>
+                                            <Track.IncreaseRepeatButton>
+                                                <RepeatButton x:Name="PageUp" Command="ScrollBar.PageDownCommand" Opacity="0" Focusable="false" />
+                                            </Track.IncreaseRepeatButton>
+                                            <Track.DecreaseRepeatButton>
+                                                <RepeatButton x:Name="PageDown" Command="ScrollBar.PageUpCommand" Opacity="0" Focusable="false" />
+                                            </Track.DecreaseRepeatButton>
+                                        </Track>
+                                    </Grid>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </TextBox.Resources>
+            </TextBox>
+
+            <Grid Margin="10" />
+            <ComboBox Style="{StaticResource ComboBoxDefault}">
+                <ComboBoxItem Content="Alice" />
+                <ComboBoxItem Content="Bob" />
+                <ComboBoxItem Content="Charlie" />
+            </ComboBox>
+
+            <Grid Margin="10" />
+            <DatePicker Style="{StaticResource MyDatePicker}" />
+
+            <Grid Margin="10" />
+            <local:MsJoDatePicker Width="120" Height="30" BorderBrush="CornflowerBlue" Foreground="DimGray" Background="WhiteSmoke"/>
+
+            <!-- Property Trigger -->
+            <Grid Margin="10" />
+            <Button x:Name="ButtonTrigger1" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" Height="50" 
+                    Content="{Binding Path=Text1}">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Grid x:Name="grid">
+                            <Ellipse Fill="Red" x:Name="ellipse" />
+                            <ContentPresenter Content="{TemplateBinding Content}"
+                                              VerticalAlignment="{TemplateBinding VerticalAlignment}"
+                                              HorizontalAlignment="{TemplateBinding HorizontalAlignment}" />
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="ellipse" Property="Fill" Value="Yellow" />
+                                <Setter TargetName="grid" Property="Background" Value="Green" />
+                                <Setter Property="Foreground" Value="Red" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+
+            <!-- Data Trigger -->
+            <Grid Margin="10" />
+            <CheckBox x:Name="ChkBox" Content="Check Me" />
+            <Button x:Name="ButtonTrigger2" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" Height="50" 
+                    Content="트리거 테스트 버튼입니다">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="Foreground" Value="Blue" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding ElementName=ChkBox, Path=IsChecked}" Value="True">
+                                <Setter Property="Foreground" Value="Red" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+
+            <!-- Event Trigger -->
+            <Grid Margin="10" />
+            <Button x:Name="ButtonTrigger3" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" Height="50" Content="트리거 테스트 버튼입니다">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="Foreground" Value="Blue" />
+                        <Style.Triggers>
+                            <EventTrigger RoutedEvent="MouseEnter">
+                                <EventTrigger.Actions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Duration="0:0:0.300" Storyboard.TargetProperty="FontSize" To="20" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </EventTrigger.Actions>
+                            </EventTrigger>
+                            <EventTrigger RoutedEvent="MouseLeave">
+                                <EventTrigger.Actions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Duration="0:0:0.300" Storyboard.TargetProperty="FontSize" To="14" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </EventTrigger.Actions>
+                            </EventTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+
+            <Grid Margin="10" />
+            <local:MsJoToggleSwitch Background="Transparent"/>
+        </WrapPanel>
+    </Grid>
+</Window>

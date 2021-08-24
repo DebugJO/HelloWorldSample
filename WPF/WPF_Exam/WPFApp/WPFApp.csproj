@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net5.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <ApplicationIcon>Images\Main.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FontAwesome5" Version="2.1.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Images\Main.ico" />
+    <Resource Include="Images\Main.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Themes\MyDatePicker.cs" />
+  </ItemGroup>
+
+</Project>
