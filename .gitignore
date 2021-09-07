@@ -4,3 +4,9 @@ MvvmUI.csproj.user
 /CSharpWebAPI/DotnetRPG/.vscode
 /CSharpWebAPI/DotnetRPG/bin
 /CSharpWebAPI/DotnetRPG/obj
+/WPF/HelloMVVM/.idea
+/WPF/HelloMVVM/.vs
+/WPF/HelloMVVM/_ReSharper.Caches
+/WPF/HelloMVVM/FirstWPF/bin
+/WPF/HelloMVVM/FirstWPF/obj
+/WPF/HelloMVVM/FirstWPF/FirstWPF.csproj.user
