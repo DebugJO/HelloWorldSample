@@ -1,8 +1,9 @@
-﻿using System.Linq;
-using System.Windows;
-using FirstWPF.Views;
+﻿using FirstWPF.Views;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System.Linq;
+using System.Windows;
+using FirstWPF.Services;
 
 namespace FirstWPF
 {
@@ -22,8 +23,8 @@ namespace FirstWPF
         private static void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton<MainView>();
+            services.AddSingleton<IDateTimeServices, DateTimeServices>();
             Current.GetType().Assembly.GetTypes().Where(type => type.IsClass).Where(type => type.Name.EndsWith("ViewModel")).ToList().ForEach(vmType => services.AddSingleton(vmType));
-            Current.GetType().Assembly.GetTypes().Where(type => type.IsClass).Where(type => type.Name.EndsWith("Services")).ToList().ForEach(vmType => services.AddSingleton(vmType));
         }
 
         protected override async void OnStartup(StartupEventArgs e)

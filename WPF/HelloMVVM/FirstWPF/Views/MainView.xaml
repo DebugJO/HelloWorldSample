@@ -1,20 +1,17 @@
 ﻿<Window x:Class="FirstWPF.Views.MainView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
-        mc:Ignorable="d"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:viewModel="clr-namespace:FirstWPF.ViewModels"
+        mc:Ignorable="d"
+        d:DataContext="{d:DesignInstance viewModel:MainViewModel, IsDesignTimeCreatable=True}"
         Title="FirstWPF" Height="600" Width="1000" Background="#2B569A">
 
     <WindowChrome.WindowChrome>
         <WindowChrome GlassFrameThickness="0" CornerRadius="0" CaptionHeight="0" NonClientFrameEdges="None" />
     </WindowChrome.WindowChrome>
-
-    <Window.DataContext>
-        <viewModel:MainViewModel />
-    </Window.DataContext>
 
     <Window.Resources>
         <Style TargetType="{x:Type Button}">

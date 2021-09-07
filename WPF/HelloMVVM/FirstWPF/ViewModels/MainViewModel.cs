@@ -1,8 +1,8 @@
-﻿using System.Windows;
-using System.Windows.Input;
-using FirstWPF.Helpers.CommandHelper;
+﻿using FirstWPF.Helpers.CommandHelper;
 using FirstWPF.Helpers.SystemHelper;
 using FirstWPF.Services;
+using System.Windows;
+using System.Windows.Input;
 
 namespace FirstWPF.ViewModels
 {
@@ -10,9 +10,9 @@ namespace FirstWPF.ViewModels
     {
         private readonly IDateTimeServices _dateTimeServices;
 
-        public MainViewModel()
+        public MainViewModel(IDateTimeServices dateTimeServices)
         {
-            _dateTimeServices = new DateTimeServices();
+            _dateTimeServices = dateTimeServices;
             Hello = "헬로우월드";
         }
 

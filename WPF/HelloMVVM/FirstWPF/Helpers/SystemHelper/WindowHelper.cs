@@ -29,7 +29,7 @@ namespace FirstWPF.Helpers.SystemHelper
             ReleaseCapture();
             SendMessage(Process.GetCurrentProcess().MainWindowHandle, 0x112, 0xf012, 0);
         }
-        
+
         public static void BringToFront(string title)
         {
             IntPtr handle = FindWindow(null, title);
