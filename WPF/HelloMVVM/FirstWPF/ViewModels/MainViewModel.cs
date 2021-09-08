@@ -1,6 +1,9 @@
 ﻿using FirstWPF.Helpers.CommandHelper;
 using FirstWPF.Helpers.SystemHelper;
 using FirstWPF.Services;
+using FirstWPF.Views;
+using System.ComponentModel;
+using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 
@@ -9,16 +12,17 @@ namespace FirstWPF.ViewModels
     public class MainViewModel : NotifyObject
     {
         private readonly IDateTimeServices _dateTimeServices;
+        private string _hello;
+        private Window _contentControlMain;
 
         public MainViewModel(IDateTimeServices dateTimeServices)
         {
             _dateTimeServices = dateTimeServices;
             Hello = "헬로우월드";
+            ContentControlMain = null;
         }
 
         public string CurrentTime => _dateTimeServices.GetDateTimeString();
-
-        private string _hello;
 
         public string Hello
         {
@@ -27,6 +31,50 @@ namespace FirstWPF.ViewModels
             {
                 _hello = value;
                 OnPropertyChanged();
+            }
+        }
+
+        public Window ContentControlMain
+        {
+            get => _contentControlMain;
+            set
+            {
+                _contentControlMain = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public void ButtonFirst()
+        {
+            ContentControlMain = IoC.Get<WinFirstView>();
+        }
+
+        public void ButtonSecond()
+        {
+            ContentControlMain = IoC.Get<WinSecondView>();
+        }
+
+        public static ICommand WindowClosing
+        {
+            get
+            {
+                return new RelayCommand<CancelEventArgs>((e) =>
+                {
+                    if (MessageBox.Show("프로그램을 종료하시겠습니까?", "프로그램 종료",
+                        MessageBoxButton.OKCancel, MessageBoxImage.Warning) == MessageBoxResult.Cancel)
+                    {
+                        e.Cancel = true;
+                    }
+                    else
+                    {
+                        for (int windowsCount = Application.Current.Windows.Count - 1; windowsCount > 0; windowsCount--)
+                        {
+                            Application.Current.Windows[windowsCount]?.Close();
+                        }
+
+                        Application.Current.Shutdown();
+                    }
+                });
             }
         }
 
@@ -41,7 +89,7 @@ namespace FirstWPF.ViewModels
 
         private static void CloseWindowImp(object obj)
         {
-            Application.Current.Shutdown();
+            Application.Current.Windows.OfType<MainView>().First().Close();
         }
 
         public void ButtonTest1(object sender, RoutedEventArgs e)

@@ -3,7 +3,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.Linq;
 using System.Windows;
-using FirstWPF.Services;
 
 namespace FirstWPF
 {
@@ -22,15 +21,28 @@ namespace FirstWPF
 
         private static void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton<MainView>();
-            services.AddSingleton<IDateTimeServices, DateTimeServices>();
-            Current.GetType().Assembly.GetTypes().Where(type => type.IsClass).Where(type => type.Name.EndsWith("ViewModel")).ToList().ForEach(vmType => services.AddSingleton(vmType));
+            Current.GetType().Assembly.GetTypes().Where(type => type.IsClass).Where(type => type.Name.EndsWith("Services")).ToList()
+                .ForEach(vmType => services.AddSingleton(vmType.GetInterfaces().First(), vmType));
+
+            Current.GetType().Assembly.GetTypes().Where(type => type.IsClass).Where(type => type.Name.EndsWith("ViewModel")).ToList()
+                .ForEach(vmType =>
+                {
+                    services.AddSingleton(vmType);
+                    services.BuildServiceProvider().GetRequiredService(vmType);
+                });
+
+            Current.GetType().Assembly.GetTypes().Where(type => type.IsClass).Where(type => type.Name.EndsWith("View")).ToList()
+                .ForEach(vmType =>
+                {
+                    services.AddSingleton(vmType);
+                    services.BuildServiceProvider().GetRequiredService(vmType);
+                });
         }
 
         protected override async void OnStartup(StartupEventArgs e)
         {
             await _host.StartAsync();
-            _host.Services.GetRequiredService<MainView>().Show();
+            Current.Windows.OfType<MainView>().First().Show();
             base.OnStartup(e);
         }
 
