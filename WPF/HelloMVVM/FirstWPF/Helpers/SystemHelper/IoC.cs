@@ -9,7 +9,7 @@ namespace FirstWPF.Helpers.SystemHelper
         /// Ioc View Only
         /// </summary>
         /// <typeparam name="T">View</typeparam>
-        /// <returns></returns>
+        /// <returns>Veiw Instance</returns>
         public static T Get<T>() where T : Window
         {
             return Application.Current.Windows.OfType<T>().First();
@@ -20,7 +20,7 @@ namespace FirstWPF.Helpers.SystemHelper
         /// </summary>
         /// <typeparam name="T">View</typeparam>
         /// <typeparam name="TU">ViewModel</typeparam>
-        /// <returns></returns>
+        /// <returns>ViewModel Instance</returns>
         public static TU Get<T, TU>() where T : Window where TU : class
         {
             return (TU)(Get<T>().DataContext);

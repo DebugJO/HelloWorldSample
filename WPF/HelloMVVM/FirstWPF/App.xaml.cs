@@ -25,11 +25,7 @@ namespace FirstWPF
                 .ForEach(vmType => services.AddSingleton(vmType.GetInterfaces().First(), vmType));
 
             Current.GetType().Assembly.GetTypes().Where(type => type.IsClass).Where(type => type.Name.EndsWith("ViewModel")).ToList()
-                .ForEach(vmType =>
-                {
-                    services.AddSingleton(vmType);
-                    services.BuildServiceProvider().GetRequiredService(vmType);
-                });
+                .ForEach(vmType => services.AddSingleton(vmType));
 
             Current.GetType().Assembly.GetTypes().Where(type => type.IsClass).Where(type => type.Name.EndsWith("View")).ToList()
                 .ForEach(vmType =>

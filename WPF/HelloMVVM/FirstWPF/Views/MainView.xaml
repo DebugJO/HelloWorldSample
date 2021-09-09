@@ -95,13 +95,8 @@
                     </b:Interaction.Triggers>
                 </Button>
 
-                <Button Content="버튼1" x:Name="A">
-                    <b:Interaction.Triggers>
-                        <b:EventTrigger EventName="Click">
-                            <b:CallMethodAction MethodName="ButtonTest1" TargetObject="{Binding }" />
-                        </b:EventTrigger>
-                    </b:Interaction.Triggers>
-                </Button>
+                <Button Content="Item binding" x:Name="A" Command="{Binding ButtonItemTest}"
+                        CommandParameter="{Binding RelativeSource={RelativeSource Self}}" />
 
                 <Button Content="버튼2" x:Name="B">
                     <b:Interaction.Triggers>

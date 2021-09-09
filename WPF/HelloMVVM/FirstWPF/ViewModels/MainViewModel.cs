@@ -54,6 +54,19 @@ namespace FirstWPF.ViewModels
             ContentControlMain = IoC.Get<WinSecondView>();
         }
 
+        public ICommand ButtonItemTest => new RelayCommand<object>(ButtonItemTestImp);
+
+        private void ButtonItemTestImp(object obj)
+        {
+            ContentControlMain = IoC.Get<WinThirdView>();
+        }
+
+
+        public void ButtonTest1(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show(sender + " / " + e.RoutedEvent.Name);
+        }
+
         public static ICommand WindowClosing
         {
             get
@@ -90,11 +103,6 @@ namespace FirstWPF.ViewModels
         private static void CloseWindowImp(object obj)
         {
             Application.Current.Windows.OfType<MainView>().First().Close();
-        }
-
-        public void ButtonTest1(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show(sender + " / " + e.RoutedEvent.Name);
         }
 
         public void ButtonTest2(object sender, RoutedEventArgs e)
