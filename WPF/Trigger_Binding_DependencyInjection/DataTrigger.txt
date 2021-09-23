@@ -1,0 +1,157 @@
+https://stackoverflow.com/questions/356194/datatrigger-where-value-is-not-null
+
+<!-- [1] -->
+<Style> 
+      <!-- Highlight for Reviewed (Default) -->
+      <Setter Property="Control.Background" Value="PaleGreen" /> 
+      <Style.Triggers>
+        <!-- Highlight for Not Reviewed -->
+        <DataTrigger Binding="{Binding Path=REVIEWEDBY}" Value="{x:Null}">
+          <Setter Property="Control.Background" Value="LightIndianRed" />
+        </DataTrigger>
+      </Style.Triggers>
+</Style>
+
+<!-- [2] -->
+<TextBlock>
+    <TextBlock.Resources>
+        <conv:IsNullConverter x:Key="isNullConverter"/>
+    </TextBlock.Resources>
+    <TextBlock.Style>
+        <Style>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding SomeField, Converter={StaticResource isNullConverter}}" Value="False">
+                    <Setter Property="TextBlock.Text" Value="It's NOT NULL Baby!"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </TextBlock.Style>
+</TextBlock>
+
+public class IsNullConverter : IValueConverter
+{
+    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        return (value == null);
+    }
+
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        throw new InvalidOperationException("IsNullConverter can only be used OneWay.");
+    }
+}
+
+<!-- [3] -->
+<Style>
+    <Style.Triggers>
+       <DataTrigger Binding="{Binding SomeProperty}" Value="{x:Null}">
+           <Setter Property="Visibility" Value="Collapsed" />
+        </DataTrigger>
+     </Style.Triggers>
+</Style>
+
+<Style>
+    <Setter Property="Visibility" Value="Collapsed" />
+    <Style.Triggers>
+       <DataTrigger Binding="{Binding SomeProperty}" Value="{x:Null}">
+           <Setter Property="Visibility" Value="Visible" />
+        </DataTrigger>
+     </Style.Triggers>
+</Style>
+
+<!-- [4] -->
+<Style TargetType="{x:Type Button}">
+    <Setter Property="IsEnabled" Value="True"/>
+    <Style.Triggers>
+        <DataTrigger Binding="{Binding ElementName=lvMyList, Path=SelectedItem}" Value="{x:Null}">
+            <Setter Property="IsEnabled" Value="False"/>
+        </DataTrigger>
+    </Style.Triggers>
+</Style>
+
+<!-- [5] Microsoft.Expression.Interactions.dll -->
+<i:Interaction.Triggers>
+    <i:DataTrigger Binding="{Binding YourProperty}" Value="{x:Null}" Comparison="NotEqual">
+       <ie:ChangePropertyAction PropertyName="YourTargetPropertyName" Value="{Binding YourValue}"/>
+    </i:DataTrigger
+</i:Interaction.Triggers>
+
+<!-- [6] -->
+<StackPanel.Style>
+  <Style>
+    <Setter Property="StackPanel.Visibility" Value="Visible"></Setter>
+    <Style.Triggers>
+      <DataTrigger  Binding="{Binding ElementName=ProfileSelectorComboBox, Path=SelectedItem.Tag}" Value="{x:Null}">
+          <Setter Property="StackPanel.Visibility" Value="Collapsed"></Setter>
+      </DataTrigger>
+    </Style.Triggers>
+  </Style>
+</StackPanel.Style>
+
+<!-- [7] -->
+<Windows....
+     xmlns:conv="clr-namespace:CalcBinding;assembly=CalcBinding"
+>
+
+<TextBlock>
+      <TextBlock.Style>
+          <Style.Triggers>
+          <DataTrigger Binding="{conv:Binding 'MyValue==null'}" Value="false">
+             <Setter Property="Background" Value="#FF80C983"></Setter>
+          </DataTrigger>
+        </Style.Triggers>
+      </TextBlock.Style>
+</TextBlock>
+
+<!-- [8] -->
+<StackPanel>
+     <TextBlock Text="Border = Red when null value" />
+     <Border x:Name="border_objectForNullValueTrigger" HorizontalAlignment="Stretch" Height="20"> 
+         <Border.Style>
+             <Style TargetType="Border">
+                 <Setter Property="Background" Value="Black" />
+                 <Style.Triggers>
+                     <DataTrigger Binding="{Binding ObjectForNullValueTrigger}" Value="{x:Null}">
+                         <Setter Property="Background" Value="Red" />
+                     </DataTrigger>
+                 </Style.Triggers>
+             </Style>
+         </Border.Style>
+     </Border>
+     <TextBlock Text="Border = Green when not null value" />
+     <Border HorizontalAlignment="Stretch" Height="20">
+         <Border.Style>
+             <Style TargetType="Border">
+                 <Setter Property="Background" Value="Green" />
+                 <Style.Triggers>
+                     <DataTrigger Binding="{Binding Background, ElementName=border_objectForNullValueTrigger}" Value="Red">
+                         <Setter Property="Background" Value="Black" />
+                     </DataTrigger>
+                 </Style.Triggers>
+             </Style>
+         </Border.Style>
+     </Border>
+     <Button Content="Invert Object state" Click="Button_Click_1"/>
+</StackPanel>
+
+<!-- [9] -->
+public class NullableToVisibilityConverter: IValueConverter
+{
+    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        return value == null ? Visibility.Collapsed : Visibility.Visible;
+    }
+}
+
+Visibility="{Binding PropertyToBind, Converter={StaticResource nullableToVisibilityConverter}}"
+
+<!-- [10] -->
+public bool CanDoIt
+{
+    get
+    {
+        return !string.IsNullOrEmpty(SomeField);
+    }
+}
+
+<DataTrigger Binding="{Binding SomeField}" Value="{Binding CanDoIt}">
