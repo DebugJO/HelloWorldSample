@@ -1,3 +1,12 @@
+### WIN32 파일을 실행할 때 콘솔도 같이 실행될 때
+1. cmake file 수정(추가) : set_target_properties(untitled qt 6.2 cmake PROPERTIES WIN32_EXECUTABLE TRUE ...
+2. 메인소스 상단에 코드 추가
+```cpp
+#ifdef _WIN32
+#pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup")
+#endif
+```
+
 ### C\+\+ 포인터와 레퍼런스 차이
 
 1. 포인터 : 메모리의 주소를 가지고 있는 변수, 주소 값을 통한 메모리 접근(간접 참조)
