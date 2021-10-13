@@ -1,3 +1,9 @@
+### Ubuntu(Linux)에서 QtCreator 실행에 필요한 추가 패키지
+```
+sudo apt-get install libxcb*
+sudo apt-get install mesa-common-dev libgl1-mesa-dev libglu1-mesa-dev
+```
+
 ### WIN32 파일을 실행할 때 콘솔도 같이 실행될 때
 1. cmake file 수정(추가) : set_target_properties(untitled qt 6.2 cmake PROPERTIES WIN32_EXECUTABLE TRUE ...
 2. 메인소스 상단에 코드 추가
