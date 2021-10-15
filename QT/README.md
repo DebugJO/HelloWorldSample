@@ -1,3 +1,8 @@
+### CMake, Windows codepage cp949 설정
+```
+set(CMAKE_CXX_FLAGS "-fexec-charset=CP949")
+```
+
 ### Ubuntu(Linux)에서 QtCreator 실행에 필요한 추가 패키지
 ```
 sudo apt-get install libxcb*
