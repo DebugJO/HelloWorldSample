@@ -1,3 +1,12 @@
+### QtCreator Clang format
+```
+IndentWidth: 4
+TabWidth: 4
+ColumnLimit: 200
+BreakBeforeBraces: Linux
+AllowShortFunctionsOnASingleLine: false
+```
+
 ### CMake, Windows codepage cp949 설정
 ```
 set(CMAKE_CXX_FLAGS "-fexec-charset=CP949")
