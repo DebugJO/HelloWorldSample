@@ -1,5 +1,5 @@
 # Database
-에이디치히얌 개발소스
+Sample, Reference
 
 ## SQLite Query Sample
 ```sql
