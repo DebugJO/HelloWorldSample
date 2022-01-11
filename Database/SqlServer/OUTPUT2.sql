@@ -1,0 +1,30 @@
+-- select into -- A_COPY는 현재 없음
+SELECT * INTO A_COPY FROM A
+
+SELECT * INTO A_COPY
+FROM (
+	SELECT COL1,COL2,COL3.... FROM A 
+) AS TEMP_TABLE
+
+
+-- insert into : 스키마동일 : tablock, nolock, READPAST
+INSERT INTO B SELECT * FROM A
+INSERT INTO B SELECT COL1,COL2,COL3 FROM A
+
+-- output inserted, deleted
+INSERT INTO #TEMP_T (NAME, SCORE) VALUES('A', 100)
+INSERT INTO #TEMP_T (NAME, SCORE) OUTPUT INSERTED.* VALUES('A', 100)
+
+UPDATE #TEMP_T SET NAME = 'B' OUTPUT DELETED.*, '→' AS '작업', INSERTED.*
+OUTPUT DELETED는 수정되기 전 컬럼의 값
+OUTPUT INSERTED는 수정된 후의 컬럼의 값을 리턴한다.
+
+UPDATE #TEMP_T SET NAME = 'C'
+OUTPUT DELETED.* -- 변경 전 데이터
+INTO #TEMP_T_BAK -- #TEMP_T_BAK 테이블로 입력
+DELETE FROM #TEMP_T
+OUTPUT DELETED.*
+INTO #TEMP_T_BAK
+WHERE 조건
+-- 데이터 수정 및 삭제 작업 전 데이터를 백업
+-- https://ggmouse.tistory.com/121
