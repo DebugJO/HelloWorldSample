@@ -9,7 +9,7 @@ wsl --install -d <배포판>
 ```
 
 기본으로 Ubuntu가 설치됨. 설치 후 재부팅
--> Microsoft Store에서 Ubuntu 앱 업데이트 완료 -> 터미널에서 ubuntu 선택(최초 아이디/패스워드)
+* Microsoft Store에서 Ubuntu 앱 업데이트 완료 -> 터미널에서 ubuntu 선택(최초 아이디/패스워드)
 
 ```bash
 wsl -l -v #상태보기 
