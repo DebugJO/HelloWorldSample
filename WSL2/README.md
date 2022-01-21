@@ -107,12 +107,18 @@ set fileencodings=utf8,euc-kr
 
 ### 기본 개발 패키지 설치
 ```bash
-
 sudo apt install build-essential
 sudo apt install clang-12 --install-suggests
 sudo apt install lldb-12
 sudo apt install clang-format-12
 sudo apt install cmake
+sudo apt install openjdk-17-jdk
+```
+
+### Rust 설치
+``` bash
+curl https://sh.rustup.rs -sSf | sh
+source $HOME/.cargo/env
 ```
 
 build-essential, gcc, clang cmake java dotnet mariadb, mongodb, bat
