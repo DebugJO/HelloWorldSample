@@ -154,4 +154,21 @@ sudo apt install microsoft-edge-stable
 sudo apt remove microsoft-edge-stable
 ```
 
-build-essential, gcc, clang cmake java dotnet mariadb, mongodb, bat
+### MariaDB 10.6 설치
+```bash
+sudo apt install software-properties-common -y
+curl -LsS -O https://downloads.mariadb.com/MariaDB/mariadb_repo_setup
+sudo bash mariadb_repo_setup --mariadb-server-version=10.6
+
+sudo apt update
+sudo apt install mariadb-server mariadb-client
+
+sudo mariadb-secure-installation 
+
+sudo systemctl disable mariadb
+sudo service --status-all
+
+mariadb -utest -p
+create user'test'@'%' identified by '*****';
+grant all privileges on TestDB.* to 'test'@'%';
+```
