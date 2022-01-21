@@ -2,7 +2,7 @@
 
 기본적으로 windows terminal 설치
 
-### 1. WSL 설치
+### 1. WSL 설치(terminal에서 실행)
 ```bat
 wsl --install
 wsl --install -d <배포판>
@@ -16,4 +16,7 @@ wsl -l -v #상태보기
 wsl -l -o #설치할 수 있는 공식 배포판 리스트
 wsl -t Ubuntu #종료
 wsl --unregister <배포판> #배포판 삭제
+wsl --set-default-version 2 # 기본버전(옵션)
 ```
+### 터미널 설정
+
