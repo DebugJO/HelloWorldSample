@@ -2,7 +2,7 @@
 
 Link : [https://github.com/ClosedXML/ClosedXML](https://github.com/ClosedXML/ClosedXML)
 
-Wiki : [https://github.com/ClosedXML/ClosedXML/wiki][https://github.com/ClosedXML/ClosedXML/wiki]
+Wiki : [https://github.com/ClosedXML/ClosedXML/wiki](https://github.com/ClosedXML/ClosedXML/wiki)
 
 ### Example : Inserting Data
 
