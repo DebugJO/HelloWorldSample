@@ -1,4 +1,4 @@
-## WSL2 개발환경 설정
+## WSL2 개발환경 설정(
 
 기본적으로 windows terminal 설치
 
@@ -105,6 +105,13 @@ set ruler
 set fileencodings=utf8,euc-kr
 ```
 
+### 추가 패키지 설치
+```bash
+sudo apt install bat
+sudo apt install tree
+sudo apt install fonts-nanum
+```
+
 ### 기본 개발 패키지 설치
 ```bash
 sudo apt install build-essential
@@ -119,6 +126,18 @@ sudo apt install openjdk-17-jdk
 ``` bash
 curl https://sh.rustup.rs -sSf | sh
 source $HOME/.cargo/env
+```
+
+### dotnet 설치
+```bash
+wget https://packages.microsoft.com/config/ubuntu/21.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
+sudo dpkg -i packages-microsoft-prod.deb
+rm packages-microsoft-prod.deb
+
+sudo apt-get update
+sudo apt-get install apt-transport-https
+sudo apt-get update
+sudo apt-get install dotnet-sdk-6.0
 ```
 
 build-essential, gcc, clang cmake java dotnet mariadb, mongodb, bat
