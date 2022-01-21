@@ -211,3 +211,23 @@ sudo service mongodb start
 
 # 보안 및 사용자 추가 : https://msjo.kr/2020/04/05/1/
 ```
+
+### Mosquitto increasing maximum connection limit
+```
+# vi /etc/sysctl.conf
+
+fs.file-max = 10000000 
+fs.nr_open = 10000000
+net.ipv4.tcp_mem = 786432 1697152 1945728
+net.ipv4.tcp_rmem = 4096 4096 16777216
+net.ipv4.tcp_wmem = 4096 4096 16777216
+net.ipv4.ip_local_port_range = 1000 65535
+
+# vi /etc/security/limits.conf
+
+* soft nofile 10000000
+* hard nofile 10000000
+root soft nofile 10000000
+root hard nofile 10000000
+```
+reboot
