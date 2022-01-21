@@ -20,3 +20,6 @@ wsl --set-default-version 2 # 기본버전(옵션)
 ```
 ### 터미널 설정
 
+1. 폰트 설정 (Hack폰트) : https://github.com/source-foundry/Hack-windows-installer 또는 https://github.com/powerline/fonts 에서 선택
+2. 터미널 -> 설정 ->  Ubuntu -> 모양(글꼴)에서 선택
+3. 시작 디렉터리 설정 : Ubuntu -> 일반 -> 디렉터리를 시작하는 중 : \\wsl$\Ubuntu\home\<사용자>\
