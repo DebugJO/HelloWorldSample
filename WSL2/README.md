@@ -20,10 +20,10 @@ wsl --set-default-version 2 # 기본버전(옵션)
 ```
 ### 터미널 설정
 
-1. 폰트 설정 (Hack폰트) : https://github.com/source-foundry/Hack-windows-installer 또는 https://github.com/powerline/fonts 에서 선택
-2. 터미널 -> 설정 ->  Ubuntu -> 모양(글꼴)에서 선택
-3. 시작 디렉터리 설정 : Ubuntu -> 일반 -> 디렉터리를 시작하는 중 : \\wsl$\Ubuntu\home\<사용자>\
-4. Dark+ 테마 추가 ->  Ubuntu -> 모양(색구성표)에서 선택
+* 폰트 설정 (Hack폰트) : https://github.com/source-foundry/Hack-windows-installer 또는 https://github.com/powerline/fonts 에서 선택
+* 터미널 -> 설정 ->  Ubuntu -> 모양(글꼴)에서 선택
+* 시작 디렉터리 설정 : Ubuntu -> 일반 -> 디렉터리를 시작하는 중 : \\wsl$\Ubuntu\home\<사용자>\
+* Dark+ 테마 추가 ->  Ubuntu -> 모양(색구성표)에서 선택
 ```json
 {
     "background": "#0E0E0E",
@@ -52,16 +52,24 @@ wsl --set-default-version 2 # 기본버전(옵션)
 
 ### Ubuntu zsh구성
 
-1. Git, zsh 설치
+* Git, zsh 설치
 ```bash
 sudo apt update
 sudo apt install git zsh
 ```
-2. Oh my zsh 설치 및 구성
+* Oh my zsh 설치 및 구성
 ```bash
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 ```
-3. 테마구성(사용자 디렉터리에서 작업)
+
+* PlugIn 추가
+```bash
+git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+```
+
+* 테마구성(사용자 디렉터리에서 작업)
 ```bash
 # vi .zshrc
 
