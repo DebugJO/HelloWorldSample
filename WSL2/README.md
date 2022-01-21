@@ -82,6 +82,28 @@ LS_COLORS=$LS_COLORS:'ow=1;34:' ; export LS_COLORS
 export PATH="/home/msjo/.local/bin":$PATH
 ```
 
+### vi 설정
+```bash
+# vi .vimrc
+
+if has("syntax")
+        syntax on
+endif
+set hlsearch
+set nu
+set autoindent
+set ts=4
+set sts=4
+set cindent
+set laststatus=2
+set shiftwidth=4
+set showmatch
+set smartcase
+set smarttab
+set smartindent
+set ruler
+set fileencodings=utf8,euc-kr
+```
 
 
-build-essential, gcc, clang cmake java dotnet mariadb, mongodb
+build-essential, gcc, clang cmake java dotnet mariadb, mongodb, bat
