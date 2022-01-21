@@ -35,6 +35,18 @@ sudo apt install git zsh
 ```bash
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 ```
+3. 테마구성(사용자 디렉터리에서 작업)
+```bash
+vi .zshrc
+
+export ZSH="$HOME/.oh-my-zsh"
+ZSH_THEME="agnoster"
+plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
+source $ZSH/oh-my-zsh.sh
+prompt_context() {}
+LS_COLORS=$LS_COLORS:'ow=1;34:' ; export LS_COLORS
+export PATH="/home/msjo/.local/bin":$PATH
+```
 
 
 
