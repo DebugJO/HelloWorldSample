@@ -23,6 +23,32 @@ wsl --set-default-version 2 # 기본버전(옵션)
 1. 폰트 설정 (Hack폰트) : https://github.com/source-foundry/Hack-windows-installer 또는 https://github.com/powerline/fonts 에서 선택
 2. 터미널 -> 설정 ->  Ubuntu -> 모양(글꼴)에서 선택
 3. 시작 디렉터리 설정 : Ubuntu -> 일반 -> 디렉터리를 시작하는 중 : \\wsl$\Ubuntu\home\<사용자>\
+4. Dark+ 테마 추가 ->  Ubuntu -> 모양(색구성표)에서 선택
+```json
+{
+    "background": "#0E0E0E",
+    "black": "#000000",
+    "blue": "#2472C8",
+    "brightBlack": "#666666",
+    "brightBlue": "#3B8EEA",
+    "brightCyan": "#29B8DB",
+    "brightGreen": "#23D18B",
+    "brightPurple": "#D670D6",
+    "brightRed": "#F14C4C",
+    "brightWhite": "#E5E5E5",
+    "brightYellow": "#F5F543",
+    "cursorColor": "#FFFFFF",
+    "cyan": "#11A8CD",
+    "foreground": "#CCCCCC",
+    "green": "#0DBC79",
+    "name": "Dark+",
+    "purple": "#BC3FBC",
+    "red": "#CD3131",
+    "selectionBackground": "#3A3D41",
+    "white": "#E5E5E5",
+    "yellow": "#E5E510"
+}
+```
 
 ### Ubuntu zsh구성
 
