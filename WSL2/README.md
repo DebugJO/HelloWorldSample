@@ -172,3 +172,41 @@ mariadb -utest -p
 create user'test'@'%' identified by '*****';
 grant all privileges on TestDB.* to 'test'@'%';
 ```
+
+### MongoDB 5 설치
+```bash
+wget -qO - https://www.mongodb.org/static/pgp/server-5.0.asc | sudo apt-key add -
+echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/5.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-5.0.list
+sudo apt update
+sudo apt install mongodb-org
+mkdir -p /opt/mongodb
+sudo chmod -R go+w /opt/mongodb 
+curl https://raw.githubusercontent.com/mongodb/mongo/master/debian/init.d | sudo tee /etc/init.d/mongodb >/dev/null
+sudo chmod +x /etc/init.d/mongodb
+
+# vi /etc/mongod.conf
+
+storage:
+  dbPath: /opt/mongodb
+  journal:
+    enabled: true
+
+systemLog:
+  destination: file
+  logAppend: true
+  path: /var/log/mongodb/mongod.log
+
+net:
+  port: 27017
+  bindIp: 0.0.0.0
+
+processManagement:
+  timeZoneInfo: /usr/share/zoneinfo
+
+security:
+  authorization: enabled
+  
+sudo service mongodb start
+
+# 보안 및 사용자 추가 : https://msjo.kr/2020/04/05/1/
+```
