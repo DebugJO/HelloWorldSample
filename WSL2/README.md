@@ -31,4 +31,11 @@ wsl --set-default-version 2 # 기본버전(옵션)
 sudo apt update
 sudo apt install git zsh
 ```
-2. ㅇㅇ
+2. Oh my zsh 설치 및 구성
+```bash
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+```
+
+
+
+build-essential, gcc, clang cmake java dotnet mariadb, mongodb
