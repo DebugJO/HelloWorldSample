@@ -26,7 +26,9 @@ wsl --set-default-version 2 # 기본버전(옵션)
 
 ### Ubuntu zsh구성
 
+1. Git, zsh 설치
 ```bash
 sudo apt update
 sudo apt install git zsh
 ```
+2. ㅇㅇ
