@@ -110,6 +110,7 @@ set fileencodings=utf8,euc-kr
 sudo apt install bat
 sudo apt install tree
 sudo apt install fonts-nanum
+sudo apt install net-tools
 ```
 
 ### 기본 개발 패키지 설치
