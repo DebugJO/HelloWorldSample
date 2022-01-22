@@ -1,6 +1,13 @@
-## WSL2 개발환경 설정(
+## WSL2 개발환경 설정
 
 기본적으로 windows terminal 설치
+
+### VirtualBox 충돌 문제 해결
+관리자 권한으로 cmd에서 on/off(임시방편) 재부팅 필요
+```cmd
+bcdedit /set hypervisorlaunchtype auto
+bcdedit /set hypervisorlaunchtype off
+```
 
 ### 1. WSL 설치(terminal에서 실행)
 ```bat
