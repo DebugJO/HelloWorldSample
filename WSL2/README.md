@@ -238,3 +238,8 @@ root soft nofile 10000000
 root hard nofile 10000000
 ```
 reboot
+
+### systemctl 사용
+mv /usr/bin/systemctl /usr/bin/systemctl.old
+curl https://raw.githubusercontent.com/gdraheim/docker-systemctl-replacement/master/files/docker/systemctl.py > /usr/bin/systemctl
+chmod +x /usr/bin/systemctl
