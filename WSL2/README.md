@@ -245,3 +245,14 @@ mv /usr/bin/systemctl /usr/bin/systemctl.old
 curl https://raw.githubusercontent.com/gdraheim/docker-systemctl-replacement/master/files/docker/systemctl.py > /usr/bin/systemctl
 chmod +x /usr/bin/systemctl
 ```
+
+### network 설정(옵션)
+```bash
+vi /etc/wsl.conf
+[network]
+generateResolvConf=false
+generateHosts = false
+
+vi /root/.bash_profile #centos
+echo "nameserver 168.126.63.1" > /etc/resolv.conf
+```
