@@ -246,6 +246,19 @@ curl https://raw.githubusercontent.com/gdraheim/docker-systemctl-replacement/mas
 chmod +x /usr/bin/systemctl
 ```
 
+### localhost Forwarding
+```bash
+# C:\Users\<사용자>\.wslconfig:
+[wsl2]
+localhostForwarding=true
+
+# C:\Windows\System32\drivers\etc\hosts
+127.0.0.1 localhost
+::1 localhost
+
+# 재부팅
+```
+
 ### network 설정(옵션)
 ```bash
 vi /etc/wsl.conf
