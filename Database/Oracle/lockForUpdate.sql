@@ -17,7 +17,7 @@ start with 1
 increment by 1
 maxvalue 10
 cycle
-cache 9 
+cache 9; 
 
 -- 최종쿼리
 select seq.nextval into :A from dual;
