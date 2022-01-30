@@ -239,7 +239,7 @@ root hard nofile 10000000
 ```
 reboot
 
-###
+### mosquitto 설정
 ```bash
 vi mosquitto.conf  
 password_file /etc/mosquitto/passwd
