@@ -239,6 +239,18 @@ root hard nofile 10000000
 ```
 reboot
 
+###
+```bash
+vi mosquitto.conf  
+password_file /etc/mosquitto/passwd
+allow_anonymous false
+
+vi passwd
+id:password
+
+> mosquitto_passwd -U /etc/mosquitto/passwd
+```
+
 ### systemctl 사용
 ```bash
 mv /usr/bin/systemctl /usr/bin/systemctl.old
