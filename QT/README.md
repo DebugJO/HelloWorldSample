@@ -1,3 +1,10 @@
+### QtCreator HiDPI(4K)
+```bash
+set QT_SCALE_FACTOR_ROUNDING_POLICY=PassThrough
+# or (linux)
+export QT_SCALE_FACTOR_ROUNDING_POLICY=PassThrough
+```
+
 ### QtCreator Clang format
 ```
 IndentWidth: 4
