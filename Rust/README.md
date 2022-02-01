@@ -56,4 +56,4 @@ pub fn run() {
     let p = Person::new("길동", "홍");
     println!("Person: {} / {}", p.get_name_string(), p.get_name_str());
 }
-``
+```
