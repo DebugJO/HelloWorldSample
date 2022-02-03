@@ -63,7 +63,7 @@ pub fn run() {
 }
 ```
 
-### Option : [mithradates, "047 Easy Rust in Korean: More Option")](https://www.youtube.com/watch?v=uhMO2b13bUA)
+### Option : [mithradates, "047 Easy Rust in Korean: More Option"](https://www.youtube.com/watch?v=uhMO2b13bUA)
 ```rust
 fn take_fifth(value: Vec<i32>) -> Option<i32> {
     if value.len() < 5 {
