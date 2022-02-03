@@ -93,7 +93,7 @@ fn main() {
 }
 ```
 
-### Result
+### Result : [mithradates, "Easy Rust Korean"](https://www.youtube.com/playlist?list=PLfllocyHVgsSJf1zO6k6o3SX2mbZjAqYE)
 ```rust
 fn check_error(input: i32) -> Result<(), ()> {
     if input % 2 == 0 {
@@ -133,5 +133,62 @@ fn main() {
     }
 
     println!("{:#?}", result_vec);
+}
+```
+
+```rust
+fn parse_number(number: &str) -> Result<i32, std::num::ParseIntError> {
+    number.parse()
+}
+
+fn main() {
+    let mut result_vec: Vec<Result<i32, std::num::ParseIntError>> = vec![];
+    result_vec.push(parse_number("8"));
+    result_vec.push(parse_number("one"));
+    result_vec.push(parse_number("7"));
+
+    for number in result_vec {
+        if number.is_ok() {
+            println!("Ok: {:?}", number.unwrap())
+        } else {
+            println!("Err: {:?}", number.unwrap_err().kind())
+        }
+    }
+}
+```
+
+```rust
+fn parse_number(number: &str) -> Result<i32, std::num::ParseIntError> {
+    number.parse()
+}
+
+fn main() {
+    let mut result_vec: Vec<Result<i32, std::num::ParseIntError>> = vec![];
+    result_vec.push(parse_number("8"));
+    result_vec.push(parse_number("one"));
+    result_vec.push(parse_number("7"));
+
+    for index in 0..result_vec.iter().count() {
+        if let Some(number) = result_vec.get(index) {
+            println!("{:?}", number.as_ref().unwrap_or(&0));
+        }
+    }
+}
+```
+
+```rust
+fn main() {
+    let item_vec = vec![
+        vec!["홍길동", "홍길서", "홍길남", "홍길북", "10"],
+        vec!["가나닭", "20", "30"],
+    ];
+
+    for mut item in item_vec {
+        while let Some(info) = item.pop() {
+            if let Ok(number) = info.parse::<i32>() {
+                println!("The number is: {}", number);
+            }
+        }
+    }
 }
 ```
