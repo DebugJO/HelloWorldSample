@@ -21,6 +21,13 @@ set OPENSSL_LIBRARIES=C:\A_Library\OpenSSL64\lib\VC
 ### rust get json from webSite
 * [ust_get_json.rs](https://github.com/DebugJO/HelloWorldSample/blob/master/Rust/rust_get_json.rs)
 
+### rustfmt.toml
+```toml
+max_width = 200
+fn_args_layout = "Compressed"
+use_small_heuristics = "Max"
+```
+
 ### String : &str
 ```rust
 // helper.rs
