@@ -281,3 +281,12 @@ generateHosts = false
 vi /root/.bash_profile #centos
 echo "nameserver 168.126.63.1" > /etc/resolv.conf
 ```
+
+### cloud-init 제거
+```bash
+root 계정으로 로그인
+echo 'datasource_list: [ None ]' | sudo -s tee /etc/cloud/cloud.cfg.d/90_dpkg.cfg 
+sudo apt-get purge cloud-init
+sudo rm -rf /etc/cloud/; sudo rm -rf /var/lib/cloud/
+reboot
+```
