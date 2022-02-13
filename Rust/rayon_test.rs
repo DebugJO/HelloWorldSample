@@ -14,3 +14,16 @@ fn main() {
 // [dependencies]
 // separator = "0.4.1"
 // rayon = "1.5.1"
+// num = "0.4.0"
+
+// use num::BigUint;
+// use rayon::prelude::*;
+// use std::ops::Mul;
+// 
+// fn factorial() -> BigUint {    
+//    (1..=100000u32).into_par_iter().map(BigUint::from).reduce_with(Mul::mul).unwrap()
+// }
+// 
+// fn main() {
+//     println!("{}", factorial());
+// }
