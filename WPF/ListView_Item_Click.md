@@ -1,4 +1,4 @@
-```xmal
+```xaml
 <ListView ItemsSource={Binding MyItems}>
     <ListView.View>
         <GridView>
