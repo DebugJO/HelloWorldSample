@@ -1,4 +1,14 @@
 ```xaml
+<ListBox ...SelectionMode="Single">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="SelectionChanged">
+            <i:InvokeCommandAction Command="{Binding SelectedItemChangedCommand}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+</ListBox>
+```
+
+```xaml
 <ListView ItemsSource={Binding MyItems}>
     <ListView.View>
         <GridView>
