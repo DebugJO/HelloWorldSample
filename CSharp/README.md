@@ -57,6 +57,20 @@ void LoopThroughNumbers(int count, IProgress<int> progress)
 }
 ```
 
+### Stopwatch timer sleep
+
+```cs
+Stopwatch stopwatch = Stopwatch.StartNew();
+while (true)
+{
+    if (stopwatch.ElapsedMilliseconds >= millisecondsToWait)
+    {
+        break;
+    }
+    Thread.Sleep(1); //so processor can rest for a while
+}
+```
+
 
 ### Visual Studio Code 사용법
 ```
