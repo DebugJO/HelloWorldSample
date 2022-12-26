@@ -13,6 +13,8 @@
             <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="8" VerticalAlignment="Center">
                 <Label Content="사용자조회" Height="30" VerticalContentAlignment="Center"/>
                 <TextBox Text="전체" Width="100" Height="30" VerticalContentAlignment="Center"/>
+                <!--<TextBox HorizontalAlignment="Left" Width="278" 
+                         cal:Message.Attach="[Key Enter] = [EnterPressed]; [Gesture Ctrl+Enter] = [CtrlEnterPressed]; [Gesture Alt+Enter] = [AltEnterPressed]"/>-->
                 <Button Content="조회" Width="100" Height="30" Margin="4 0 0 0"
                         cal:Message.Attach="[Event Click] = [Action ButtonSearch($source, $eventArgs)]"/>
             </StackPanel>

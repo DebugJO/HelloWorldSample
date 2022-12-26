@@ -94,12 +94,11 @@ public class FormFirstViewModel : Screen
             btn.Content = "조회 중...";
             btn.IsEnabled = false;
             ClearUserInfo();
+            UserInfoListModel.Clear();
 
             UserInfo user = new() { ID = "", Name = "" };
 
             List<UserInfo> userList = await mUserInfoService.GetUserInfoList(user); // async await , 프로퍼티는 Thread안전.. 직접 View컨트롤 Dispatcher.Invoke
-
-            UserInfoListModel.Clear();
             UserInfoListModel = new(userList);
 
             WindowHelper.InfoMessage("조회완료", "조회결과 :" + userList.Count.ToString());
