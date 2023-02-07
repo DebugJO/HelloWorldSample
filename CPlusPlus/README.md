@@ -35,7 +35,7 @@ int main()
 }
 ```
 
-### CLion 콘솔 환경 설정
+### CLion 콘솔 환경 설정(Windows)
 * 설정에서 콘솔, 파일 인코딩 부분을 모두 UTF-8로 바꾼다
 * Cmakelist.txt 파일을 다음과 같이 설정(추가)
 ```txt
