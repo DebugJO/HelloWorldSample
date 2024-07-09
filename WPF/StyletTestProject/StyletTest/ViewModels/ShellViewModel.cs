@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using Stylet;
+﻿using Stylet;
 using StyletTest.AppConfig;
 using StyletTest.Helpers;
 using StyletTest.Views;
@@ -40,5 +39,6 @@ public class ShellViewModel : Conductor<IScreen>.Collection.OneActive
         await Task.Delay(50);
         LogHelper.Logger.Debug($"22222222222222222 : {IoC.Get<ShellView>().Title} : {sender} : {e}");
         //IoC.Get<ShellView>().Close();
+        WindowHelper.SendMessage("가나닭햏펲");
     }
 }

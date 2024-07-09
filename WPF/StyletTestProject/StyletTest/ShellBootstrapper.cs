@@ -4,6 +4,7 @@ using StyletTest.Helpers;
 using StyletTest.ViewModels;
 using StyletTest.Views;
 using System.Linq;
+using System.Windows;
 using System.Windows.Threading;
 
 namespace StyletTest;
@@ -12,7 +13,7 @@ public class ShellBootstrapper : Bootstrapper<ShellViewModel>
 {
     protected override void OnStart()
     {
-        LogHelper.Logger.Info("***** 프로그램 시작 : 준비 중 .....  *****");
+        LogHelper.Logger.Info("***** 프로그램 시작 : OnStart *****");
     }
 
     protected override void ConfigureIoC(StyletIoC.IStyletIoCBuilder builder)
@@ -44,14 +45,13 @@ public class ShellBootstrapper : Bootstrapper<ShellViewModel>
 
     protected override void OnLaunch()
     {
-        LogHelper.Logger.Info("***** 프로그램 시작(OnLaunch) : OK *****");
+        LogHelper.Logger.Info("***** 프로그램 시작 : OnLaunch *****");
     }
 
-    //protected override void OnExit(ExitEventArgs e)
-    //{
-    //    LogHelper.Logger.Info("===== 프로그램 종료(OnExit) =====");
-    //    Environment.Exit(0);
-    //}
+    protected override void OnExit(ExitEventArgs e)
+    {
+        LogHelper.Logger.Info($"===== 프로그램 종료 : OnExit : {e.ApplicationExitCode} =====");
+    }
 
     protected override void OnUnhandledException(DispatcherUnhandledExceptionEventArgs e)
     {
