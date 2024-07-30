@@ -8,6 +8,12 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Page Update="Views\FirstView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\SecondView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Views\ShellView.xaml">
       <SubType>Designer</SubType>
     </Page>

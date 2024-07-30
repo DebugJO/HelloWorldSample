@@ -11,7 +11,7 @@ using System.Windows.Interop;
 
 namespace StyletTest.AppConfig;
 
-public static class AppStartStop
+public static class AppSettings
 {
     public static async Task Start()
     {
@@ -24,6 +24,11 @@ public static class AppStartStop
             WindowHelper.BringToFront();
             return;
         }
+
+        IoC.Get<ShellView>().Closing += OnClosing;
+        IoC.Get<ShellView>().SourceInitialized += OnSourceInitialized;
+
+        WindowHelper.StartWindowCenter(IoC.Get<ShellView>());
 
         LogHelper.Logger.Info("***** 프로그램 서비스 : Start(1) *****");
         await Task.Delay(50); // 시작작성

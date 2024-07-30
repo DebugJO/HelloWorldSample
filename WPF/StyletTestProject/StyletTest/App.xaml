@@ -2,11 +2,11 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:s="https://github.com/canton7/Stylet"
-             xmlns:styletTest="clr-namespace:StyletTest">
+             xmlns:local="clr-namespace:StyletTest">
     <Application.Resources>
         <s:ApplicationLoader>
             <s:ApplicationLoader.Bootstrapper>
-                <styletTest:ShellBootstrapper/>
+                <local:ShellBootstrapper/>
             </s:ApplicationLoader.Bootstrapper>
         </s:ApplicationLoader>
     </Application.Resources>

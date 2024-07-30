@@ -3,6 +3,7 @@ using StyletTest.ViewModels;
 using System;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using System.Windows;
 
 namespace StyletTest.Helpers;
 
@@ -40,5 +41,14 @@ public static partial class WindowHelper
         IntPtr lParam = Marshal.StringToHGlobalAuto(sendString);
         IntPtr handle = FindWindowW(null, IoC.Get<ShellViewModel>().DisplayName);
         return handle == IntPtr.Zero ? handle : SendMessageW(handle, 0x0400, IntPtr.Zero, lParam);
+    }
+
+    public static void StartWindowCenter(Window window)
+    {
+        Rect workArea = SystemParameters.WorkArea;
+        window.Left = (workArea.Width - window.Width) / 2 + workArea.Left;
+        window.Top = (workArea.Height - window.Height) / 2 + workArea.Top;
+        //window.Left = SystemParameters.PrimaryScreenWidth / 2 - (window.ActualWidth == 0 ? 800 : window.ActualWidth) / 2;
+        //window.Top = SystemParameters.PrimaryScreenHeight / 2 - (window.ActualHeight == 0 ? 450 : window.ActualWidth) / 2;
     }
 }

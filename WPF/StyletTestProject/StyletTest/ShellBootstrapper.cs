@@ -28,19 +28,19 @@ public class ShellBootstrapper : Bootstrapper<ShellViewModel>
 
         GetType().Assembly.GetTypes().Where(type => type.IsClass).Where(type => type.Name.EndsWith("View")).ToList()
             .ForEach(vmType => builder.Bind(vmType).ToSelf().InSingletonScope());
+
+        //builder.Bind<IWindowManager>().To<WindowManager>().InSingletonScope();
     }
 
     protected override void Configure()
     {
-        // OnStart -> ConfigureIoC -> Configure(*) -> OnLaunch
         base.Configure();
         IoC.GetInstance = Container.Get;
         IoC.GetAllInstances = Container.GetAll;
         IoC.BuildUp = Container.BuildUp;
 
-        AppStartStop.Start().AWait(AppStartStop.Completed, AppStartStop.Error);
-        IoC.Get<ShellView>().Closing += AppStartStop.OnClosing;
-        IoC.Get<ShellView>().SourceInitialized += AppStartStop.OnSourceInitialized;
+        IoC.Get<ShellView>().InitializeComponent();
+        AppSettings.Start().AWait(AppSettings.Completed, AppSettings.Error);
     }
 
     protected override void OnLaunch()

@@ -7,8 +7,9 @@
         xmlns:s="https://github.com/canton7/Stylet"
         xmlns:vm="clr-namespace:StyletTest.ViewModels"
         mc:Ignorable="d"
-        d:DataContext="{d:DesignInstance vm:ShellViewModel}"
-        Title="ShellView" Height="450" Width="800">
+        d:DataContext="{d:DesignInstance vm:ShellViewModel}" d:DesignWidth="800" d:DesignHeight="450" 
+        Title="ShellView" FontFamily="Malgun Gothic" FontSize="12" FontWeight="Normal" 
+        Width="800" Height="600" WindowStartupLocation ="Manual" WindowState="Normal">
 
     <b:Interaction.Triggers>
         <b:EventTrigger EventName="Closed">
@@ -16,11 +17,44 @@
         </b:EventTrigger>
     </b:Interaction.Triggers>
 
-    <StackPanel>
-        <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"/>
-        <!-- static Target vm -->
-        <Button Content="테스트버튼" 
-                Click="{s:Action ButtonOnClick, Target={x:Type vm:ShellViewModel}}" 
-                Command="{s:Action SayHello}" CommandParameter="abc"/>
-    </StackPanel>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <DockPanel Grid.Row="0" Grid.Column="0" LastChildFill="True" Background="CadetBlue">
+            <StackPanel DockPanel.Dock="Left" Orientation="Horizontal" Margin="4">
+                <Button Content="테스트1" Width="70" Height="42"
+                        Command="{s:Action ShowMenuFirst}"/>
+                <StackPanel Width="4"/>
+                <Button Content="테스트2" Width="70" Height="42"
+                        Command="{s:Action ShowMenuSecond}"/>
+                <StackPanel Width="4"/>
+                <Button Content="테스트3" Width="70" Height="42"
+                        Click="{s:Action ButtonOnTest)}"/>
+            </StackPanel>
+            <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" Margin="4">
+                <Button Content="종료" Width="42" Height="42"
+                        Click="{s:Action ButtonOnClose}"/>
+            </StackPanel>
+            <StackPanel Margin="4">
+                <Label Content="{Binding Name, UpdateSourceTrigger=PropertyChanged}"/>
+            </StackPanel>
+        </DockPanel>
+        <DockPanel Grid.Row="1" Grid.Column="0">
+            <ContentControl s:View.Model="{Binding ActiveItem}"/>
+        </DockPanel>
+
+        <!--<StackPanel>
+            <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"/>-->
+            <!-- static Target vm --><!--
+            <Button Content="테스트버튼" 
+                    Click="{s:Action ButtonOnClick, Target={x:Type vm:ShellViewModel}}" 
+                    Command="{s:Action SayHello}" CommandParameter="abc"/>
+        </StackPanel>-->
+    </Grid>
 </Window>
