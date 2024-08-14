@@ -1,5 +1,6 @@
 ﻿using Caliburn.Micro;
 using CMTest80.Helpers;
+using CMTest80.ViewModels;
 using CMTest80.Views;
 using System;
 using System.ComponentModel;
@@ -13,6 +14,8 @@ namespace CMTest80;
 
 public static class AppStartup
 {
+    public static event EventHandler<string>? OnReceiveMessage;
+
     public static async Task AppStart()
     {
         Process[] p = Process.GetProcessesByName(Process.GetCurrentProcess().ProcessName.ToUpper());
@@ -30,14 +33,25 @@ public static class AppStartup
 
         LogHelper.Logger.Info("***** 프로그램 : AppStart *****");
         WindowHelper.StartWindowCenter(IoC.Get<ShellView>());
+        WindowHelper.StartWindowFullSize(IoC.Get<ShellView>());
         await Task.Delay(50);
+        // 서비스 시작 ...
     }
 
     public static async Task AppStop()
     {
         try
         {
+            // 서비스 종료 ...
             await Task.Delay(50);
+            //IoC.Get<FormWidgetView>().Close();
+            IoC.Get<ShellViewModel>().Items.Clear();
+            
+            for (int windowsCount = Application.Current.Windows.Count - 1; windowsCount > 0; windowsCount--)
+            {
+                Application.Current.Windows[windowsCount]?.Close();
+            }
+            
             LogHelper.Logger.Info("***** 프로그램 : AppStop *****");
             LogHelper.ShutdownLogManager();
             Environment.Exit(0);
@@ -100,5 +114,6 @@ public static class AppStartup
     private static void ReceiveMessage(string receiveString)
     {
         LogHelper.Logger.Debug($"ReceiveMessage : WM_USER : {receiveString}");
+        OnReceiveMessage?.Invoke(IoC.Get<ShellView>(), receiveString);
     }
 }

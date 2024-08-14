@@ -4,10 +4,12 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
+        xmlns:cal="http://www.caliburnproject.org"
         xmlns:vm="clr-namespace:CMTest80.ViewModels"
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance vm:ShellViewModel}" d:DesignWidth="800" d:DesignHeight="450" 
-        Title="CMTest80_Title" Width="800" Height="450" WindowStartupLocation ="Manual" WindowState="Normal">
+        Title="CMTest80_Title" WindowStartupLocation ="Manual" WindowState="Normal"
+        Width="800" Height="450" FontFamily="Malgun Gothic" FontSize="12" FontWeight="Normal">
 
     <b:Interaction.Triggers>
         <b:EventTrigger EventName="Closed">
@@ -17,7 +19,14 @@
 
     <Grid>
         <StackPanel Orientation="Vertical">
-            <TextBox Width="500" Height="30" Text="{Binding Test}" VerticalContentAlignment="Center"/>
+            <TextBox Width="500" Height="30" VerticalContentAlignment="Center"
+                     Text="{Binding Test, UpdateSourceTrigger=PropertyChanged}" />
+            <StackPanel Height="8"/>
+            <Button Width="100" Height="30" Content="Test"
+                    cal:Message.Attach="[Event Click] = [Action ButtonOnTest($source, $eventArgs)]"/>
+            <StackPanel Height="8"/>
+            <Button Width="100" Height="30" Content="Close"
+                    cal:Message.Attach="[Event Click] = [Action ButtonOnWindowClose($source, $eventArgs)]"/>
         </StackPanel>
     </Grid>
 </Window>
