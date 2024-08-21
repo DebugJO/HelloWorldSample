@@ -1,5 +1,6 @@
 ﻿using Caliburn.Micro;
 using CMTest80.Helpers;
+using CMTest80.Helpers.AutoHelper;
 using CMTest80.Views;
 using System;
 using System.Threading.Tasks;
@@ -38,27 +39,27 @@ public class ShellViewModel : Conductor<IScreen>.Collection.OneActive
         }
     }
 
-    public async Task ButtonOnTest(object sender, RoutedEventArgs e)
+    public static async void ButtonOnTest(object sender, RoutedEventArgs e)
     {
-        if (sender is not Button btn)
-        {
-            return;
-        }
-
         try
         {
-            btn.IsEnabled = false;
-            await Task.Delay(50);
-            WindowHelper.SendMessage("헬로우월드");
+            //using AutoButton btn = new(sender);
+            //await Task.Delay(50);
+
+            await using AutoButtonAsync btn = new(sender, Action);
+
+            //WindowHelper.SendMessage("헬로우월드");
         }
         catch (Exception ex)
         {
             LogHelper.Logger.Error($"ButtonOnTest ERROR : {ex.Message}");
         }
-        finally
-        {
-            btn.IsEnabled = true;
-        }
+    }
+
+    private static async void Action()
+    {
+        await Task.Delay(50);
+        WindowHelper.SendMessage("헬로우월드");
     }
 
     public async Task ButtonOnWindowClose(object sender, RoutedEventArgs e)
