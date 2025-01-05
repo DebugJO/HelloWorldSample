@@ -1,3 +1,71 @@
+### 기본 소스 헤어 분리 예제
+
+```cpp
+// main.cpp
+#include "helloworld.h"
+
+using namespace std;
+
+int main()
+{
+    HelloWorld hello;
+    string name = "가나닭";
+    hello.SetName(name);
+    hello.GetName();
+}
+
+// header : helloworld.h
+#ifndef HELLOWORLD_H
+#define HELLOWORLD_H
+
+#include <string>
+
+using namespace std;
+
+class HelloWorld
+{
+  public:
+    HelloWorld();
+    ~HelloWorld();
+
+    void SetName(const string name);
+    void GetName() const;
+
+  private:
+    string name;
+};
+
+#endif // HELLOWORLD_H
+
+// source(cpp) : helloworld.cpp
+#include "helloworld.h"
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+HelloWorld::HelloWorld()
+{
+    cout << "Hello World!" << endl;
+}
+
+HelloWorld::~HelloWorld()
+{
+    cout << "Goodbye..." << endl;
+}
+
+void HelloWorld::SetName(const string name)
+{
+    this->name = name;
+}
+
+void HelloWorld::GetName() const
+{
+    cout << "Hello World! : " + this->name << endl;
+}
+
+``
+
 ### char(기본자료형), string(클래스) 비교
 
 ```cpp
