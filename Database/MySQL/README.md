@@ -14,6 +14,19 @@ select lastval(seqTest)
 alter sequence seqTest restart 100000
 ```
 
+```sql
+create function GetSEQ()
+returns varchar(20)
+begin
+  declare seq varchar(20);
+  select concat(date_format(sysdate(), '%Y%m%d%H%i%s'), nextval(seqTest)) into seq;
+  return seq;
+end;
+
+-- 활용
+select GetSEQ(); //yyyyMMddHHmmssXXXXXX
+```
+
 ## MariaDB, Mysql : my.cnf
 
 8Core 16Thread 32Gbyte my.cnf 설정 : https://dreamsea77.tistory.com/319
