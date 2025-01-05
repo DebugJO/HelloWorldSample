@@ -1,5 +1,12 @@
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_AddInOutVehicle`(IN pVehicleNumber VARCHAR(20), IN pLprID VARCHAR(10), IN pInOutDateTime VARCHAR(20), IN pVehicleType VARCHAR(10), OUT oErrorCode VARCHAR(255), OUT oErrorMessage VARCHAR(255), OUT oResult INT)
-    COMMENT '차리스트입력'
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_AddInOutVehicle`(
+    IN pVehicleNumber VARCHAR(20), 
+    IN pLprID VARCHAR(10), 
+    IN pInOutDateTime VARCHAR(20), 
+    IN pVehicleType VARCHAR(10), 
+    OUT oErrorCode VARCHAR(255), 
+    OUT oErrorMessage VARCHAR(255), 
+    OUT oResult INT)
+    COMMENT '입출차리스트입력'
 begin 
   declare seq varchar(17);
   declare image varchar(100);
