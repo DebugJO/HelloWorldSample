@@ -64,7 +64,7 @@ void HelloWorld::GetName() const
     cout << "Hello World! : " + this->name << endl;
 }
 
-``
+```
 
 ### char(기본자료형), string(클래스) 비교
 
