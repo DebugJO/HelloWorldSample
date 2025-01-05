@@ -1,3 +1,19 @@
+### MariaDB Sequence
+
+```sql
+create sequence seqTest
+increment by 1
+start with 100000
+minvalue 100000
+maxvalue 999999
+cycle
+-- cache
+
+select nextval(seqTest)
+select lastval(seqTest)
+alter sequence seqTest restart 100000
+```
+
 ## MariaDB, Mysql : my.cnf
 
 8Core 16Thread 32Gbyte my.cnf 설정 : https://dreamsea77.tistory.com/319
