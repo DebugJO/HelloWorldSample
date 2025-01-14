@@ -71,6 +71,75 @@ while (true)
 }
 ```
 
+### DynamicData Example(Github Copilot)
+
+```sh
+Install-Package DynamicData
+```
+
+```cs
+using System;
+using System.Reactive.Linq;
+using DynamicData;
+using DynamicData.Binding;
+using System.Collections.ObjectModel;
+using System.Windows;
+
+namespace YourNamespace
+{
+    public partial class MainWindow : Window
+    {
+        // Define a SourceCache to store the data
+        private readonly SourceCache<MyData, int> _sourceCache;
+
+        public ReadOnlyObservableCollection<MyData> MyCollection { get; }
+
+        public MainWindow()
+        {
+            InitializeComponent();
+
+            _sourceCache = new SourceCache<MyData, int>(data => data.Id);
+
+            // Bind the SourceCache to the ObservableCollection
+            _sourceCache.Connect()
+                .Bind(out ReadOnlyObservableCollection<MyData> myCollection)
+                .Subscribe();
+
+            MyCollection = myCollection;
+
+            // ListView에 데이터 바인딩
+            listView.ItemsSource = MyCollection;
+
+            // 데이터를 일괄 추가
+            AddData();
+        }
+
+        private void AddData()
+        {
+            var dataList = new List<MyData>();
+
+            for (int i = 0; i < 10000; i++)
+            {
+                dataList.Add(new MyData { Id = i, Name = "Item " + i });
+            }
+
+            _sourceCache.AddOrUpdate(dataList);
+        }
+    }
+
+    // 샘플 데이터 클래스
+    public class MyData
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+    }
+}
+```
+
+1. SourceCache 정의: SourceCache<MyData, int>를 정의하여 데이터를 저장합니다. SourceCache는 인덱싱 기능을 제공하므로, 키로 사용할 데이터를 지정해야 합니다. 여기서는 Id를 키로 사용합니다.
+2. SourceCache와 ObservableCollection 바인딩: _sourceCache.Connect().Bind(out ReadOnlyObservableCollection<MyData> myCollection).Subscribe();를 사용하여 SourceCache를 ReadOnlyObservableCollection에 바인딩합니다. 이렇게 하면 SourceCache의 변경 사항이 ReadOnlyObservableCollection에 자동으로 반영됩니다.
+3. ListView에 데이터 바인딩: listView.ItemsSource = MyCollection;를 사용하여 ListView의 ItemsSource를 ReadOnlyObservableCollection에 바인딩합니다.
+4. 데이터 일괄 추가: AddData 메서드에서 SourceCache에 데이터를 일괄 추가합니다. _sourceCache.AddOrUpdate(dataList);를 사용하여 데이터를 한 번에 추가합니다.
 
 ### Visual Studio Code 사용법
 ```
