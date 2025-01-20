@@ -75,3 +75,45 @@ builder.Services.AddTransient<Page1>();
 builder.Services.AddTransient<Page2>();
 // ...
 ```
+
+###### 참고
+
+```xml
+<Shell
+    x:Class="MyMauiApp.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:MyMauiApp"
+    xmlns:viewmodels="clr-namespace:MyMauiApp.ViewModels"
+    x:DataType="viewmodels:AppShellViewModel">
+
+    <ShellContent Content="{Binding CurrentPage}" />
+
+</Shell>
+```
+
+```cs
+// AppShellViewModel.cs
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+
+public partial class AppShellViewModel : ObservableObject
+{
+    [ObservableProperty]
+    private ContentPage _currentPage;
+
+    public IRelayCommand<Type> ChangePageCommand { get; }
+
+    public AppShellViewModel()
+    {
+        // 초기 페이지 설정
+        CurrentPage = new MainPage();
+        ChangePageCommand = new RelayCommand<Type>(ChangePage);
+    }
+
+    private void ChangePage(Type pageType)
+    {
+        CurrentPage = (ContentPage)Activator.CreateInstance(pageType);
+    }
+}
+```
