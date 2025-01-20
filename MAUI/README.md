@@ -1,5 +1,7 @@
 ### MAUI 기본 구조
 
+Reference : Gemini 2.0
+
 ```cs
 builder.Services.AddSingleton<MyViewModel>();
 builder.Services.AddTransient<MyPage>();
