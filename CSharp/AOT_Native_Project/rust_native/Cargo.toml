@@ -1,0 +1,16 @@
+[package]
+name = "rust_native"
+version = "0.1.0"
+edition = "2024"
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+obfstr = "0.4.4"
+
+[profile.release]
+opt-level = "z"   # 크기 최적화 (s 또는 z)
+lto = true        # 전체 프로그램 최적화
+codegen-units = 1 # 최적화 품질 향상
+panic = "abort"   # 예외 발생 시 즉시 종료 (FFI 안전성)

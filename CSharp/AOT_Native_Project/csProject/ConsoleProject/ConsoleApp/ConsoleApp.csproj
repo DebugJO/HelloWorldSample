@@ -1,0 +1,83 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>net10.0</TargetFramework>
+        <PublishSingleFile>true</PublishSingleFile>
+        <SelfContained>true</SelfContained>
+        <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+        <ImplicitUsings>disable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+        <ApplicationIcon>main.ico</ApplicationIcon>
+        <Version>1.0.0</Version>
+        <Copyright>Copyright © 2026 devsight.kr</Copyright>
+        <!-- 복사 충돌 시 -->
+        <!-- <ErrorOnDuplicatePublishOutputFiles>false</ErrorOnDuplicatePublishOutputFiles> -->
+    </PropertyGroup>
+
+    <!-- managed 라이브러리 PublishSingleFile 빌드할 때 EXE에 포함하지 않음 -->
+    <ItemGroup>
+        <ProjectReference Include="..\ConsoleAppLib\ConsoleAppLib.csproj">
+            <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+        </ProjectReference>
+    </ItemGroup>
+
+    <!-- AOT 라이브러리 빌드 -->
+    <ItemGroup>
+        <ProjectReference Include="..\ConsoleAppNative\ConsoleAppNative.csproj" ReferenceOutputAssembly="false">
+            <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+        </ProjectReference>
+    </ItemGroup>
+
+    <PropertyGroup>
+        <AotDllSourcePath>..\ConsoleAppNative\bin\$(Configuration)\$(TargetFramework)\win-x64\publish\ConsoleAppNative.dll</AotDllSourcePath>
+    </PropertyGroup>
+
+    <Target Name="PublishNativeAotLibrary" BeforeTargets="BeforeBuild;ComputeFilesToPublish">
+        <Message Importance="High" Text="[AOT 빌드 시작] ConsoleAppNative 프로젝트를 네이티브 DLL로 게시(Publish) 중..."/>
+        <Exec Command="dotnet publish &quot;..\ConsoleAppNative\ConsoleAppNative.csproj&quot; -c $(Configuration) -r win-x64"
+              StdOutEncoding="utf-8" StdErrEncoding="utf-8"/>
+    </Target>
+
+    <Target Name="CopyAotDllForBuild" AfterTargets="PublishNativeAotLibrary" Condition="'$(PublishProtocol)' == ''">
+        <Message Importance="High" Text="[빌드 모드] 생성된 네이티브 DLL을 출력 폴더로 복사합니다."/>
+        <Copy SourceFiles="$(AotDllSourcePath)" DestinationFolder="$(OutDir)" SkipUnchangedFiles="true"/>
+    </Target>
+
+    <Target Name="ExcludeAotDllFromSingleFile" AfterTargets="PublishNativeAotLibrary" BeforeTargets="ComputeFilesToPublish">
+        <Message Importance="High" Text="[배포 모드] 네이티브 DLL을 단일 파일에서 제외하고 외부 배포 목록에 추가합니다."/>
+        <ItemGroup>
+            <ResolvedFileToPublish Include="$(AotDllSourcePath)">
+                <RelativePath>ConsoleAppNative.dll</RelativePath>
+                <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+                <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+            </ResolvedFileToPublish>
+        </ItemGroup>
+    </Target>
+
+    <ItemGroup>
+        <None Remove="main.ico"/>
+        <Resource Include="main.ico"/>
+    </ItemGroup>
+
+    <!-- 메인(ConsoleApp)프로젝트에 이미 포함되어 있을 때 -->
+    <ItemGroup>
+         <None Update="CppNative.dll">
+             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+             <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+         </None>
+        <None Update="rust_native.dll">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+            <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+        </None>
+        <None Update="zig_native.dll">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+            <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+        </None>
+         <!--
+         <None Update="Database\test.db">
+             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+         </None>
+         -->
+     </ItemGroup>
+</Project>
