@@ -168,7 +168,36 @@ SSL reset
 dotnet dev-certs https --clean
 dotnet dev-certs https --trust
 
+1.루트 폴더 생성 및 이동
+mkdir MySolution
+cd MySolution
+
+2.솔루션 파일 생성 (현재 폴더 이름으로 생성됨)
+dotnet new sln
+
+3.프로젝트(앱) 생성
+dotnet new console -o MyApp
+
+4.클래스 라이브러리(Library) 생성
+dotnet new classlib -o MyLibrary
+
+5.솔루션에 프로젝트 추가
+dotnet sln add MyApp/MyApp.csproj
+dotnet sln add MyLibrary/MyLibrary.csproj
+
+6.앱 프로젝트 폴더로 이동 후 라이브러리 참조 추가
+cd MyApp
+dotnet add reference ../MyLibrary/MyLibrary.csproj
+
+7.전체 솔루션 빌드
+dotnet build
+콘솔 앱 실행
+dotnet run --project MyApp/MyApp.csproj
+또는 프로젝트 폴더에서 dotnet build / run
+
 싱글 파일 배포
-dotnet publish -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true -p:IncludeAllContentForSelfExtract=true
+dotnet publish -c Release -r win-x6
+dotnet publish -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true
 * win-x64, win-x86, linux-x64, linux-arm, linux-arm64, osx-x64
+dotnet publish -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true -p:IncludeAllContentForSelfExtract=true
 ```
