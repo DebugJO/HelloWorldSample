@@ -115,7 +115,7 @@ private async Task<string> GetDelayedTextAsync()
 |**데이터 예시**|`#FF0000`, `24px`, 이미지|"모든 버튼의 배경을 빨갛게"|
 |**파일 위치**|주로 `.axaml`의 `<Resources>`|주로 `.axaml`의 `<Styles>`|
 
-##### ResourceDictionary (리소스 사전) 📦
+1. **ResourceDictionary (리소스 사전)**
 
 디자인에서 반복적으로 사용되는 **값**이나 **객체**를 저장하는 곳
 
@@ -134,7 +134,7 @@ private async Task<string> GetDelayedTextAsync()
 - **공통 여백**(Margin/Padding) 수치를 정의할 때
 - **FontFamily**나 고정된 텍스트 리소스를 관리할 때
 
-##### Styles (스타일) 🎨
+2. **Styles (스타일)**
 
 컨트롤이 어떻게 보여야 하는지 정의하는 **규칙의 집합**,  웹의 **CSS**와 매우 유사
 
