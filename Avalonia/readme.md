@@ -104,3 +104,53 @@ private async Task<string> GetDelayedTextAsync()
 |**토글 (Toggle)**|`CheckBox`, `Switch`|**IsCheckedChanged**|체크/언체크 상태가 변할 때|
 |**범위 (Range)**|`Slider`, `Progress`|**ValueChanged**|수치가 변경될 때 (볼륨, 진행률 제어)|
 |**스크롤 (Scroll)**|`ScrollViewer`|**ScrollChanged**|스크롤 위치 변경 (무한 스크롤, 헤더 고정)|
+
+### ResourceDictionary와 Styles 차이
+
+|구분|ResourceDictionary|Styles|
+|---|---|---|
+|**핵심 목적**|개별 데이터/객체 공유|컨트롤 외형 및 상태 변화 정의|
+|**참조 방식**|`x:Key`를 이용한 직접 참조|`Selector`를 통한 규칙 적용|
+|**구조**|순서 없는 Dictionary|순서가 있는 리스트 (CSS 방식)|
+|**데이터 예시**|`#FF0000`, `24px`, 이미지|"모든 버튼의 배경을 빨갛게"|
+|**파일 위치**|주로 `.axaml`의 `<Resources>`|주로 `.axaml`의 `<Styles>`|
+
+##### ResourceDictionary (리소스 사전) 📦
+
+디자인에서 반복적으로 사용되는 **값**이나 **객체**를 저장하는 곳
+
+- **저장 내용**: `Color`, `SolidColorBrush`, `Thickness` (여백), `StaticResource`로 참조할 수 있는 모든 데이터
+- **특징**:
+    - **Key-Value** 구조로, 고유한 이름(`x:Key`)을 통해 데이터를 찾는다
+    - 중복되는 색상 값이나 폰트 크기 등을 한곳에서 관리하여 유지보수를 쉽게한다
+
+    ```xml
+    <ResourceDictionary>
+        <Color x:Key="BrandBlue">#007ACC</Color>
+        <SolidColorBrush x:Key="PrimaryBrush" Color="{StaticResource BrandBlue}"/>
+    </ResourceDictionary>
+    ```
+- 앱 전체에서 동일하게 쓰일 **색상 팔레트**를 정의할 때
+- **공통 여백**(Margin/Padding) 수치를 정의할 때
+- **FontFamily**나 고정된 텍스트 리소스를 관리할 때
+
+##### Styles (스타일) 🎨
+
+컨트롤이 어떻게 보여야 하는지 정의하는 **규칙의 집합**,  웹의 **CSS**와 매우 유사
+
+- **저장 내용**: `Selector`(대응되는 대상)와 `Setter`(속성 값 설정)로 구성
+- **특징**:
+    - **순서가 중요**합니다. 나중에 정의된 스타일이 이전 스타일을 덮어쓸 수 있다.
+    - `Selector`를 사용해 "모든 버튼" 또는 "Blue 클래스를 가진 텍스트"처럼 특정 대상을 지정한다.
+    - **Pseudo-classes**(의사 클래스)를 지원하여 마우스 오버(`:pointerover`), 클릭(`:pressed`) 시의 변화를 정의할 수 있다.
+
+    ```xml
+    <Style Selector="Button.Modern">
+        <Setter Property="Background" Value="{DynamicResource PrimaryBrush}"/>
+        <Setter Property="Foreground" Value="White"/>
+    </Style>
+    ```
+
+- 우리 앱만의 **커스텀 버튼 모양**을 만들 때
+- 마우스를 올렸을 때 색상이 변하는 **애니메이션/효과**를 줄 때
+- 컨트롤의 특정 **상태**(Error, Disabled 등)에 따른 디자인을 정의할 때
