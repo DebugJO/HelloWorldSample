@@ -2,4 +2,6 @@
 
 Hello World Template, Example by programming language
 
-* Rust ∙ C# ∙ C++ ∙ Delphi ∙ Database
+* C# ∙ Rust ∙ Zig ∙ C++ ∙ Go
+* Oracle ∙ SQL Server ∙ MariaDB ∙ PostgreSQL ∙ Firebird
+* Desktop : Avalonia, WPF, Qt
