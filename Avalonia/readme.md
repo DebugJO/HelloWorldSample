@@ -12,3 +12,67 @@
 |**리스트 선택값**|`{Binding $parent[ListBox].SelectedItem}`|리스트박스에서 현재 선택된 행의 데이터|
 |**현재 행 데이터**|`{Binding}`|리스트 아이템 자기 자신의 데이터 (객체)|
 
+### Avalonia Command
+
+```xml
+<Interaction.Behaviors>
+    <EventTriggerBehavior EventName="Loaded">
+        <InvokeCommandAction Command="{Binding AppStartCommand}" />
+    </EventTriggerBehavior>
+
+    <EventTriggerBehavior EventName="Closing">
+        <InvokeCommandAction Command="{Binding AppClosingCommand}"
+                             PassEventArgsToCommand="True" />
+    </EventTriggerBehavior>
+</Interaction.Behaviors>
+
+<Interaction.Behaviors>
+    <EventTriggerBehavior EventName="PointerPressed">
+        <InvokeCommandAction Command="{Binding TitleBarActionCommand}"
+                             PassEventArgsToCommand="True" />
+    </EventTriggerBehavior>
+</Interaction.Behaviors>
+
+<Button Content="테마 테스트"
+        Command="{Binding ThemeChangeCommand}"
+        CommandParameter="{Binding $self}"
+        IsEnabled="{Binding !ThemeChangeCommand.IsRunning}" />
+
+<Button Classes="HasIcon CaptionButton"
+        ex:AttachedButton.Icon="ChromeMinimize" ex:AttachedButton.IconSize="12"
+        Command="{Binding MinimizeWindowCommand}"
+        CommandParameter="{Binding $parent[Window]}" />
+```
+
+```text
+이름으로 찾기 : {Binding #ControlName}
+부모 윈도우/타입으로 찾기 : {Binding $parent[Window]}
+버튼 자신 : {Binding $self} 
+부모 데이터 : {Binding $parent[ListBox].DataContext}"
+태그나 네임 : {Binding $parent[StackPanel].Tag}"
+최상위 루트 : {Binding $root}
+부모 단계 : {Binding $parent[Grid]} -> {Binding $parent[Grid, 1]} -> {Binding $parent[Grid, 2]}
+자식/다른요소 이름 기반 : {Binding #UserNameInput.Text}"
+아이템 소스에서 Selected Item 
+    Command="{Binding $parent[ListBox].DataContext.ProcessCommand}"
+    CommandParameter="{Binding $parent[ListBox].SelectedItem}" 
+	또는
+    Command="{Binding $parent[ListBox].DataContext.DeleteCommand}"
+    CommandParameter="{Binding}"
+	
+=============================================================================	
+
+<StackPanel>
+    //3초 뒤에 자동으로 텍스트가 바뀝니다
+    <TextBlock Text="{Binding DelayedText^}" FontSize="20" />
+    // 로딩 중 표시 (FallbackValue 활용)
+    <TextBlock Text="{Binding DelayedText^, FallbackValue='로딩 중...'}" />
+</StackPanel>
+
+public Task<string> DelayedText => GetDelayedTextAsync();
+private async Task<string> GetDelayedTextAsync()
+{
+    await Task.Delay(3000); // 3초 대기
+    return "비동기 데이터 로드 완료!";
+}
+```
