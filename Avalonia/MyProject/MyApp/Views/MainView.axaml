@@ -6,8 +6,8 @@
         xmlns:iconPacks="https://github.com/MahApps/IconPacks.Avalonia"
         xmlns:ex="clr-namespace:MyApp.WindowHelper.ThemeHelper"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-        x:Class="MyApp.Views.MainWindow"
-        x:DataType="vm:MainWindowViewModel"
+        x:Class="MyApp.Views.MainView"
+        x:DataType="vm:MainViewModel"
         Title="MyApp"
         UseLayoutRounding="True"
         ExtendClientAreaToDecorationsHint="True"
@@ -30,7 +30,7 @@
     </Interaction.Behaviors>
 
     <Design.DataContext>
-        <vm:MainWindowViewModel />
+        <vm:MainViewModel />
     </Design.DataContext>
 
     <Window.Styles>
@@ -145,6 +145,7 @@
                     ex:ButtonBusy.BusyText="동작중..."
                     ex:AttachedButton.Icon="Github" Classes="HasIcon"
                     ex:ButtonBusy.IsBusy="{Binding ThemeChangeCommand.IsRunning}" />
+            <ContentControl Content="{Binding CurrentPage}" />
         </DockPanel>
         <!-- 하단 메시지 영역 -->
         <DockPanel Grid.Row="2" Background="Transparent" VerticalAlignment="Center">
@@ -156,9 +157,9 @@
                 <StackPanel Orientation="Horizontal">
                     <iconPacks:PackIconCodicons Kind="Comment" VerticalAlignment="Center" Width="12" Height="12"
                                                 Margin="8 0 4 0" FontWeight="Bold"
-                                                Foreground="{DynamicResource AccentBrush}"/>
+                                                Foreground="{DynamicResource AccentBrush}" />
                     <TextBlock Text="메시지ㆍ" FontWeight="Bold" VerticalAlignment="Center"
-                               Foreground="{DynamicResource AccentBrush}"/>
+                               Foreground="{DynamicResource AccentBrush}" />
                     <TextBlock Text="{Binding StatusMessage, 
                                 Converter={StaticResource RemoveLineBreakConverter}}"
                                TextWrapping="NoWrap" TextTrimming="CharacterEllipsis" VerticalAlignment="Center" />

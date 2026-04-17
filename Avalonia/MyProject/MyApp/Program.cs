@@ -42,7 +42,7 @@ internal sealed partial class Program
 
         try
         {
-            LogHelper.Debug("Desktop : Start(1) ...");
+            LogHelper.Debug("Desktop : Start(1/3) ...");
             BuildAvaloniaApp().StartWithClassicDesktopLifetime(args);
         }
         catch (Exception ex)
@@ -102,7 +102,7 @@ internal sealed partial class Program
             }
 
             Logger.Sink = new CustomLogSink(LogEventLevel.Warning, "MY_APP");
-            LogHelper.Debug("Desktop : Start(2) ...");
+            LogHelper.Debug("Desktop : Start(2/3) ...");
         });
 }
 
@@ -177,3 +177,28 @@ internal sealed partial class Program
 //     }
 // }
 //
+
+// [Window, MacOS, Linux(Desktop/DRM)]
+//
+// App.axml.cs
+// MainWindowViewModel vm = new();
+//
+// MainWindow mainWindow = new()
+// {
+//     DataContext = vm
+// };
+//
+// switch (ApplicationLifetime)
+// {
+//     case IClassicDesktopStyleApplicationLifetime desktop:
+//         DisableAvaloniaDataAnnotationValidation();
+//         desktop.MainWindow = mainWindow;
+//         break;
+//     case ISingleViewApplicationLifetime singleView:
+//     {
+//         Control? content = mainWindow.Content as Control;
+//         mainWindow.Content = null;
+//         singleView.MainView = content;
+//         break;
+//     }
+// }

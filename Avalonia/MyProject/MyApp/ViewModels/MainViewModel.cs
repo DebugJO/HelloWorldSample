@@ -17,19 +17,38 @@ using System.Threading.Tasks;
 
 namespace MyApp.ViewModels;
 
-public partial class MainWindowViewModel : ViewModelBase
+public partial class MainViewModel : ViewModelBase
 {
-    private bool _isInitialized;
+    private bool _isStarted;
     private bool _isForceClose;
     private bool _isBusy;
 
     [ObservableProperty]
+    public partial object CurrentPage { get; set; }
+
+    [ObservableProperty]
     public partial string StatusMessage { get; set; } = string.Empty;
+
+    // public MainViewModel()
+    // {
+    //     에러... 순환참조
+    //     LogHelper.Debug($"xxxxxxxxxxxxxx : {DI.Get<MainViewModel>()}");
+    // }
+
+    // public void ClickMenu1() => CurrentPage = IoC.Get<Server1ViewModel>();
+    // public void ClickMenu2() => CurrentPage = IoC.Get<Server2ViewModel>();
+    // public void ClickMenu3() => CurrentPage = IoC.Get<Server3ViewModel>();
+    //
+    // StackPanel>
+    // <Button Content="서버 1" Command="{Binding ClickMenu1}" />
+    // <Button Content="서버 2" Command="{Binding ClickMenu2}" />
+    // <Button Content="서버 3" Command="{Binding ClickMenu3}" />
+    // </StackPanel>
 
     [RelayCommand(AllowConcurrentExecutions = false)]
     public async Task AppStartAsync()
     {
-        if (_isInitialized)
+        if (_isStarted)
         {
             return;
         }
@@ -45,7 +64,7 @@ public partial class MainWindowViewModel : ViewModelBase
         }
         finally
         {
-            _isInitialized = true;
+            _isStarted = true;
         }
     }
 
@@ -204,7 +223,7 @@ public partial class MainWindowViewModel : ViewModelBase
         }
 
         MsgBoxResult result = await MessageBox.ShowAsync(
-            "정말 종료하시겠습니까?",
+            "정말 종료하시겠습니까?\n확인?",
             "종료 확인",
             MsgBoxButtons.YesNo,
             MsgBoxIcon.Question);
