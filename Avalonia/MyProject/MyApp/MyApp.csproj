@@ -13,7 +13,7 @@
         <Copyright>Copyright © 2026 devsight.kr</Copyright>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     </PropertyGroup>
-
+    
     <ItemGroup>
         <AvaloniaResource Include="Assets\**"/>
     </ItemGroup>

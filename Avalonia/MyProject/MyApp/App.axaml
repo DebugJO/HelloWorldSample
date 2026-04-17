@@ -63,6 +63,8 @@
                     <SolidColorBrush x:Key="SystemControlHighlightListLowBrush" Color="#EAEAEA" />
                     <Thickness x:Key="TextControlBorderThemeThickness">1</Thickness>
                     <Thickness x:Key="TextControlBorderThemeThicknessFocused">1</Thickness>
+                    <SolidColorBrush x:Key="TextControlBorderBrush">#DCDCDC</SolidColorBrush>
+                    <SolidColorBrush x:Key="TextControlBorderBrushPointerOver">#B8B8B8</SolidColorBrush>
                     <SolidColorBrush x:Key="ButtonBackground">#E2E2E2</SolidColorBrush>
                     <SolidColorBrush x:Key="ButtonBackgroundPointerOver">#D5D5D5</SolidColorBrush>
                     <SolidColorBrush x:Key="ButtonBackgroundPressed">#D1D1D1</SolidColorBrush>

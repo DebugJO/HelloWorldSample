@@ -2,6 +2,7 @@
 using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Interactivity;
+using Avalonia.Platform;
 using IconPacks.Avalonia.Codicons;
 using System;
 using System.Linq;
@@ -11,6 +12,72 @@ namespace MyApp.WindowHelper.ThemeHelper;
 
 public class AttachedHelper
 {
+}
+
+public static class WindowCenter
+{
+    public static readonly AttachedProperty<bool> CenterOnPrimaryProperty =
+        AvaloniaProperty.RegisterAttached<Window, bool>(
+            "CenterOnPrimary",
+            typeof(WindowCenter),
+            defaultValue: false);
+
+    public static void SetCenterOnPrimary(Window element, bool value) =>
+        element.SetValue(CenterOnPrimaryProperty, value);
+
+    public static bool GetCenterOnPrimary(Window element) =>
+        element.GetValue(CenterOnPrimaryProperty);
+
+    static WindowCenter()
+    {
+        CenterOnPrimaryProperty.Changed.AddClassHandler<Window, bool>((window, args) =>
+        {
+            bool newValue = args.GetNewValue<bool>();
+
+            if (newValue)
+            {
+                if (window.IsVisible)
+                {
+                    CenterWindow(window);
+                }
+                else
+                {
+                    window.Opened += OnWindowOpened;
+                }
+            }
+            else
+            {
+                window.Opened -= OnWindowOpened;
+            }
+        });
+    }
+
+    private static void OnWindowOpened(object? sender, EventArgs e)
+    {
+        if (sender is not Window window)
+        {
+            return;
+        }
+
+        window.Opened -= OnWindowOpened;
+        CenterWindow(window);
+    }
+
+    private static void CenterWindow(Window window)
+    {
+        Screen? screen = window.Screens.Primary;
+
+        if (screen == null)
+        {
+            return;
+        }
+
+        PixelRect workingArea = screen.WorkingArea;
+        (double sizeWidth, double sizeHeight) = window.FrameSize ?? window.ClientSize;
+        int x = workingArea.X + (workingArea.Width - (int)sizeWidth) / 2;
+        int y = workingArea.Y + (workingArea.Height - (int)sizeHeight) / 2;
+        window.Position = new PixelPoint(x, y);
+    }
 }
 
 public static class ButtonBusy
@@ -47,6 +114,13 @@ public static class ButtonBusy
             }
         });
     }
+
+    public static readonly AttachedProperty<bool> IsBusyProperty =
+        AvaloniaProperty.RegisterAttached<Button, bool>("IsBusy", typeof(ButtonBusy), defaultValue: false);
+
+    public static void SetIsBusy(Button element, bool value) => element.SetValue(IsBusyProperty, value);
+
+    public static bool GetIsBusy(Button element) => element.GetValue(IsBusyProperty);
 }
 
 public static class AttachedButton

@@ -4,10 +4,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:iconPacks="https://github.com/MahApps/IconPacks.Avalonia"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-        x:Class="MyApp.Controls.CustomMessageBox"
+        x:Class="MyApp.Controls.MessageBox"
         SizeToContent="WidthAndHeight"
         CanResize="False"
         WindowStartupLocation="CenterOwner"
+        ShowInTaskbar="False"
         SystemDecorations="None"
         UseLayoutRounding="True"
         ExtendClientAreaToDecorationsHint="True"
@@ -22,7 +23,8 @@
             ClipToBounds="True"
             BoxShadow="0 8 20 0 #30000000">
         <StackPanel Spacing="10" MinWidth="320" MaxWidth="320">
-            <TextBlock Name="CaptionText" FontSize="14" FontWeight="SemiBold" />
+            <TextBlock Name="CaptionText" FontSize="14" FontWeight="SemiBold"
+                       Foreground="{DynamicResource PrimaryBrush}"/>
             <Grid ColumnDefinitions="Auto, *">
                 <iconPacks:PackIconCodicons Name="MsgIcon" Width="32" Height="32" Margin="0,0,15,0" 
                                             VerticalAlignment="Top" Grid.Column="0" />

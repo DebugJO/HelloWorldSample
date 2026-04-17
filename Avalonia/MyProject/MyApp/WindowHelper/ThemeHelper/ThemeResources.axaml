@@ -23,6 +23,7 @@
                             <TextBox Name="PART_TextBox"
                                      Grid.Column="0"
                                      BorderThickness="0"
+                                     IsReadOnly="True"
                                      Padding="4 0 2 0"
                                      VerticalContentAlignment="Center"
                                      Foreground="{TemplateBinding Foreground}"

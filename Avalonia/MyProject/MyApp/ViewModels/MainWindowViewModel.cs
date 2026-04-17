@@ -2,10 +2,12 @@
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Input;
+using Avalonia.Styling;
 using Avalonia.VisualTree;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using MyApp.Controls;
+using MyApp.WindowHelper.ThemeHelper;
 using MyAppLib.Helpers;
 using System;
 using System.Collections.Generic;
@@ -201,19 +203,16 @@ public partial class MainWindowViewModel : ViewModelBase
             return;
         }
 
-        bool result = await ShowConfirmDialog("종료하시겠습니까?");
+        MsgBoxResult result = await MessageBox.ShowAsync(
+            "정말 종료하시겠습니까?",
+            "종료 확인",
+            MsgBoxButtons.YesNo,
+            MsgBoxIcon.Question);
 
-        if (result)
+        if (result == MsgBoxResult.Yes)
         {
             window.Close();
         }
-    }
-
-    private static async Task<bool> ShowConfirmDialog(string message)
-    {
-        LogHelper.Debug(message);
-        await Task.Delay(1);
-        return true;
     }
 
     [RelayCommand(AllowConcurrentExecutions = false)]
@@ -224,51 +223,27 @@ public partial class MainWindowViewModel : ViewModelBase
             return;
         }
 
-        
-        /*
-         
-         메인윈도우 가운데 정렬
-         
-         
-         */
-        
-        // Application app = Application.Current!;
-        // app.RequestedThemeVariant = Themes.DeepBlue;
+        try
+        {
+            Application app = Application.Current!;
+            ThemeVariant? current = app.RequestedThemeVariant;
 
-        MsgBoxResult result = await CustomMessageBox.ShowAsync(
-            "정말 삭제하시겠습니까?",
-            "삭제 확인",
-            MsgBoxButtons.YesNo,
-            MsgBoxIcon.Question);
-        
-        LogHelper.Debug(result == MsgBoxResult.Yes ? "yes" : "no");
+            if (current == ThemeVariant.Light)
+                app.RequestedThemeVariant = ThemeVariant.Dark;
+            else if (current == ThemeVariant.Dark)
+                app.RequestedThemeVariant = Themes.DeepBlue;
+            else if (current == Themes.DeepBlue)
+                app.RequestedThemeVariant = Themes.MsWordLight;
+            else if (current == Themes.MsWordLight)
+                app.RequestedThemeVariant = Themes.MsWordDark;
+            else
+                app.RequestedThemeVariant = ThemeVariant.Light;
+        }
+        catch (Exception ex)
+        {
+            LogHelper.Error("ThemeChange Error: " + ex.Message);
+        }
 
         await Task.CompletedTask;
     }
 }
-
-//
-// try
-// {
-//     Application app = Application.Current!;
-//     ThemeVariant? current = app.RequestedThemeVariant;
-//
-//     if (current == ThemeVariant.Light)
-//         app.RequestedThemeVariant = ThemeVariant.Dark;
-//     else if (current == ThemeVariant.Dark)
-//         app.RequestedThemeVariant = Themes.DeepBlue;
-//     else if (current == Themes.DeepBlue)
-//         app.RequestedThemeVariant = Themes.MsWordLight;
-//     else if (current == Themes.MsWordLight)
-//         app.RequestedThemeVariant = Themes.MsWordDark;
-//     else
-//         app.RequestedThemeVariant = ThemeVariant.Light;
-// }
-// catch (Exception ex)
-// {
-//     LogHelper.Error("ThemeChange Error: " + ex.Message);
-// }
-// await Task.CompletedTask;
-//
-// }
-// }

@@ -14,7 +14,8 @@
         ExtendClientAreaTitleBarHeightHint="-1"
         ExtendClientAreaChromeHints="NoChrome"
         TransparencyLevelHint="None"
-        Background="{DynamicResource SystemRegionBrush}">
+        Background="{DynamicResource SystemRegionBrush}"
+        ex:WindowCenter.CenterOnPrimary="True">
 
     <Interaction.Behaviors>
         <EventTriggerBehavior EventName="Loaded">
@@ -56,7 +57,7 @@
                                                  PassEventArgsToCommand="True" />
                         </EventTriggerBehavior>
                     </Interaction.Behaviors>
-                    <Image Source="/Assets/avalonia-logo.ico" Margin="8" />
+                    <Image Source="/Assets/avalonia-logo.ico" Margin="8 0 8 0" Width="30" Height="30" />
                 </StackPanel>
                 <Menu FontWeight="Normal">
                     <MenuItem Padding="0" Margin="0">
@@ -137,25 +138,30 @@
         </DockPanel>
         <!-- 컨텐츠 영역 -->
         <DockPanel Grid.Row="1" Background="Transparent">
-            <Button Content="테마 테스트"
+            <Button Content="버튼테스트"
                     Command="{Binding ThemeChangeCommand}"
                     CommandParameter="{Binding $self}"
-                    IsEnabled="{Binding !ThemeChangeCommand.IsRunning}" 
-                    ex:ButtonBusy.BusyText="동작중..."/>
-            <CalendarDatePicker/>
+                    IsEnabled="{Binding !ThemeChangeCommand.IsRunning}"
+                    ex:ButtonBusy.BusyText="동작중..."
+                    ex:AttachedButton.Icon="Github" Classes="HasIcon"
+                    ex:ButtonBusy.IsBusy="{Binding ThemeChangeCommand.IsRunning}" />
         </DockPanel>
         <!-- 하단 메시지 영역 -->
         <DockPanel Grid.Row="2" Background="Transparent" VerticalAlignment="Center">
             <StackPanel Orientation="Vertical">
                 <Grid>
-                    <Border Height="1" VerticalAlignment="Bottom" BorderThickness="0,0,0,0.6"
+                    <Border Height="1" VerticalAlignment="Center" BorderThickness="0,0,0,0.6"
                             BorderBrush="{DynamicResource ButtonForeground}" Opacity="0.2" />
                 </Grid>
-                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                    <TextBlock Text="【메시지】 " FontWeight="Bold" Margin="4 0 0 0" />
+                <StackPanel Orientation="Horizontal">
+                    <iconPacks:PackIconCodicons Kind="Comment" VerticalAlignment="Center" Width="12" Height="12"
+                                                Margin="8 0 4 0" FontWeight="Bold"
+                                                Foreground="{DynamicResource AccentBrush}"/>
+                    <TextBlock Text="메시지ㆍ" FontWeight="Bold" VerticalAlignment="Center"
+                               Foreground="{DynamicResource AccentBrush}"/>
                     <TextBlock Text="{Binding StatusMessage, 
                                 Converter={StaticResource RemoveLineBreakConverter}}"
-                               TextWrapping="NoWrap" TextTrimming="CharacterEllipsis" />
+                               TextWrapping="NoWrap" TextTrimming="CharacterEllipsis" VerticalAlignment="Center" />
                 </StackPanel>
             </StackPanel>
         </DockPanel>

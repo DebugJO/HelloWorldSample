@@ -8,44 +8,58 @@ using System.Threading.Tasks;
 
 namespace MyApp.Controls;
 
-public partial class CustomMessageBox : Window
+public partial class MessageBox : Window
 {
     public MsgBoxResult Result { get; set; } = MsgBoxResult.Cancel;
 
-    public CustomMessageBox()
+    public MessageBox()
     {
         InitializeComponent();
     }
 
     public static async Task<MsgBoxResult> ShowAsync(string message, string caption, MsgBoxButtons buttons, MsgBoxIcon icon = MsgBoxIcon.None)
     {
-        CustomMessageBox dialog = CreateDialog(message, caption, buttons, icon);
-        Window? mainWindow = (Application.Current?.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime)?.MainWindow;
+        MessageBox dialog = CreateDialog(message, caption, buttons, icon);
+        IClassicDesktopStyleApplicationLifetime? lifetime = Application.Current?.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime;
+        Window? mainWindow = lifetime?.MainWindow;
 
-        if (mainWindow != null)
+        if (mainWindow == null)
         {
-            await dialog.ShowDialog(mainWindow);
+            return MsgBoxResult.Cancel;
         }
 
-        return dialog.Result;
+        MsgBoxResult? result = await dialog.ShowDialog<MsgBoxResult?>(mainWindow);
+        return result ?? MsgBoxResult.Cancel;
     }
 
-    public static void Show(string message, string caption, MsgBoxIcon icon = MsgBoxIcon.None)
+    private static MessageBox CreateDialog(string message, string caption, MsgBoxButtons buttons, MsgBoxIcon icon)
     {
-        CustomMessageBox dialog = CreateDialog(message, caption, MsgBoxButtons.Ok, icon);
-        dialog.Show();
-    }
-
-    private static CustomMessageBox CreateDialog(string message, string caption, MsgBoxButtons buttons, MsgBoxIcon icon)
-    {
-        CustomMessageBox dialog = new()
+        MessageBox dialog = new()
         {
-            CaptionText = { Text = caption },
-            MessageText = { Text = message },
-            BtnOk = { IsVisible = buttons == MsgBoxButtons.Ok },
-            BtnYes = { IsVisible = buttons is MsgBoxButtons.YesNo or MsgBoxButtons.YesNoCancel },
-            BtnNo = { IsVisible = buttons is MsgBoxButtons.YesNo or MsgBoxButtons.YesNoCancel },
-            BtnCancel = { IsVisible = (buttons == MsgBoxButtons.YesNoCancel) }
+            CaptionText =
+            {
+                Text = caption
+            },
+            MessageText =
+            {
+                Text = message
+            },
+            BtnOk =
+            {
+                IsVisible = buttons == MsgBoxButtons.Ok
+            },
+            BtnYes =
+            {
+                IsVisible = buttons is MsgBoxButtons.YesNo or MsgBoxButtons.YesNoCancel
+            },
+            BtnNo =
+            {
+                IsVisible = buttons is MsgBoxButtons.YesNo or MsgBoxButtons.YesNoCancel
+            },
+            BtnCancel =
+            {
+                IsVisible = buttons == MsgBoxButtons.YesNoCancel
+            }
         };
 
         if (icon == MsgBoxIcon.None)
@@ -55,7 +69,6 @@ public partial class CustomMessageBox : Window
         else
         {
             dialog.MsgIcon.IsVisible = true;
-
             (PackIconCodiconsKind codicon, string resourceKey) = icon switch
             {
                 MsgBoxIcon.Info => (PackIconCodiconsKind.Info, "AccentBrush"),
@@ -69,23 +82,27 @@ public partial class CustomMessageBox : Window
             dialog.MsgIcon[!ForegroundProperty] = new DynamicResourceExtension(resourceKey);
         }
 
+        // 무조건 모니터 중앙
+        // WindowCenter.SetCenterOnPrimary(dialog, true);
         return dialog;
     }
 
     private void OnButtonClick(object sender, RoutedEventArgs e)
     {
-        if (sender is Button btn)
+        if (sender is not Button btn)
         {
-            Result = btn.Name switch
-            {
-                "BtnOk" => MsgBoxResult.Ok,
-                "BtnYes" => MsgBoxResult.Yes,
-                "BtnNo" => MsgBoxResult.No,
-                _ => MsgBoxResult.Cancel
-            };
+            return;
         }
 
-        Close();
+        MsgBoxResult result = btn.Name switch
+        {
+            "BtnOk" => MsgBoxResult.Ok,
+            "BtnYes" => MsgBoxResult.Yes,
+            "BtnNo" => MsgBoxResult.No,
+            _ => MsgBoxResult.Cancel
+        };
+
+        Close(result);
     }
 }
 
