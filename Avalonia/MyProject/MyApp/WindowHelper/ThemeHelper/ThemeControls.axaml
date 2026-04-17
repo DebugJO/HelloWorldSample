@@ -1,0 +1,144 @@
+﻿<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:iconPacks="https://github.com/MahApps/IconPacks.Avalonia"
+        xmlns:ex="clr-namespace:MyApp.WindowHelper.ThemeHelper">
+    <!-- Button 기본 Flat, Basic, Primary, Accent, Success, Danger, Rounded, Thin, Light, Bold -->
+    <Style Selector="Button.HasIcon">
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="Padding" Value="8,4" />
+        <Setter Property="ContentTemplate">
+            <Setter.Value>
+                <DataTemplate>
+                    <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <StackPanel Orientation="Horizontal" Spacing="4">
+                            <iconPacks:PackIconCodicons
+                                Kind="{Binding $parent[Button].(ex:AttachedButton.Icon)}"
+                                Width="{Binding $parent[Button].(ex:AttachedButton.IconSize)}"
+                                Height="{Binding $parent[Button].(ex:AttachedButton.IconSize)}"
+                                VerticalAlignment="Center"
+                                Foreground="{Binding $parent[Button].Foreground}">
+                                <iconPacks:PackIconCodicons.IsVisible>
+                                    <Binding Path="$parent[Button].(ex:AttachedButton.Icon)"
+                                             Converter="{x:Static ex:IconToVisibleConverter.Instance}" />
+                                </iconPacks:PackIconCodicons.IsVisible>
+                            </iconPacks:PackIconCodicons>
+                            <TextBlock Text="{Binding $parent[Button].Content}"
+                                       VerticalAlignment="Center"
+                                       Foreground="{Binding $parent[Button].Foreground}"
+                                       FontSize="{Binding $parent[Button].FontSize}"
+                                       FontWeight="{Binding $parent[Button].FontWeight}">
+                                <TextBlock.IsVisible>
+                                    <Binding Path="$parent[Button].Content"
+                                             Converter="{x:Static StringConverters.IsNotNullOrEmpty}" />
+                                </TextBlock.IsVisible>
+                            </TextBlock>
+                        </StackPanel>
+                    </Grid>
+                </DataTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style Selector="Button.Primary">
+        <Setter Property="Background" Value="{DynamicResource PrimaryBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource PrimaryForeground}" />
+    </Style>
+    <Style Selector="Button.Primary:pointerover /template/ ContentPresenter">
+        <Setter Property="Background" Value="{DynamicResource PrimaryBrush}" />
+        <Setter Property="Opacity" Value="0.8" />
+        <Setter Property="Foreground" Value="{DynamicResource PrimaryForeground}" />
+    </Style>
+    <Style Selector="Button.Success">
+        <Setter Property="Background" Value="{DynamicResource SuccessBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource SuccessForeground}" />
+    </Style>
+    <Style Selector="Button.Success:pointerover /template/ ContentPresenter">
+        <Setter Property="Background" Value="{DynamicResource SuccessBrush}" />
+        <Setter Property="Opacity" Value="0.8" />
+        <Setter Property="Foreground" Value="{DynamicResource SuccessForeground}" />
+    </Style>
+    <Style Selector="Button.Danger">
+        <Setter Property="Background" Value="{DynamicResource DangerBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource DangerForeground}" />
+    </Style>
+    <Style Selector="Button.Danger:pointerover /template/ ContentPresenter">
+        <Setter Property="Background" Value="{DynamicResource DangerBrush}" />
+        <Setter Property="Opacity" Value="0.8" />
+        <Setter Property="Foreground" Value="{DynamicResource DangerForeground}" />
+    </Style>
+    <Style Selector="Button.Accent">
+        <Setter Property="Background" Value="{DynamicResource AccentBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource AccentForeground}" />
+    </Style>
+    <Style Selector="Button.Accent:pointerover /template/ ContentPresenter">
+        <Setter Property="Background" Value="{DynamicResource AccentBrush}" />
+        <Setter Property="Opacity" Value="0.8" />
+        <Setter Property="Foreground" Value="{DynamicResource AccentForeground}" />
+    </Style>
+    <Style Selector="Button.Rounded">
+        <Setter Property="CornerRadius" Value="20" />
+    </Style>
+    <Style Selector="Button.Thin">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="BorderBrush" Value="{DynamicResource ButtonBorderBrush}" />
+    </Style>
+    <Style Selector="Button.Thin:pointerover /template/ ContentPresenter">
+        <Setter Property="Background" Value="{DynamicResource ButtonBackgroundPointerOver}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource ButtonBorderBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource ButtonForeground}" />
+    </Style>
+    <Style Selector="Button:pressed">
+        <Setter Property="RenderTransform" Value="scale(0.97)" />
+    </Style>
+    <!-- Button 기본 End -->
+    
+    <!-- Titlebar Caption Button 기본 -->
+    <Style Selector="Button.CaptionButton">
+        <Setter Property="Width" Value="32" />
+        <Setter Property="Height" Value="32" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="RenderTransform" Value="none" />
+    </Style>
+    <Style Selector="Button.CaptionButton:pointerover /template/ ContentPresenter">
+        <Setter Property="Background" Value="{DynamicResource SystemControlHighlightListLowBrush}" />
+    </Style>
+    <Style Selector="Button.CaptionButton.Close:pointerover /template/ ContentPresenter">
+        <Setter Property="Background" Value="#E81123" />
+    </Style>
+    <Style Selector="Button.CaptionButton.Close:pointerover">
+        <Setter Property="Foreground" Value="White" />
+    </Style>
+    <Style Selector="Button.CaptionButton:pressed">
+        <Setter Property="Opacity" Value="0.7" />
+        <Setter Property="RenderTransform" Value="scale(0.9)" />
+    </Style>
+    <!-- Titlebar Caption Button 기본 End -->
+    
+    <!-- TextBox -->
+    <Style Selector="TextBox">
+        <Setter Property="Background" Value="{DynamicResource TextControlBackground}" />
+        <Setter Property="Foreground" Value="{DynamicResource SystemControlForegroundBaseHighBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource SystemControlForegroundBaseHighBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="CornerRadius" Value="4" />
+        <Setter Property="SelectionBrush" Value="{DynamicResource TextControlSelectionHighlightColor}" />
+        <Setter Property="SelectionForegroundBrush" Value="{DynamicResource TextControlSelectionForegroundBrush}" />
+        <Style Selector="^:pointerover /template/ Border#PART_BorderElement">
+            <Setter Property="Background" Value="{DynamicResource TextControlBackgroundPointerOver}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource AccentBrush}" />
+        </Style>
+        <Style Selector="^:focus /template/ Border#PART_BorderElement">
+            <Setter Property="Background" Value="{DynamicResource TextControlBackgroundFocused}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource AccentBrush}" />
+            <Setter Property="BorderThickness" Value="2" />
+        </Style>
+        <Style Selector="^:focus /template/ TextPresenter#PART_TextPresenter">
+            <Setter Property="SelectionBrush" Value="{DynamicResource TextControlSelectionHighlightColor}" />
+            <Setter Property="SelectionForegroundBrush" Value="{DynamicResource TextControlSelectionForegroundBrush}" />
+        </Style>
+    </Style>
+    <!-- TextBox End -->
+</Styles>

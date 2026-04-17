@@ -1,0 +1,228 @@
+<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="MyApp.App"
+             xmlns:local="using:MyApp"
+             xmlns:themes="clr-namespace:MyApp.WindowHelper.ThemeHelper"
+             RequestedThemeVariant="Default">
+
+    <Application.DataTemplates>
+        <local:ViewLocator />
+    </Application.DataTemplates>
+
+    <Application.Styles>
+        <FluentTheme />
+
+        <Style Selector="TextBlock">
+            <Setter Property="FontFamily" Value="맑은 고딕" />
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="FontWeight" Value="Normal" />
+        </Style>
+        <Style Selector="TemplatedControl">
+            <Setter Property="FontFamily" Value="맑은 고딕" />
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="FontWeight" Value="Normal" />
+        </Style>
+        <Style Selector="AccessText">
+            <Setter Property="FontFamily" Value="맑은 고딕" />
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="FontWeight" Value="Normal" />
+        </Style>
+        <StyleInclude Source="avares://IconPacks.Avalonia.Codicons/Codicons.axaml" />
+        <StyleInclude Source="avares://MyApp/WindowHelper/ThemeHelper/ThemeControls.axaml" />
+    </Application.Styles>
+
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceInclude Source="/WindowHelper/ThemeHelper/ThemeResources.axaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <ResourceDictionary.ThemeDictionaries>
+                <ResourceDictionary x:Key="Light">
+                    <SolidColorBrush x:Key="SystemRegionBrush">#F3F2F1</SolidColorBrush>
+                    <SolidColorBrush x:Key="SecondaryBackground">#FFFFFF</SolidColorBrush>
+                    <SolidColorBrush x:Key="SystemControlPageBackgroundListLowBrush">#F3F2F1</SolidColorBrush>
+                    <Color x:Key="SystemAccentColor">#0078D4</Color>
+                    <SolidColorBrush x:Key="AccentBrush">#0078D4</SolidColorBrush>
+                    <SolidColorBrush x:Key="PrimaryBrush">#005A9E</SolidColorBrush>
+                    <SolidColorBrush x:Key="SystemControlHighlightAccentBrush">#0078D4</SolidColorBrush>
+                    <SolidColorBrush x:Key="SystemControlHighlightListAccentLowBrush">#DEECF9</SolidColorBrush>
+                    <SolidColorBrush x:Key="SuccessBrush">#107C10</SolidColorBrush>
+                    <SolidColorBrush x:Key="DangerBrush">#D13438</SolidColorBrush>
+                    <SolidColorBrush x:Key="SystemControlForegroundBaseHighBrush">#201F1E</SolidColorBrush>
+                    <SolidColorBrush x:Key="AccentForeground">#FFFFFF</SolidColorBrush>
+                    <SolidColorBrush x:Key="PrimaryForeground">#FFFFFF</SolidColorBrush>
+                    <SolidColorBrush x:Key="SuccessForeground">#FFFFFF</SolidColorBrush>
+                    <SolidColorBrush x:Key="DangerForeground">#FFFFFF</SolidColorBrush>
+                    <SolidColorBrush x:Key="TextControlBackground" Color="#FFFFFF" />
+                    <SolidColorBrush x:Key="TextControlBackgroundFocused" Color="#FFFFFF" />
+                    <SolidColorBrush x:Key="TextControlBackgroundPointerOver" Color="#F9F9F9" />
+                    <SolidColorBrush x:Key="CalendarDatePickerBackground" Color="#FFFFFF" />
+                    <SolidColorBrush x:Key="SystemControlBackgroundChromeMediumLowBrush" Color="#E5E5E5" />
+                    <SolidColorBrush x:Key="SystemControlTransientBackgroundBrush" Color="#FFFFFF" />
+                    <SolidColorBrush x:Key="SystemControlHighlightListLowBrush" Color="#EAEAEA" />
+                    <Thickness x:Key="TextControlBorderThemeThickness">1</Thickness>
+                    <Thickness x:Key="TextControlBorderThemeThicknessFocused">1</Thickness>
+                    <SolidColorBrush x:Key="ButtonBackground">#E2E2E2</SolidColorBrush>
+                    <SolidColorBrush x:Key="ButtonBackgroundPointerOver">#D5D5D5</SolidColorBrush>
+                    <SolidColorBrush x:Key="ButtonBackgroundPressed">#D1D1D1</SolidColorBrush>
+                    <SolidColorBrush x:Key="ButtonForeground">#201F1E</SolidColorBrush>
+                    <SolidColorBrush x:Key="TextControlSelectionHighlightColor">#0078D4</SolidColorBrush>
+                    <SolidColorBrush x:Key="TextControlSelectionForegroundBrush">#FFFFFF</SolidColorBrush>
+                </ResourceDictionary>
+                <ResourceDictionary x:Key="Dark">
+                    <SolidColorBrush x:Key="SystemRegionBrush">#21252B</SolidColorBrush>
+                    <SolidColorBrush x:Key="SecondaryBackground">#2C313A</SolidColorBrush>
+                    <SolidColorBrush x:Key="SystemControlPageBackgroundListLowBrush">#21252B</SolidColorBrush>
+                    <Color x:Key="SystemAccentColor">#528BFF</Color>
+                    <SolidColorBrush x:Key="AccentBrush">#528BFF</SolidColorBrush>
+                    <SolidColorBrush x:Key="PrimaryBrush">#4078F2</SolidColorBrush>
+                    <SolidColorBrush x:Key="SystemControlHighlightAccentBrush">#528BFF</SolidColorBrush>
+                    <SolidColorBrush x:Key="SystemControlHighlightListAccentLowBrush">#528BFF</SolidColorBrush>
+                    <SolidColorBrush x:Key="SuccessBrush">#98C379</SolidColorBrush>
+                    <SolidColorBrush x:Key="DangerBrush">#E06C75</SolidColorBrush>
+                    <SolidColorBrush x:Key="SystemControlForegroundBaseHighBrush">#ABB2BF</SolidColorBrush>
+                    <SolidColorBrush x:Key="AccentForeground">#FFFFFF</SolidColorBrush>
+                    <SolidColorBrush x:Key="PrimaryForeground">#FFFFFF</SolidColorBrush>
+                    <SolidColorBrush x:Key="SuccessForeground">#1E2227</SolidColorBrush>
+                    <SolidColorBrush x:Key="DangerForeground">#FFFFFF</SolidColorBrush>
+                    <SolidColorBrush x:Key="TextControlBackground" Color="#2C313A" />
+                    <SolidColorBrush x:Key="TextControlBackgroundFocused" Color="#1E2227" />
+                    <SolidColorBrush x:Key="TextControlBackgroundPointerOver" Color="#3E4451" />
+                    <SolidColorBrush x:Key="CalendarDatePickerBackground" Color="#2C313A" />
+                    <SolidColorBrush x:Key="SystemControlBackgroundChromeMediumLowBrush" Color="#2C313A" />
+                    <SolidColorBrush x:Key="SystemControlTransientBackgroundBrush" Color="#2C313A" />
+                    <SolidColorBrush x:Key="SystemControlHighlightListLowBrush" Color="#3E4451" />
+                    <Thickness x:Key="TextControlBorderThemeThickness">1</Thickness>
+                    <Thickness x:Key="TextControlBorderThemeThicknessFocused">1</Thickness>
+                    <SolidColorBrush x:Key="ButtonBackground">#2C313A</SolidColorBrush>
+                    <SolidColorBrush x:Key="ButtonBackgroundPointerOver">#3E4451</SolidColorBrush>
+                    <SolidColorBrush x:Key="ButtonBackgroundPressed">#1E2227</SolidColorBrush>
+                    <SolidColorBrush x:Key="ButtonForeground">#ABB2BF</SolidColorBrush>
+                    <SolidColorBrush x:Key="TextControlSelectionHighlightColor">#528BFF</SolidColorBrush>
+                    <SolidColorBrush x:Key="TextControlSelectionForegroundBrush">#FFFFFF</SolidColorBrush>
+                </ResourceDictionary>
+                <ResourceDictionary x:Key="{x:Static themes:Themes.DeepBlue}">
+                    <SolidColorBrush x:Key="SystemRegionBrush">#0A192F</SolidColorBrush>
+                    <SolidColorBrush x:Key="SecondaryBackground">#172A45</SolidColorBrush>
+                    <SolidColorBrush x:Key="SystemControlPageBackgroundListLowBrush">#0A192F</SolidColorBrush>
+                    <SolidColorBrush x:Key="SystemControlBackgroundChromeMediumLowBrush">#172A45</SolidColorBrush>
+                    <SolidColorBrush x:Key="SystemControlTransientBackgroundBrush">#172A45</SolidColorBrush>
+                    <Color x:Key="SystemAccentColor">#64FFDA</Color>
+                    <SolidColorBrush x:Key="AccentBrush">#64FFDA</SolidColorBrush>
+                    <SolidColorBrush x:Key="SystemControlHighlightAccentBrush">#64FFDA</SolidColorBrush>
+                    <SolidColorBrush x:Key="SystemControlBackgroundAccentBrush">#64FFDA</SolidColorBrush>
+                    <SolidColorBrush x:Key="SystemControlHighlightListAccentLowBrush">#233554</SolidColorBrush>
+                    <SolidColorBrush x:Key="SystemControlHighlightListAccentMediumBrush">#64FFDA</SolidColorBrush>
+                    <SolidColorBrush x:Key="SystemControlHighlightListAccentHighBrush">#64FFDA</SolidColorBrush>
+                    <SolidColorBrush x:Key="SystemControlForegroundBaseHighBrush">#CCD6F6</SolidColorBrush>
+                    <SolidColorBrush x:Key="AccentForeground">#0A192F</SolidColorBrush>
+                    <SolidColorBrush x:Key="PrimaryBrush">#00BFA5</SolidColorBrush>
+                    <SolidColorBrush x:Key="PrimaryForeground">#0A192F</SolidColorBrush>
+                    <SolidColorBrush x:Key="SuccessBrush">#2ECC71</SolidColorBrush>
+                    <SolidColorBrush x:Key="SuccessForeground">#0A192F</SolidColorBrush>
+                    <SolidColorBrush x:Key="DangerBrush">#F97E7E</SolidColorBrush>
+                    <SolidColorBrush x:Key="DangerForeground">#FFFFFF</SolidColorBrush>
+                    <SolidColorBrush x:Key="ButtonBackground">#172A45</SolidColorBrush>
+                    <SolidColorBrush x:Key="ButtonBackgroundPointerOver">#233554</SolidColorBrush>
+                    <SolidColorBrush x:Key="ButtonBackgroundPressed">#112240</SolidColorBrush>
+                    <SolidColorBrush x:Key="ButtonForeground">#64FFDA</SolidColorBrush>
+                    <SolidColorBrush x:Key="ButtonBorderBrush">#233554</SolidColorBrush>
+                    <SolidColorBrush x:Key="CheckBoxCheckGlyphForegroundChecked">#0A192F</SolidColorBrush>
+                    <SolidColorBrush x:Key="CheckBoxCheckGlyphForegroundCheckedPointerOver">#0A192F</SolidColorBrush>
+                    <SolidColorBrush x:Key="RadioButtonCheckGlyphFill">#64FFDA</SolidColorBrush>
+                    <SolidColorBrush x:Key="RadioButtonOuterEllipseCheckedStroke">#64FFDA</SolidColorBrush>
+                    <SolidColorBrush x:Key="TextControlBackground">#172A45</SolidColorBrush>
+                    <SolidColorBrush x:Key="TextControlBackgroundFocused">#112240</SolidColorBrush>
+                    <SolidColorBrush x:Key="TextControlBackgroundPointerOver">#1D3557</SolidColorBrush>
+                    <SolidColorBrush x:Key="SystemControlHighlightListLowBrush">#1D3557</SolidColorBrush>
+                    <SolidColorBrush x:Key="CalendarDatePickerBackground">#172A45</SolidColorBrush>
+                    <Thickness x:Key="TextControlBorderThemeThickness">1</Thickness>
+                    <Thickness x:Key="TextControlBorderThemeThicknessFocused">1</Thickness>
+                    <SolidColorBrush x:Key="TextControlSelectionHighlightColor">#64FFDA</SolidColorBrush>
+                    <SolidColorBrush x:Key="TextControlSelectionForegroundBrush">#0A192F</SolidColorBrush>
+                </ResourceDictionary>
+                <ResourceDictionary x:Key="{x:Static themes:Themes.MsWordLight}">
+                    <SolidColorBrush x:Key="SystemRegionBrush">#F3F2F1</SolidColorBrush>
+                    <SolidColorBrush x:Key="SecondaryBackground">#FFFFFF</SolidColorBrush>
+                    <SolidColorBrush x:Key="SystemControlPageBackgroundListLowBrush">#F3F2F1</SolidColorBrush>
+                    <SolidColorBrush x:Key="SystemControlBackgroundChromeMediumLowBrush">#E1E1E1</SolidColorBrush>
+                    <SolidColorBrush x:Key="SystemControlTransientBackgroundBrush">#FFFFFF</SolidColorBrush>
+                    <Color x:Key="SystemAccentColor">#2B579A</Color>
+                    <SolidColorBrush x:Key="AccentBrush">#2B579A</SolidColorBrush>
+                    <SolidColorBrush x:Key="SystemControlHighlightAccentBrush">#2B579A</SolidColorBrush>
+                    <SolidColorBrush x:Key="SystemControlBackgroundAccentBrush">#2B579A</SolidColorBrush>
+                    <SolidColorBrush x:Key="SystemControlHighlightListAccentLowBrush">#DEECF9</SolidColorBrush>
+                    <SolidColorBrush x:Key="SystemControlHighlightListAccentMediumBrush">#2B579A</SolidColorBrush>
+                    <SolidColorBrush x:Key="SystemControlHighlightListAccentHighBrush">#185ABD</SolidColorBrush>
+                    <SolidColorBrush x:Key="SystemControlForegroundBaseHighBrush">#101010</SolidColorBrush>
+                    <SolidColorBrush x:Key="AccentForeground">#FFFFFF</SolidColorBrush>
+                    <SolidColorBrush x:Key="PrimaryBrush">#185ABD</SolidColorBrush>
+                    <SolidColorBrush x:Key="PrimaryForeground">#FFFFFF</SolidColorBrush>
+                    <SolidColorBrush x:Key="SuccessBrush">#107C10</SolidColorBrush>
+                    <SolidColorBrush x:Key="SuccessForeground">#FFFFFF</SolidColorBrush>
+                    <SolidColorBrush x:Key="DangerBrush">#A80000</SolidColorBrush>
+                    <SolidColorBrush x:Key="DangerForeground">#FFFFFF</SolidColorBrush>
+                    <SolidColorBrush x:Key="ButtonBackground">#E2E2E2</SolidColorBrush>
+                    <SolidColorBrush x:Key="ButtonBackgroundPointerOver">#EEEEEE</SolidColorBrush>
+                    <SolidColorBrush x:Key="ButtonBackgroundPressed">#D1D1D1</SolidColorBrush>
+                    <SolidColorBrush x:Key="ButtonForeground">#101010</SolidColorBrush>
+                    <SolidColorBrush x:Key="ButtonBorderBrush">#D1D1D1</SolidColorBrush>
+                    <SolidColorBrush x:Key="CheckBoxCheckGlyphForegroundChecked">#FFFFFF</SolidColorBrush>
+                    <SolidColorBrush x:Key="CheckBoxCheckGlyphForegroundCheckedPointerOver">#FFFFFF</SolidColorBrush>
+                    <SolidColorBrush x:Key="RadioButtonCheckGlyphFill">#2B579A</SolidColorBrush>
+                    <SolidColorBrush x:Key="RadioButtonOuterEllipseCheckedStroke">#2B579A</SolidColorBrush>
+                    <SolidColorBrush x:Key="TextControlBackground">#FFFFFF</SolidColorBrush>
+                    <SolidColorBrush x:Key="TextControlBackgroundFocused">#FFFFFF</SolidColorBrush>
+                    <SolidColorBrush x:Key="TextControlBackgroundPointerOver">#F9F9F9</SolidColorBrush>
+                    <SolidColorBrush x:Key="SystemControlHighlightListLowBrush">#EAEAEA</SolidColorBrush>
+                    <SolidColorBrush x:Key="CalendarDatePickerBackground">#FFFFFF</SolidColorBrush>
+                    <Thickness x:Key="TextControlBorderThemeThickness">1</Thickness>
+                    <Thickness x:Key="TextControlBorderThemeThicknessFocused">1</Thickness>
+                    <SolidColorBrush x:Key="TextControlSelectionHighlightColor">#2B579A</SolidColorBrush>
+                    <SolidColorBrush x:Key="TextControlSelectionForegroundBrush">#FFFFFF</SolidColorBrush>
+                </ResourceDictionary>
+                <ResourceDictionary x:Key="{x:Static themes:Themes.MsWordDark}">
+                    <SolidColorBrush x:Key="SystemRegionBrush">#2B579A</SolidColorBrush>
+                    <SolidColorBrush x:Key="SecondaryBackground">#1E4176</SolidColorBrush>
+                    <SolidColorBrush x:Key="SystemControlPageBackgroundListLowBrush">#2B579A</SolidColorBrush>
+                    <SolidColorBrush x:Key="SystemControlBackgroundChromeMediumLowBrush">#1E4176</SolidColorBrush>
+                    <SolidColorBrush x:Key="SystemControlTransientBackgroundBrush">#1E4176</SolidColorBrush>
+                    <Color x:Key="SystemAccentColor">#D1E4FF</Color>
+                    <SolidColorBrush x:Key="AccentBrush">#D1E4FF</SolidColorBrush>
+                    <SolidColorBrush x:Key="SystemControlHighlightAccentBrush">#D1E4FF</SolidColorBrush>
+                    <SolidColorBrush x:Key="SystemControlBackgroundAccentBrush">#D1E4FF</SolidColorBrush>
+                    <SolidColorBrush x:Key="SystemControlHighlightListAccentLowBrush">#25508D</SolidColorBrush>
+                    <SolidColorBrush x:Key="SystemControlHighlightListAccentMediumBrush">#D1E4FF</SolidColorBrush>
+                    <SolidColorBrush x:Key="SystemControlHighlightListAccentHighBrush">#FFFFFF</SolidColorBrush>
+                    <SolidColorBrush x:Key="SystemControlForegroundBaseHighBrush">#FFFFFF</SolidColorBrush>
+                    <SolidColorBrush x:Key="AccentForeground">#1E4176</SolidColorBrush>
+                    <SolidColorBrush x:Key="PrimaryBrush">#D1E4FF</SolidColorBrush>
+                    <SolidColorBrush x:Key="PrimaryForeground">#1E4176</SolidColorBrush>
+                    <SolidColorBrush x:Key="SuccessBrush">#49A067</SolidColorBrush>
+                    <SolidColorBrush x:Key="SuccessForeground">#FFFFFF</SolidColorBrush>
+                    <SolidColorBrush x:Key="DangerBrush">#FF8C8C</SolidColorBrush>
+                    <SolidColorBrush x:Key="DangerForeground">#FFFFFF</SolidColorBrush>
+                    <SolidColorBrush x:Key="ButtonBackground">#1E4176</SolidColorBrush>
+                    <SolidColorBrush x:Key="ButtonBackgroundPointerOver">#25508D</SolidColorBrush>
+                    <SolidColorBrush x:Key="ButtonBackgroundPressed">#15325C</SolidColorBrush>
+                    <SolidColorBrush x:Key="ButtonForeground">#D1E4FF</SolidColorBrush>
+                    <SolidColorBrush x:Key="ButtonBorderBrush">#3A65A7</SolidColorBrush>
+                    <SolidColorBrush x:Key="CheckBoxCheckGlyphForegroundChecked">#1E4176</SolidColorBrush>
+                    <SolidColorBrush x:Key="CheckBoxCheckGlyphForegroundCheckedPointerOver">#15325C</SolidColorBrush>
+                    <SolidColorBrush x:Key="RadioButtonCheckGlyphFill">#D1E4FF</SolidColorBrush>
+                    <SolidColorBrush x:Key="RadioButtonOuterEllipseCheckedStroke">#D1E4FF</SolidColorBrush>
+                    <SolidColorBrush x:Key="TextControlBackground">#1E4176</SolidColorBrush>
+                    <SolidColorBrush x:Key="TextControlBackgroundFocused">#15325C</SolidColorBrush>
+                    <SolidColorBrush x:Key="TextControlBackgroundPointerOver">#25508D</SolidColorBrush>
+                    <SolidColorBrush x:Key="SystemControlHighlightListLowBrush">#25508D</SolidColorBrush>
+                    <SolidColorBrush x:Key="CalendarDatePickerBackground">#1E4176</SolidColorBrush>
+                    <Thickness x:Key="TextControlBorderThemeThickness">1</Thickness>
+                    <Thickness x:Key="TextControlBorderThemeThicknessFocused">1</Thickness>
+                    <SolidColorBrush x:Key="TextControlSelectionHighlightColor">#D1E4FF</SolidColorBrush>
+                    <SolidColorBrush x:Key="TextControlSelectionForegroundBrush">#1E4176</SolidColorBrush>
+                </ResourceDictionary>
+            </ResourceDictionary.ThemeDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

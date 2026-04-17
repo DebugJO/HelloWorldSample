@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <TargetFramework>net10.0</TargetFramework>
+        <ImplicitUsings>disable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <PublishReadyToRun>true</PublishReadyToRun>
+        <Version>1.0.0</Version>
+        <Copyright>Copyright © 2026 devsight.kr</Copyright>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="NLog" Version="6.1.2"/>
+        <PackageReference Include="NLog.OutputDebugString" Version="6.1.2"/>
+    </ItemGroup>
+</Project>

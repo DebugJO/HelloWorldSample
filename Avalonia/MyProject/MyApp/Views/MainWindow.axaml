@@ -1,0 +1,163 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:MyApp.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:iconPacks="https://github.com/MahApps/IconPacks.Avalonia"
+        xmlns:ex="clr-namespace:MyApp.WindowHelper.ThemeHelper"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="MyApp.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        Title="MyApp"
+        UseLayoutRounding="True"
+        ExtendClientAreaToDecorationsHint="True"
+        ExtendClientAreaTitleBarHeightHint="-1"
+        ExtendClientAreaChromeHints="NoChrome"
+        TransparencyLevelHint="None"
+        Background="{DynamicResource SystemRegionBrush}">
+
+    <Interaction.Behaviors>
+        <EventTriggerBehavior EventName="Loaded">
+            <InvokeCommandAction Command="{Binding AppStartCommand}"
+                                 PassEventArgsToCommand="True" />
+        </EventTriggerBehavior>
+
+        <EventTriggerBehavior EventName="Closing">
+            <InvokeCommandAction Command="{Binding AppClosingCommand}"
+                                 PassEventArgsToCommand="True" />
+        </EventTriggerBehavior>
+    </Interaction.Behaviors>
+
+    <Design.DataContext>
+        <vm:MainWindowViewModel />
+    </Design.DataContext>
+
+    <Window.Styles>
+        <Style Selector="Window">
+            <Setter Property="Padding" Value="0" />
+        </Style>
+        <Style Selector="Window[WindowState=Maximized]">
+            <Setter Property="Padding" Value="{Binding $self.OffScreenMargin}" />
+        </Style>
+    </Window.Styles>
+
+    <Window.Resources>
+        <ex:RemoveLineBreakConverter x:Key="RemoveLineBreakConverter" />
+    </Window.Resources>
+
+    <Grid RowDefinitions="32,*,28" ColumnDefinitions="*">
+        <!-- 타이틀바 -->
+        <DockPanel Grid.Row="0" Grid.Column="0" LastChildFill="True" Background="Transparent">
+            <StackPanel DockPanel.Dock="Left" Orientation="Horizontal">
+                <StackPanel Orientation="Horizontal" Background="Transparent">
+                    <Interaction.Behaviors>
+                        <EventTriggerBehavior EventName="PointerPressed">
+                            <InvokeCommandAction Command="{Binding TitleBarActionCommand}"
+                                                 PassEventArgsToCommand="True" />
+                        </EventTriggerBehavior>
+                    </Interaction.Behaviors>
+                    <Image Source="/Assets/avalonia-logo.ico" Margin="8" />
+                </StackPanel>
+                <Menu FontWeight="Normal">
+                    <MenuItem Padding="0" Margin="0">
+                        <MenuItem.Header>
+                            <AccessText Text="Open(_O)" />
+                        </MenuItem.Header>
+                        <MenuItem Header="Home">
+                            <MenuItem.Icon>
+                                <iconPacks:PackIconCodicons Kind="Home" VerticalAlignment="Center" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem Header="First Page">
+                            <MenuItem.Icon>
+                                <iconPacks:PackIconCodicons Kind="Browser" Margin="0 1" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem Header="Second Page">
+                            <MenuItem.Icon>
+                                <iconPacks:PackIconCodicons Kind="Browser" Margin="0 1" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <Separator />
+                        <MenuItem Header="Close">
+                            <MenuItem.Icon>
+                                <iconPacks:PackIconCodicons Kind="Close" Margin="0 2" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                    </MenuItem>
+                    <Separator Width="8" Background="Transparent" Margin="0" />
+                    <MenuItem Padding="0" Margin="0">
+                        <MenuItem.Header>
+                            <AccessText Text="Settings(_S)" />
+                        </MenuItem.Header>
+                    </MenuItem>
+                    <Separator Width="8" Background="Transparent" Margin="0" />
+                    <MenuItem Padding="0" Margin="0">
+                        <MenuItem.Header>
+                            <AccessText Text="About(_A)" />
+                        </MenuItem.Header>
+                    </MenuItem>
+                </Menu>
+            </StackPanel>
+            <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
+                <Button Classes="HasIcon CaptionButton"
+                        ex:AttachedButton.Icon="ChromeMinimize" ex:AttachedButton.IconSize="12"
+                        Command="{Binding MinimizeWindowCommand}"
+                        CommandParameter="{Binding $parent[Window]}" />
+                <StackPanel Width="4" />
+                <Button Classes="HasIcon CaptionButton" ex:AttachedButton.IconSize="12"
+                        Command="{Binding ToggleWindowStateCommand}"
+                        CommandParameter="{Binding $parent[Window]}">
+                    <Button.Tag>
+                        <Binding Path="$parent[Window].WindowState" />
+                    </Button.Tag>
+                    <Button.Styles>
+                        <Style Selector="Button">
+                            <Setter Property="ex:AttachedButton.Icon" Value="ChromeMaximize" />
+                        </Style>
+                        <Style Selector="Button[Tag=Maximized]">
+                            <Setter Property="ex:AttachedButton.Icon" Value="ChromeRestore" />
+                        </Style>
+                    </Button.Styles>
+                </Button>
+                <StackPanel Width="4" />
+                <Button Classes="HasIcon CaptionButton Close"
+                        ex:AttachedButton.Icon="ChromeClose" ex:AttachedButton.IconSize="12"
+                        Command="{Binding CloseWindowCommand}"
+                        CommandParameter="{Binding $parent[Window]}" />
+            </StackPanel>
+            <DockPanel Background="Transparent">
+                <Interaction.Behaviors>
+                    <EventTriggerBehavior EventName="PointerPressed">
+                        <InvokeCommandAction Command="{Binding TitleBarActionCommand}"
+                                             PassEventArgsToCommand="True" />
+                    </EventTriggerBehavior>
+                </Interaction.Behaviors>
+            </DockPanel>
+        </DockPanel>
+        <!-- 컨텐츠 영역 -->
+        <DockPanel Grid.Row="1" Background="Transparent">
+            <Button Content="테마 테스트"
+                    Command="{Binding ThemeChangeCommand}"
+                    CommandParameter="{Binding $self}"
+                    IsEnabled="{Binding !ThemeChangeCommand.IsRunning}" 
+                    ex:ButtonBusy.BusyText="동작중..."/>
+            <CalendarDatePicker/>
+        </DockPanel>
+        <!-- 하단 메시지 영역 -->
+        <DockPanel Grid.Row="2" Background="Transparent" VerticalAlignment="Center">
+            <StackPanel Orientation="Vertical">
+                <Grid>
+                    <Border Height="1" VerticalAlignment="Bottom" BorderThickness="0,0,0,0.6"
+                            BorderBrush="{DynamicResource ButtonForeground}" Opacity="0.2" />
+                </Grid>
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <TextBlock Text="【메시지】 " FontWeight="Bold" Margin="4 0 0 0" />
+                    <TextBlock Text="{Binding StatusMessage, 
+                                Converter={StaticResource RemoveLineBreakConverter}}"
+                               TextWrapping="NoWrap" TextTrimming="CharacterEllipsis" />
+                </StackPanel>
+            </StackPanel>
+        </DockPanel>
+    </Grid>
+</Window>
