@@ -10,5 +10,5 @@ uno-check
 dotnet new --list
 ```
 
-Rider 플러근인 UnoPlatform 설치
+Rider 플러그인 UnoPlatform 설치
 필요시 `uno-check`로 업데이트 확인
