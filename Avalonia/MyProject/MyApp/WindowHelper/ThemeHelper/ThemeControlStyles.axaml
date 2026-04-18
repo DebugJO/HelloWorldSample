@@ -120,6 +120,18 @@
     <Style Selector="Button:pressed">
         <Setter Property="RenderTransform" Value="scale(0.97)" />
     </Style>
+    <Style Selector="Button.Custom">
+        <Setter Property="Background" Value="{DynamicResource CustomButtonBackground}" />
+        <Setter Property="Foreground" Value="{DynamicResource CustomButtonForeground}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource CustomButtonBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
+    </Style>
+    <Style Selector="Button.Custom:pointerover /template/ ContentPresenter">
+        <Setter Property="Background" Value="{DynamicResource CustomButtonOverBackground}" />
+        <Setter Property="Foreground" Value="{DynamicResource CustomButtonOverForeground}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource CustomButtonOverBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
+    </Style>
     <!-- Button 기본 End -->
 
     <!-- Titlebar Caption Button 기본 -->
@@ -171,41 +183,3 @@
     </Style>
     <!-- TextBox End -->
 </Styles>
-
-
-<!-- <Style Selector="Button.HasIcon"> -->
-<!--     <Setter Property="HorizontalContentAlignment" Value="Center" /> -->
-<!--     <Setter Property="VerticalContentAlignment" Value="Center" /> -->
-<!--     <Setter Property="Padding" Value="8,4" /> -->
-<!--     <Setter Property="ContentTemplate"> -->
-<!--         <Setter.Value> -->
-<!--             <DataTemplate> -->
-<!--                 <Grid HorizontalAlignment="Center" VerticalAlignment="Center"> -->
-<!--                     <StackPanel Orientation="Horizontal" Spacing="4"> -->
-<!--                         <iconPacks:PackIconCodicons -->
-<!--                             Kind="{Binding $parent[Button].(ex:AttachedButton.Icon)}" -->
-<!--                             Width="{Binding $parent[Button].(ex:AttachedButton.IconSize)}" -->
-<!--                             Height="{Binding $parent[Button].(ex:AttachedButton.IconSize)}" -->
-<!--                             VerticalAlignment="Center" -->
-<!--                             Foreground="{Binding $parent[Button].Foreground}"> -->
-<!--                             <iconPacks:PackIconCodicons.IsVisible> -->
-<!--                                 <Binding Path="$parent[Button].(ex:AttachedButton.Icon)" -->
-<!--                                          Converter="{x:Static ex:IconToVisibleConverter.Instance}" /> -->
-<!--                             </iconPacks:PackIconCodicons.IsVisible> -->
-<!--                         </iconPacks:PackIconCodicons> -->
-<!--                         <TextBlock Text="{Binding $parent[Button].Content}" -->
-<!--                                    VerticalAlignment="Center" -->
-<!--                                    Foreground="{Binding $parent[Button].Foreground}" -->
-<!--                                    FontSize="{Binding $parent[Button].FontSize}" -->
-<!--                                    FontWeight="{Binding $parent[Button].FontWeight}"> -->
-<!--                             <TextBlock.IsVisible> -->
-<!--                                 <Binding Path="$parent[Button].Content" -->
-<!--                                          Converter="{x:Static StringConverters.IsNotNullOrEmpty}" /> -->
-<!--                             </TextBlock.IsVisible> -->
-<!--                         </TextBlock> -->
-<!--                     </StackPanel> -->
-<!--                 </Grid> -->
-<!--             </DataTemplate> -->
-<!--         </Setter.Value> -->
-<!--     </Setter> -->
-<!-- </Style> -->

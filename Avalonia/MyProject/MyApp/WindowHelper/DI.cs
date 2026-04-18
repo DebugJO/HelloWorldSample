@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace MyApp.WindowHelper;
 
@@ -23,7 +24,7 @@ public static class DI
     /// <summary>
     /// 지정된 타입에 해당하는 의존성 객체(인스턴스) 가져오기.
     /// <![CDATA[
-    /// CurrentPage = DI.Get<MainViewModel>();
+    /// CurrentPage = DI.Get<xxxViewModel>();
     /// ]]>
     /// </summary>
     /// <typeparam name="T">가져올 객체 타입 : View, ViewModel, Service</typeparam>
@@ -51,6 +52,35 @@ public static class DI
         }
     }
 
+    private static readonly AsyncLocal<HashSet<Type>> _asyncResolutionStack = new();
+    public static async Task<T> GetAsync<T>() where T : notnull
+    {
+        Type type = typeof(T);
+        
+        // AsyncLocal 내부에 HashSet이 없다면 초기화
+        _asyncResolutionStack.Value ??= [];
+        var stack = _asyncResolutionStack.Value;
+
+        if (stack.Contains(type))
+        {
+            throw new InvalidOperationException(
+                $"[비동기 순환 참조] {type.Name}이(가) 완료되기 전 재호출됨. 비동기 생성 로직을 확인하세요."
+            );
+        }
+
+        try
+        {
+            stack.Add(type);
+            // 비동기 서비스 취득 로직 (예시: GetRequiredService는 보통 동기지만, 
+            // 만약 별도의 비동기 초기화 로직이 포함된 확장 메서드를 쓰신다면 유용합니다)
+            return await Task.Run(() => App.Services.GetRequiredService<T>());
+        }
+        finally
+        {
+            stack.Remove(type);
+        }
+    }
+    
     /// <summary>
     /// 타입(이름)으로  의존성 객체(인스턴스) 가져오기.
     /// 메뉴 버튼이 여러 개인데, 버튼마다 함수를 만들지 않고 CommandParameter에 이름만 넣어서 처리
@@ -64,6 +94,7 @@ public static class DI
     /// <param name="type">가져올 객체 타입 : View, ViewModel, Service</param>
     /// <returns>컨테이터에 등록된 [T]의 싱글톤, 새 인스턴스 : View, ViewModel, Service</returns>
     /// <exception cref="InvalidOperationException">순환참고, 동적 요청 중 무한 루프 감지</exception>
+    [Obsolete("이 메서드는 DI 내부 전용입니다. 직접 호출하지 마세요.", true)]
     [EditorBrowsable(EditorBrowsableState.Never)]
     public static object Get(Type type)
     {

@@ -32,19 +32,18 @@
             </Grid>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right"
                         Spacing="8" Margin="0,10,0,0">
-                <Button Name="BtnOk" Content="확인" Width="85" Height="32"
+                <Button Name="BtnOk" Content="확인" Width="85" Height="32" Classes="Custom"
+                        HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                        Click="OnButtonClick" />
+                <Button Name="BtnYes" Content="예" Width="85" Height="32" Classes="Custom"
                         BorderBrush="{DynamicResource ButtonBackground}"
                         HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
                         Click="OnButtonClick" />
-                <Button Name="BtnYes" Content="예" Width="85" Height="32"
+                <Button Name="BtnNo" Content="아니오" Width="85" Height="32" Classes="Custom"
                         BorderBrush="{DynamicResource ButtonBackground}"
                         HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
                         Click="OnButtonClick" />
-                <Button Name="BtnNo" Content="아니오" Width="85" Height="32"
-                        BorderBrush="{DynamicResource ButtonBackground}"
-                        HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
-                        Click="OnButtonClick" />
-                <Button Name="BtnCancel" Content="취소" Width="85" Height="32"
+                <Button Name="BtnCancel" Content="취소" Width="85" Height="32" Classes="Custom"
                         BorderBrush="{DynamicResource ButtonBackground}"
                         HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
                         Click="OnButtonClick" />

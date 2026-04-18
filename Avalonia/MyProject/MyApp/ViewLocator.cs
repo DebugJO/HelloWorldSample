@@ -14,26 +14,20 @@ public class ViewLocator : IDataTemplate
             return null;
         }
 
-        string vmName = param.GetType().FullName!;
-        string viewName = vmName.Replace("ViewModels", "Views")
+        string viewName = param.GetType().FullName!
+            .Replace(".ViewModels.", ".Views.")
             .Replace("ViewModel", "View");
-        Type? type = param.GetType().Assembly.GetType(viewName);
 
-        if (type == null)
-        {
-            viewName = vmName.Replace("ViewModel", "View");
-            type = param.GetType().Assembly.GetType(viewName);
-        }
+        Type? type = param.GetType().Assembly.GetType(viewName);
 
         if (type == null)
         {
             return new TextBlock { Text = "Not Found: " + viewName };
         }
 
-        Control view = App.Services.GetService(type) as Control 
-                       ?? (Control)Activator.CreateInstance(type)!;
-            
+        Control view = (Control)Activator.CreateInstance(type)!;
         view.DataContext = param;
+
         return view;
     }
 

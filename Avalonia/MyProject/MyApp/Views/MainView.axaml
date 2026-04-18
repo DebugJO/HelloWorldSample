@@ -5,9 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:iconPacks="https://github.com/MahApps/IconPacks.Avalonia"
         xmlns:ex="clr-namespace:MyApp.WindowHelper.ThemeHelper"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="MyApp.Views.MainView"
         x:DataType="vm:MainViewModel"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        d:DataContext="{d:DesignInstance vm:MainViewModel}"
         Title="MyApp"
         UseLayoutRounding="True"
         ExtendClientAreaToDecorationsHint="True"
@@ -29,9 +30,6 @@
         </EventTriggerBehavior>
     </Interaction.Behaviors>
 
-    <Design.DataContext>
-        <vm:MainViewModel />
-    </Design.DataContext>
 
     <Window.Styles>
         <Style Selector="Window">
@@ -46,7 +44,7 @@
         <ex:RemoveLineBreakConverter x:Key="RemoveLineBreakConverter" />
     </Window.Resources>
 
-    <Grid RowDefinitions="32,*,28" ColumnDefinitions="*">
+    <Grid RowDefinitions="32,1,*,1,24" ColumnDefinitions="*">
         <!-- 타이틀바 -->
         <DockPanel Grid.Row="0" Grid.Column="0" LastChildFill="True" Background="Transparent">
             <StackPanel DockPanel.Dock="Left" Orientation="Horizontal">
@@ -136,8 +134,13 @@
                 </Interaction.Behaviors>
             </DockPanel>
         </DockPanel>
+        <!-- 타이틀바 구분선 -->
+        <Grid Grid.Row="1">
+            <Border VerticalAlignment="Center" BorderThickness="0,0,0,0.6"
+                    BorderBrush="{DynamicResource ButtonForeground}" Opacity="0.1" />
+        </Grid>
         <!-- 컨텐츠 영역 -->
-        <DockPanel Grid.Row="1" Background="Transparent">
+        <DockPanel Grid.Row="2" Background="Transparent">
             <Button Content="버튼테스트"
                     Command="{Binding ThemeChangeCommand}"
                     CommandParameter="{Binding $self}"
@@ -147,22 +150,24 @@
                     ex:ButtonBusy.IsBusy="{Binding ThemeChangeCommand.IsRunning}" />
             <ContentControl Content="{Binding CurrentPage}" />
         </DockPanel>
+        <!-- 하단 구분선 -->
+        <Grid Grid.Row="3">
+            <Border VerticalAlignment="Center" BorderThickness="0,0,0,0.6"
+                    BorderBrush="{DynamicResource ButtonForeground}" Opacity="0.1" />
+        </Grid>
         <!-- 하단 메시지 영역 -->
-        <DockPanel Grid.Row="2" Background="Transparent" VerticalAlignment="Center">
+        <DockPanel Grid.Row="4" Background="Transparent" VerticalAlignment="Center">
             <StackPanel Orientation="Vertical">
-                <Grid>
-                    <Border Height="1" VerticalAlignment="Center" BorderThickness="0,0,0,0.6"
-                            BorderBrush="{DynamicResource ButtonForeground}" Opacity="0.2" />
-                </Grid>
                 <StackPanel Orientation="Horizontal">
-                    <iconPacks:PackIconCodicons Kind="Comment" VerticalAlignment="Center" Width="12" Height="12"
-                                                Margin="8 0 4 0" FontWeight="Bold"
+                    <iconPacks:PackIconCodicons Kind="Comment" Width="12" Height="12" FontWeight="Bold"
+                                                Margin="8 0 4 0" VerticalAlignment="Center"
                                                 Foreground="{DynamicResource AccentBrush}" />
-                    <TextBlock Text="메시지ㆍ" FontWeight="Bold" VerticalAlignment="Center"
+                    <TextBlock Text="메시지ㆍ" FontWeight="Bold" 
                                Foreground="{DynamicResource AccentBrush}" />
-                    <TextBlock Text="{Binding StatusMessage, 
-                                Converter={StaticResource RemoveLineBreakConverter}}"
-                               TextWrapping="NoWrap" TextTrimming="CharacterEllipsis" VerticalAlignment="Center" />
+                    <TextBlock Text="{Binding StatusMessage,
+                                    Converter={StaticResource RemoveLineBreakConverter}}"
+                               TextWrapping="NoWrap" TextTrimming="CharacterEllipsis" 
+                            />
                 </StackPanel>
             </StackPanel>
         </DockPanel>

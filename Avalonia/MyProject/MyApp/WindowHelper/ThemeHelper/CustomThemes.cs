@@ -2,7 +2,7 @@
 
 namespace MyApp.WindowHelper.ThemeHelper;
 
-public static class Themes
+public static class CustomThemes
 {
     public static readonly ThemeVariant DeepBlue = new("DeepBlue", ThemeVariant.Dark);
     public static readonly ThemeVariant MsWordLight = new("MsWordLight", ThemeVariant.Light);
