@@ -154,3 +154,12 @@ private async Task<string> GetDelayedTextAsync()
 - 우리 앱만의 **커스텀 버튼 모양**을 만들 때
 - 마우스를 올렸을 때 색상이 변하는 **애니메이션/효과**를 줄 때
 - 컨트롤의 특정 **상태**(Error, Disabled 등)에 따른 디자인을 정의할 때
+
+### .NET 경로 API
+
+|API 종류|SingleFile 배포 시 결과|신뢰도|특징 및 한계|
+|---|---|---|---|
+|`AppContext.BaseDirectory`|정상 경로 (O)|최상|.NET Core 이후 표준. 어떤 환경에서도 앱이 설치된 "그 폴더"를 가리킴.|
+|`AppDomain.CurrentDomain.BaseDirectory`|정상 경로 (O)|안전|구형 .NET Framework부터 있던 방식. 결과는 위와 같으나 코드가 조금 더 김.|
+|`Assembly.Location`|빈 문자열 ("") (X)|절대 금지|"파일"의 위치를 묻는 것인데, SingleFile은 파일이 .exe 안에 숨어버려 위치가 없다고 판단함.|
+|`Directory.GetCurrentDirectory()`|가변 경로 (??)|위험|앱 설치 폴더가 아니라, 사용자가 "지금 서 있는 폴더"임. (예: C:에서 실행하면 C:가 나옴)|
