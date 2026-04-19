@@ -246,3 +246,29 @@ public readonly struct Email
     }
 }
 ```
+
+### throw 대표적인 예외
+
+1.매개변수(인자) 값이 잘못되었을 때
+
+* ArgumentNullException: 전달된 인자가 null이면 안 될 때
+* ArgumentOutOfRangeException: 숫자가 범위를 벗어났을 때
+* ArgumentException: 그 외에 값이 잘못되었을 때 (포괄)
+
+2.객체의 상태가 올바르지 않을 때
+
+* InvalidOperationException: 메서드를 호출하기 위한 전제 조건이 맞지 않을 때
+* ObjectDisposedException: 리소스가 해제(Dispose)된 객체를 다시 사용하려고 할 때
+
+3.아직 구현하지 않았거나 지원하지 않을 때
+
+* NotImplementedException: 메서드 틀만 있고 코드는 없을 때(메모용)
+* NotSupportedException: 해당 기능이 지원되지 않을 때
+
+**Debug.Assert vs if (throw)  차이**
+
+|구분|Debug.Assert|if (tagList.Length == 0) throw|
+|---|---|---|
+|**작동 환경**|Debug 모드에서만 작동|Debug/Release 모두 작동|
+|**실행 결과**|개발 중 팝업창이 뜨거나 로그가 찍힘|프로그램이 예외를 발생시키며 중단됨|
+|**용도**|개발자의 실수를 잡을 때 (버그 방지)|사용자의 입력값이나 데이터가 잘못되었을 때|
