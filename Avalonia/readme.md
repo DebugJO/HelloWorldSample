@@ -272,3 +272,144 @@ public readonly struct Email
 |**작동 환경**|Debug 모드에서만 작동|Debug/Release 모두 작동|
 |**실행 결과**|개발 중 팝업창이 뜨거나 로그가 찍힘|프로그램이 예외를 발생시키며 중단됨|
 |**용도**|개발자의 실수를 잡을 때 (버그 방지)|사용자의 입력값이나 데이터가 잘못되었을 때|
+
+### C#의 핵심 예외(Exception) 클래스
+
+1. 인자(Parameter) 관련 예외
+메서드에 전달된 값이 잘못되었을 때
+
+- **`ArgumentNullException`**: 인자가 `null`이어서는 안 될 때.
+    - _예:_ `ArgumentNullException.ThrowIfNull(input);`
+- **`ArgumentException`**: 인자가 `null`은 아니지만, 유효하지 않은 값일 때. (예: 빈 문자열, 형식 불일치)
+    - _예:_ `if (string.IsNullOrWhiteSpace(name)) throw new ArgumentException("이름을 입력하세요.");`
+- **`ArgumentOutOfRangeException`**: 인자가 허용된 숫자 범위를 벗어났을 때.
+    - _예:_ `ArgumentOutOfRangeException.ThrowIfNegative(age);`
+
+2. 상태(State) 및 조작 관련 예외
+
+객체의 현재 상태가 해당 동작을 수행하기에 적절하지 않을 때 사용합니다.
+
+- **`InvalidOperationException`**: 객체의 현재 상태에서 메서드 호출이 불가능할 때.
+    - _예:_ 데이터베이스 연결이 닫혀 있는데 데이터를 읽으려 하는 경우.
+- **`NotSupportedException`**: 메서드 자체는 존재하지만, 특정 구현체에서 해당 기능을 지원하지 않을 때.
+    - _예:_ 읽기 전용 스트림에 쓰기를 시도할 때.
+- **`NotImplementedException`**: 아직 개발 중이라 기능이 구현되지 않았을 때. (나중에 채워 넣어야 할 때 사용)
+
+3. 데이터 및 연산 관련 예외
+
+계산이나 데이터 처리 과정에서 발생합니다.
+
+- **`DivideByZeroException`**: 0으로 나누기를 시도할 때.
+- **`IndexOutOfRangeException`**: 배열이나 리스트의 인덱스 범위를 벗어날 때.
+- **`KeyNotFoundException`**: 딕셔너리(`Dictionary`)에서 존재하지 않는 키를 찾으려 할 때.
+- **`FormatException`**: 문자열을 숫자로 변환하는 등의 형 변환이 실패할 때.
+
+4. 시스템 및 자원 관련 예외
+
+시스템 리소스나 인프라 문제 시 발생합니다.
+
+- **`IOException`**: 파일 입출력 중 오류가 발생할 때.
+- **`TimeoutException`**: 작업이 지정된 시간을 초과했을 때.
+- **`UnauthorizedAccessException`**: 권한이 없어 접근이 거부될 때. (파일 접근 권한 등)
+
+|상황|추천 예외 클래스|
+|---|---|
+|**값이 `null`인가?**|`ArgumentNullException`|
+|**값이 너무 크거나 작은가?**|`ArgumentOutOfRangeException`|
+|**그 외 인자 값이 이상한가?**|`ArgumentException`|
+|**실행 순서나 객체 상태가 꼬였나?**|`InvalidOperationException`|
+|**아직 코드를 안 짰나?**|`NotImplementedException`|
+|**이 기능은 못 쓰는 기능인가?**|`NotSupportedException`|
+
+5. 커스텀 예제
+
+```cs
+public class InsufficientBalanceException : Exception
+{
+    public decimal CurrentBalance { get; }
+
+    // 기본 메시지만 전달
+    public InsufficientBalanceException(string message) : base(message) { }
+
+    // 추가 정보(잔액 등)를 함께 전달하고 싶을 때
+    public InsufficientBalanceException(string message, decimal balance) : base(message)
+    {
+        CurrentBalance = balance;
+    }
+}
+```
+
+```cs
+public class BankAccount
+{
+    public decimal Balance { get; private set; } = 1000m;
+
+    public void Withdraw(decimal amount)
+    {
+        if (amount <= 0)
+            throw new ArgumentException("출금액은 0보다 커야 합니다.");
+
+        if (amount > Balance)
+        {
+            // 비즈니스 규칙 위반 시 우리가 만든 예외 던지기
+            throw new InsufficientBalanceException("잔액이 부족합니다.", Balance);
+        }
+
+        Balance -= amount;
+    }
+}
+```
+
+```cs
+var account = new BankAccount();
+
+try
+{
+    account.Withdraw(5000m); // 잔액보다 큰 금액 시도
+}
+catch (InsufficientBalanceException ex)
+{
+    // 우리가 만든 전용 예외만 골라서 처리 가능
+    Console.WriteLine($"[비즈니스 오류] {ex.Message}");
+    Console.WriteLine($"현재 잔액: {ex.CurrentBalance}원");
+}
+catch (Exception ex)
+{
+    // 시스템 에러 등 기타 예외 처리
+    Console.WriteLine($"[알 수 없는 오류] {ex.Message}");
+}
+```
+
+예외(Exception)와 버그(Bug)의 구분
+
+- **버그 (Bug)**: 개발자의 실수. 코드를 고쳐서 해결해야 함.
+    - `NullReferenceException`, `IndexOutOfRangeException`, `ArgumentException`.
+    - **대응**: `try-catch`로 잡지 말고, 프로그램이 죽게 놔둔 뒤 로그를 보고 **코드를 수정**해야 합니다.
+- **불가항력적 예외 (Exceptional Circumstances)**: 코드 문제가 아니라 환경 문제.
+    - `HttpRequestException`(네트워크 단절), `IOException`(디스크 꽉 참), `SqlException`(DB 서버 다운).
+    - **대응**: 이건 코드를 수정한다고 해결되지 않으므로, **재시도(Retry)**하거나 사용자에게 **오류 상황을 알리는 처리(Graceful degradation)**를 해야 합니다.
+
+예외 처리는 디비접속실패라던지,  프로그램 내에서 처리하지 못하는 상황을 처리하는 것이고, 나머진 버그 처리해야 함 `rgumentNullException.ThrowIfNull(input);`. 그러면 최종 개발 사용자(최종 단계에서 사용하는 로직)에서 판단하여 버그 수정요청을 할 것인지 아니면 여기에서 예외 처리를 할 것인지 정해야 함.
+
+```cs
+public void ProcessPayment(Order order)
+{
+    // 1. 사전 조건 검사 (Assertion 성격)
+    // 여기서 터지면 호출한 쪽(개발자)이 데이터를 잘못 보낸 것이므로 '버그'임.
+    ArgumentNullException.ThrowIfNull(order);
+
+    // 2. 비즈니스 규칙 검사
+    // 도메인 논리상 이 단계까지 오면 안 되는데 왔다면 시스템 설계 오류임.
+    if (order.IsAlreadyProcessed)
+        throw new MyBusinessException("이미 처리된 주문입니다. (로직 설계 오류)");
+
+    // 3. 불가항력적인 상황 (여기서만 try-catch 고려)
+    try {
+        _paymentGateway.Send(order);
+    } catch (NetworkException ex) {
+        // 이건 개발자가 고칠 수 없으니 로그 남기고 사용자에게 안내
+    }
+}
+```
+
+**"예외 처리는 항복 선언이지, 해결책이 아니다"**
