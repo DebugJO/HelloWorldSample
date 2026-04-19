@@ -164,7 +164,7 @@ private async Task<string> GetDelayedTextAsync()
 |`Assembly.Location`|빈 문자열 ("") (X)|절대 금지|"파일"의 위치를 묻는 것인데, SingleFile은 파일이 .exe 안에 숨어버려 위치가 없다고 판단함.|
 |`Directory.GetCurrentDirectory()`|가변 경로 (??)|위험|앱 설치 폴더가 아니라, 사용자가 "지금 서 있는 폴더"임. (예: C:에서 실행하면 C:가 나옴)|
 
-###### C# NULL 가이드
+### C# NULL 가이드
 
 `null`일 수 있는 값을 체크 없이 사용하면 빌드가 실패
 
