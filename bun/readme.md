@@ -94,3 +94,30 @@ bun run build:win
 bun run build:mac
 bun run build:linux
 ```
+
+### 일렉트론 + rust(napi-rs)
+
+```bash
+npm install -g @napi-rs/cli
+napi new native-lib
+```
+
+```rs
+use napi_derive::napi;
+
+#[napi]
+pub fn heavy_computation(input: i32) -> i32 {
+    // Rust의 강력한 성능을 활용한 로직
+    input * 2 
+}
+```
+
+```bash
+npm run build # rust 코드를 .node 파일로 빌드
+```
+
+```ts
+# 일렉트론(TypeScript)
+import { heavyComputation } from './native-lib'
+console.log(heavyComputation(100)); // 200
+```
