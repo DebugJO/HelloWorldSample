@@ -163,3 +163,86 @@ private async Task<string> GetDelayedTextAsync()
 |`AppDomain.CurrentDomain.BaseDirectory`|정상 경로 (O)|안전|구형 .NET Framework부터 있던 방식. 결과는 위와 같으나 코드가 조금 더 김.|
 |`Assembly.Location`|빈 문자열 ("") (X)|절대 금지|"파일"의 위치를 묻는 것인데, SingleFile은 파일이 .exe 안에 숨어버려 위치가 없다고 판단함.|
 |`Directory.GetCurrentDirectory()`|가변 경로 (??)|위험|앱 설치 폴더가 아니라, 사용자가 "지금 서 있는 폴더"임. (예: C:에서 실행하면 C:가 나옴)|
+
+###### C# NULL 가이드
+
+`null`일 수 있는 값을 체크 없이 사용하면 빌드가 실패
+
+`Nullable`은 경고만
+
+* CS8600 (Null 리터럴을 Null 비허용 형식으로 변환)
+	* `string name = null;` 처럼 `?`가 없는 변수에 대놓고 `null`을 넣을 때 발생
+* CS8602 (Null 가능 참조의 역참조)
+	* `string? name` 변수를 `if (name != null)` 체크 없이 `name.Length`처럼 바로 사용할 때 발생
+* CS8603 (Null 가능 참조를 Null 비허용 형식의 반환값으로 사용
+	* 반환 타입은 `string`인데 `null`일 수도 있는 값을 리턴하려고 할 때 발생
+
+```xml
+<PropertyGroup>
+  <Nullable>enable</Nullable>
+  <WarningsAsErrors>CS8600;CS8602;CS8603</WarningsAsErrors>
+</PropertyGroup>
+
+```
+
+OneOf 라이브러리 사용
+
+```cs
+using OneOf;
+
+public OneOf<string, None> GetUsername(int id)
+{
+    if (id == 0) return new None();
+    return "John Doe";
+}
+
+var result = GetUsername(0);
+
+string message = result.Match(
+    name => $"사용자: {name}",
+    none => "사용자를 찾을 수 없습니다."
+);
+```
+
+C# 11 `required` 키워드
+
+```cs
+public class User
+{
+    public required string Name { get; init; } // 초기화 필수
+    public string? Email { get; init; }        // 선택 사항
+}
+
+// 에러: Name을 넣지 않으면 빌드 안 됨
+// var user = new User(); 
+
+var user = new User { Name = "Alice" }; // OK
+```
+
+Null 가드 연산자 (Throw If Null)
+
+```cs
+// 코드 실행 초기 단계에서 null을 차단
+public void ProcessData(string? input)
+{
+    ArgumentNullException.ThrowIfNull(input);
+    // 이후부터는 input이 절대 null이 아님을 보장함
+    Console.WriteLine(input.Length);
+}
+```
+
+Value Object 패턴 (값 객체화)
+
+```cs
+public readonly struct Email
+{
+    private readonly string _value;
+    public string Value => _value ?? throw new InvalidOperationException();
+
+    public Email(string value)
+    {
+        if (string.IsNullOrWhiteSpace(value)) throw new ArgumentException("Email cannot be empty");
+        _value = value;
+    }
+}
+```
