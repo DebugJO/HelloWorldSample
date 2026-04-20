@@ -121,3 +121,9 @@ npm run build # rust 코드를 .node 파일로 빌드
 import { heavyComputation } from './native-lib'
 console.log(heavyComputation(100)); // 200
 ```
+
+## Electrobun 사용법
+ㅇㅇ
+
+
+
