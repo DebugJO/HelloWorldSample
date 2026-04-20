@@ -310,5 +310,75 @@ export default function Secret() {
   );
 }
 ```
+위의 예제는 정확한 로그인보안 또는 JWT 토큰 기반 인증 추가 필요
 
-JWT 토큰 기반 인증 추가 필요
+**컴포넌트 예제**
+
+```bash
+src/
+├── index.ts
+├── components/
+│   ├── Header.tsx
+│   └── Footer.tsx
+├── routes/
+│   ├── home.tsx
+│   └── about.tsx
+```
+
+```tsx
+export default function Header() {
+  return (
+    <header>
+      <h1>My Website</h1>
+      <nav>
+        <a href="/">Home</a> | <a href="/about">About</a>
+      </nav>
+    </header>
+  );
+}
+```
+```tsx
+export default function Footer() {
+  return (
+    <footer>
+      <p>© 2026 My Website</p>
+    </footer>
+  );
+}
+```
+
+```tsx
+import Header from "../components/Header";
+import Footer from "../components/Footer";
+
+export default function Home() {
+  return (
+    <div>
+      <Header />
+      <main>
+        <h2>Home Page</h2>
+        <p>이곳은 기본 진입 화면입니다.</p>
+      </main>
+      <Footer />
+    </div>
+  );
+}
+```
+
+```tsx
+import Header from "../components/Header";
+import Footer from "../components/Footer";
+
+export default function About() {
+  return (
+    <div>
+      <Header />
+      <main>
+        <h2>About Page</h2>
+        <p>이 화면은 /about 경로에서 표시됩니다.</p>
+      </main>
+      <Footer />
+    </div>
+  );
+}
+```
