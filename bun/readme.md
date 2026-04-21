@@ -415,3 +415,67 @@ window.electrobun.on('reply', (data) => {
     alert(data.message);
 });
 ```
+
+### Electrobun bunx
+
+```bash
+mkdir my-electrobun-app
+cd my-electrobun-app
+bunx electrobun init
+bun add react react-dom
+bun add -D @types/react @types/react-dom electrobun
+```
+
+```tsx
+// src/views/App.tsx : 자동생성된 index.html이 참조할 react파일
+import React from 'react';
+import { createRoot } from 'react-dom/client';
+
+const App = () => (
+    <div style={{ background: '#222', color: '#fff', height: '100vh', padding: '20px' }}>
+        <h1>Electrobun + React</h1>
+        <button onClick={() => window.electrobun.send('hello-from-react', { msg: '안녕!' })}>
+            메인으로 메시지 보내기
+        </button>
+    </div>
+);
+
+const root = createRoot(document.getElementById('root')!);
+root.render(<App />);
+```
+
+```ts
+// main.ts : 메인윈도우를 띄우고 react와 통신
+import { Electrobun } from 'electrobun';
+
+const app = new Electrobun.App();
+const win = new Electrobun.BrowserWindow({
+    title: 'My App',
+    url: 'src/views/index.html'
+});
+
+// React에서 보낸 메시지 수신
+win.on('hello-from-react', (data) => {
+    console.log('수신 데이터:', data);
+});
+```
+**tsconfig.json**
+
+```json
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "jsx": "react-jsx",
+    "strict": true,
+    "skipLibCheck": true
+  },
+  "include": ["src/**/*"]
+}
+```
+
+```bash
+bunx electrobun dev
+bunx electrobun build
+```
