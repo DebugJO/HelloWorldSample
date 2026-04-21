@@ -382,3 +382,36 @@ export default function About() {
   );
 }
 ```
+
+### 간단한 통신 예시
+
+```ts
+// main.ts
+import { Electrobun } from 'electrobun';
+
+const app = new Electrobun.App();
+const win = new Electrobun.BrowserWindow({
+    title: "My Native App",
+    url: "views/index.html"
+});
+
+// 리액트에서 보낸 'hello' 메시지 받기
+win.on('hello', (data) => {
+    console.log('React에서 보낸 메시지:', data);
+    // 다시 리액트로 응답 보내기
+    win.send('reply', { message: '반가워!' });
+});
+```
+
+```ts
+// App.tsx
+const handleClick = () => {
+    // 메인 프로세스로 메시지 전송
+    window.electrobun.send('hello', { content: '안녕 메인!' });
+};
+
+// 메인의 응답 대기
+window.electrobun.on('reply', (data) => {
+    alert(data.message);
+});
+```
