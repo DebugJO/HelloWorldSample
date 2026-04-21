@@ -32,18 +32,15 @@ public static class JsonHelper
     {
         try
         {
-            if (source == null)
-            {
-                throw new JsonException("Source cannot be null");
-            }
-
-            return JsonSerializer.Serialize(
-                source,
-                pretty ? JsonOptions.Pretty : JsonOptions.Default);
+            return source == null
+                ? throw new JsonException("Source cannot be null")
+                : JsonSerializer.Serialize(source, pretty
+                    ? JsonOptions.Pretty
+                    : JsonOptions.Default);
         }
         catch (Exception ex)
         {
-            throw new JsonException("Failed during serialization", ex);
+            throw new JsonException($"Failed during serialization : {ex.Message}");
         }
     }
 
@@ -65,15 +62,15 @@ public static class JsonHelper
                     throw new JsonException("Source cannot be null or empty");
                 }
 
-                return JsonSerializer.Deserialize<T>(json, JsonOptions.Default)
-                       ?? throw new JsonException("Failed during deserialization");
+                T? result = JsonSerializer.Deserialize<T>(json, JsonOptions.Default);
+                return result ?? throw new JsonException("Failed during deserialization : 결괏값이 없습니다.");
             }
             catch (Exception ex)
             {
-                throw new JsonException("Failed during deserialization", ex);
+                throw new JsonException($"Failed during deserialization : {ex.Message}");
             }
         }
-        
+
         public bool TryFromJson<T>(out T? result) where T : IJsonConvertible
         {
             try
@@ -92,7 +89,7 @@ public static class JsonHelper
                     return true;
                 }
 
-                LogHelper.Error("Failed while trying to deserialize");
+                LogHelper.Error("Failed while trying to deserialize : 결괏값이 없습니다.");
                 return false;
             }
             catch (Exception ex)
@@ -123,8 +120,8 @@ public static class JsonHelper
 
             JsonSerializerOptions options = pretty ? JsonOptions.Pretty : JsonOptions.Default;
             string json = JsonSerializer.Serialize(source, options);
-            return JsonSerializer.Deserialize<T>(json, options)
-                   ?? throw new JsonException("Failed during deserialization");
+            T? result = JsonSerializer.Deserialize<T>(json, options);
+            return result ?? throw new JsonException("Failed during deserialization : 결괏값이 없습니다.");
         }
         catch (Exception ex)
         {

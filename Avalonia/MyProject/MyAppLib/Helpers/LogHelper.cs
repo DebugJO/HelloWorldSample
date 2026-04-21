@@ -106,4 +106,16 @@ public class LogHelper
             // ignored
         }
     }
+
+    public static void Flush()
+    {
+        try
+        {
+            LogManager.Flush();
+        }
+        catch
+        {
+            // ignored
+        }
+    }
 }

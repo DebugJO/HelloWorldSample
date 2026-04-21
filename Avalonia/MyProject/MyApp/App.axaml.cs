@@ -27,7 +27,7 @@ public class App : Application
     {
         AvaloniaXamlLoader.Load(this);
     }
-
+    
     public override void OnFrameworkInitializationCompleted()
     {
         AppDomain.CurrentDomain.UnhandledException += (_, args) =>
@@ -58,7 +58,7 @@ public class App : Application
 
         string lockFile = PathConfig.LockFilePath;
 #if DEBUG
-        LogHelper.Debug($"AppService : Lock 파일 Path : {lockFile}");
+        LogHelper.Debug($"AppService : [비정상 종료 감지] Lock 파일 Path : {lockFile}");
 #endif
         if (OperatingSystem.IsWindows())
         {
@@ -88,18 +88,18 @@ public class App : Application
             if (File.Exists(lockFile))
             {
                 string lastRunTime = File.ReadAllText(lockFile);
-                LogHelper.Fatal($"[비정상 종료 감지] 파일 발견됨 : {lastRunTime}");
+                LogHelper.Fatal($"AppService : [비정상 종료 감지] 파일 발견됨 : {lastRunTime}");
                 File.Delete(lockFile);
-                LogHelper.Debug("[비정상 종료 감지] 이전 lock 파일 삭제 완료.");
+                LogHelper.Debug("AppService : [비정상 종료 감지] 이전 lock 파일 삭제 완료");
             }
 
             File.WriteAllText(lockFile, DateTime.Now.ToString(
-                "yyyy-MM-dd HH:mm:ss.fff", CultureInfo.InvariantCulture)
-            );
+                "yyyy-MM-dd HH:mm:ss.fff", CultureInfo.InvariantCulture));
+            LogHelper.Debug("AppService : [비정상 종료 감지] 신규 lock 파일 작성 완료");
         }
         catch (Exception ex)
         {
-            LogHelper.Error($"Lock 파일 처리 중 에러 : {ex.Message}");
+            LogHelper.Error($"AppService : [비정상 종료 감지] Lock 파일 처리 중 에러 : {ex.Message}");
         }
 
         // RequestedThemeVariant = ThemeVariant.Light;
@@ -116,7 +116,7 @@ public class App : Application
             MainViewModel viewModel = Services.GetRequiredService<MainViewModel>();
             view.DataContext = viewModel;
             desktop.MainWindow = view;
-
+            
             desktop.Exit += (_, _) =>
             {
                 try
@@ -124,6 +124,7 @@ public class App : Application
                     if (File.Exists(lockFile))
                     {
                         File.Delete(lockFile);
+                        LogHelper.Debug("AppService : [비정상 종료 감지] 정상 종료 lock 파일 삭제");
                     }
                 }
                 catch
@@ -132,6 +133,12 @@ public class App : Application
                 }
 
                 LogHelper.Debug("========== 프로그램 종료 End ==========");
+                LogHelper.Shutdown();
+            };
+            
+            AppDomain.CurrentDomain.ProcessExit += (s, e) => 
+            {
+                LogHelper.Fatal($"AppStop : [비정상 종료 감지] Process Kill : {s} / {e}");
                 LogHelper.Shutdown();
             };
         }

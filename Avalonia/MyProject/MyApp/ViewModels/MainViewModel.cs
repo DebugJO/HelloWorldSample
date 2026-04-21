@@ -2,7 +2,7 @@
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Input;
-using Avalonia.Styling;
+using Avalonia.Threading;
 using Avalonia.VisualTree;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -12,9 +12,8 @@ using MyApp.Messages;
 using MyApp.StateModels;
 using MyAppLib.Helpers;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace MyApp.ViewModels;
@@ -39,7 +38,7 @@ public partial class MainViewModel : ViewModelBase
     public partial WindowState WindowState { get; set; }
 
     [ObservableProperty]
-    public partial ThemeVariant Theme { get; set; }
+    public partial string Theme { get; set; }
 
     [ObservableProperty]
     public partial double FontSize { get; set; }
@@ -98,13 +97,14 @@ public partial class MainViewModel : ViewModelBase
 #endif
     }
 
-    // private void UpdateConfig()
-    // {
-    //     _state.Theme = Theme;
-    //     _state.FontSize = FontSize;
-    //     _state.LastUserId = LastUserId;
-    //     _state.LastUserPassword = LastUserPassword;
-    // }
+    private void UpdateConfig()
+    {
+        _mainState.Theme = Theme;
+        _mainState.WindowState = WindowState;
+        _mainState.FontSize = FontSize;
+        _mainState.LastUserId = LastUserId;
+        _mainState.LastUserPassword = LastUserPassword;
+    }
 
     // public void ClickMenu2() => CurrentPage = DI.Get<Sub1ViewModel>();
     // public void ClickMenu2() => CurrentPage = DI.Get<Sub2ViewModel>();
@@ -124,24 +124,26 @@ public partial class MainViewModel : ViewModelBase
 
         try
         {
-            const int time = 10;
+            const int timeoutSeconds = 10;
             Task appStartTask = AppStart();
-            Task timeoutTask = Task.Delay(TimeSpan.FromSeconds(time));
+            Task timeoutTask = Task.Delay(TimeSpan.FromSeconds(timeoutSeconds));
             Task completedTask = await Task.WhenAny(appStartTask, timeoutTask);
 
             if (completedTask == timeoutTask)
             {
-                LogHelper.Error($"시스템 시작 실패 : AppStart 작업이 {time}초 안에 완료되지 않았습니다.");
-                SendState($"시스템 시작 실패 : AppStart 작업이 {time}초 안에 완료되지 않았습니다.");
+                string errorMsg = $"시스템 시작 실패 : AppStart 작업이 {timeoutSeconds}초 안에 완료되지 않았습니다.";
+                LogHelper.Error(errorMsg);
+                SendState(errorMsg);
+                return;
             }
-            else
-            {
-                await appStartTask;
-            }
+
+            await appStartTask;
+            _isStarted = true;
         }
         catch (Exception ex)
         {
             LogHelper.Error("AppStart Error : " + ex.Message);
+            SendState("프로그램 시작 중 오류가 발생했습니다.");
         }
         finally
         {
@@ -165,6 +167,23 @@ public partial class MainViewModel : ViewModelBase
             // UpdateConfig();
             // LogHelper.Debug("AppService : AppConfig : Load ...");
 
+            Result<MainState> loadResult = await _mainState.LoadAsync();
+
+            loadResult.Match(
+                state =>
+                {
+                    WindowState = state.WindowState;
+                    Theme = state.Theme;
+                    FontSize = state.FontSize;
+                    LastUserId = state.LastUserId;
+                    LastUserPassword = state.LastUserPassword;
+                    UpdateConfig();
+                    LogHelper.Info("AppConfig : 설정을 성공적으로 불러왔습니다.");
+                },
+                () => { LogHelper.Warn("AppConfig : 설정 파일이 없어 기본값을 사용합니다."); },
+                (error, _) => { LogHelper.Error($"AppConfig : 설정 파일 불러오기 에러 : ({error}"); }
+            );
+
             StatusMessage = "데이터베이스 연결 중 ...";
             await Task.Delay(500);
             StatusMessage = "데이터베이스 연결 완료";
@@ -181,7 +200,7 @@ public partial class MainViewModel : ViewModelBase
         catch (Exception ex)
         {
             LogHelper.Error($"AppStart : 자원 할당 시작 중 오류 : {ex.Message}");
-            StatusMessage = "AppStart : 자원 할당 시작 중 오류 발생";
+            throw;
         }
 
         LogHelper.Debug("AppStart : 자원 설정 완료");
@@ -207,20 +226,7 @@ public partial class MainViewModel : ViewModelBase
 
         try
         {
-            const int time = 10;
-            Task appStopTask = AppStop();
-            Task timeoutTask = Task.Delay(TimeSpan.FromSeconds(time));
-            Task completedTask = await Task.WhenAny(appStopTask, timeoutTask);
-
-            if (completedTask == timeoutTask)
-            {
-                LogHelper.Error($"시스템 종료 실패 : AppStop 작업이 {time}초 안에 완료되지 않았습니다.");
-                SendState($"시스템 종료 실패 : AppStop 작업이 {time}초 안에 완료되지 않았습니다.");
-            }
-            else
-            {
-                await appStopTask;
-            }
+            await AppStop();
         }
         catch (Exception ex)
         {
@@ -230,7 +236,8 @@ public partial class MainViewModel : ViewModelBase
         {
             _isForceClose = true;
             _isBusy = false;
-            RequestClose();
+            // RequestClose();
+            Dispatcher.UIThread.Post(RequestClose);
         }
     }
 
@@ -239,48 +246,44 @@ public partial class MainViewModel : ViewModelBase
         LogHelper.Debug("========== 프로그램 종료 Start ==========");
         LogHelper.Debug("AppStop : 자원 해재 시작 ...");
 
+        using CancellationTokenSource cts = new(TimeSpan.FromSeconds(3));
+
         try
         {
-            StatusMessage = "데이터베이스 해제 중 ...";
-            await Task.Delay(500);
-            StatusMessage = "데이터베이스 해제 완료";
-            LogHelper.Debug("AppStop : 데이터베이스 해제 완료");
-
-            StatusMessage = "MQTT 브로커 해제 중...";
-            await Task.Delay(500);
-            StatusMessage = " MQTT 브로커 해제 완료";
-            LogHelper.Debug("AppStop : MQTT 브로커 해제 완료");
-
-            StatusMessage = "서비스 해제 완료";
+            // Task dbTask = _dbService.CloseAsync(cts.Token);
+            // Task mqttTask = _mqttService.DisconnectAsync(cts.Token);
+            CancellationToken token = cts.Token;
+            Task dbTask = Task.Run(async () => { await Task.Delay(500, token); }, token);
+            Task mqttTask = Task.Run(async () => { await Task.Delay(500, token); }, token);
+            await Task.WhenAny(Task.WhenAll(dbTask, mqttTask), Task.Delay(Timeout.Infinite, token));
             LogHelper.Debug("AppStop : 서비스 해제 완료");
+        }
+        catch (OperationCanceledException)
+        {
+            LogHelper.Warn("AppStop : 자원 해제 시간 초과로 인해 중단하고 로그만 기록합니다.");
         }
         catch (Exception ex)
         {
             LogHelper.Error($"AppStop : 자원 해제 중 오류 : {ex.Message}");
         }
-
-        LogHelper.Debug("AppStop : 자원 해제 완료");
+        finally
+        {
+            LogHelper.Flush();
+        }
     }
 
     private void RequestClose()
     {
-        LogHelper.Debug("AppStop : Request Close : 윈도우 종료 요청");
+        LogHelper.Debug("AppStop : Shutdown 호출 : 윈도우 종료 요청");
+        LogHelper.Flush();
 
         if (Application.Current?.ApplicationLifetime is not IClassicDesktopStyleApplicationLifetime desktop)
         {
             return;
         }
 
-        List<Window> subWindows = desktop.Windows
-            .Where(w => w != desktop.MainWindow)
-            .ToList();
-
-        foreach (Window window in subWindows)
-        {
-            window.Close();
-        }
-
-        desktop.MainWindow?.Close();
+        _isForceClose = true;
+        desktop.Shutdown();
     }
 
     // private void ApplyTheme(string themeName)
@@ -357,13 +360,16 @@ public partial class MainViewModel : ViewModelBase
         }
 
         MsgBoxResult result = await MessageBox.ShowAsync(
-            "정말 종료하시겠습니까?\n확인?",
+            "정말 종료하시겠습니까?\n확인",
             "종료 확인",
             MsgBoxButtons.YesNo,
             MsgBoxIcon.Question);
 
         if (result == MsgBoxResult.Yes)
         {
+            // todo : 여기에 테마 및 상태 저장하고 종료 호출 : 변경된 것은 그때 마다 저장할 것
+            // SaveConfig();
+
             window.Close();
         }
     }
@@ -375,6 +381,36 @@ public partial class MainViewModel : ViewModelBase
         {
             return;
         }
+
+        UpdateConfig();
+
+        Result<bool> result = await _mainState.SaveAsync(_mainState);
+
+        result.Match(
+            b => { LogHelper.Info(b ? "AppConfig : 설정 파일 저장 완료" : "AppConfig : 설정 파일 저장 실패"); },
+            () => { LogHelper.Warn("AppConfig : 설정 파일이 없어 기본값을 사용합니다."); },
+            (error, _) => { LogHelper.Error($"{error}"); }
+        );
+
+
+        //     
+        // Result<MainState> loadResult = await _mainState.LoadAsync();
+        //
+        // loadResult.Match(
+        //     state =>
+        //     {
+        //         WindowState = state.WindowState;
+        //         Theme = state.Theme;
+        //         FontSize = state.FontSize;
+        //         LastUserId = state.LastUserId;
+        //         LastUserPassword = state.LastUserPassword;
+        //         UpdateConfig();
+        //         LogHelper.Info("AppConfig : 설정을 성공적으로 불러왔습니다.");
+        //     },
+        //     () => { LogHelper.Warn("AppConfig : 설정 파일이 없어 기본값을 사용합니다."); },
+        //     (error, _) => { LogHelper.Error($"AppConfig : 설정 파일 불러오기 에러 : ({error}"); }
+        // );
+
         //
         // MainViewModel a = await DI.GetAsync<MainViewModel>();
         //
@@ -391,7 +427,6 @@ public partial class MainViewModel : ViewModelBase
         // _configService
         //
         // bool isSave = await _configService.Save();
-
 
         // Theme = nameof(ThemeVariant.Dark);
         // ApplyTheme(Theme);

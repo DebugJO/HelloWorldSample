@@ -1,14 +1,9 @@
-﻿using MyApp.StateModels;
-using MyAppLib.Helpers;
-using System;
-using System.IO;
-using System.Threading.Tasks;
-
-namespace MyApp.WindowHelper;
+﻿namespace MyApp.WindowHelper;
 
 public static class AppConfig
 {
     // private static readonly string FilePath = Path.Combine(AppContext.BaseDirectory, "config.json");
+    /*
     private static readonly string FilePath = PathConfig.ConfigFilePath;
 
     public static async Task<MainState> Load()
@@ -49,4 +44,5 @@ public static class AppConfig
             LogHelper.Error($"AppConfig : Failed to save config file: {ex.Message}");
         }
     }
+    */
 }
