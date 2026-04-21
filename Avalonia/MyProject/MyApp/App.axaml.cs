@@ -3,11 +3,11 @@ using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Data.Core.Plugins;
 using Avalonia.Markup.Xaml;
-using Avalonia.Styling;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Win32;
 using MyApp.ViewModels;
 using MyApp.Views;
+using MyApp.WindowHelper;
 using MyAppLib.Helpers;
 using System;
 using System.Collections.Generic;
@@ -56,16 +56,17 @@ public class App : Application
             return;
         }
 
-        string localAppData = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-        string lockFile = Path.Combine(localAppData, "MyApp_2026_001_shutdown.lock");
-
+        string lockFile = PathConfig.LockFilePath;
+#if DEBUG
+        LogHelper.Debug($"AppService : Lock 파일 Path : {lockFile}");
+#endif
         if (OperatingSystem.IsWindows())
         {
             SystemEvents.SessionEnding += (_, _) =>
             {
                 try
                 {
-                    LogHelper.Info("====== 시스템 종료 신호 수신: 즉시 종료 ======");
+                    LogHelper.Warn("====== 시스템 종료 신호 수신: 즉시 종료 ======");
 
                     if (File.Exists(lockFile))
                     {
@@ -101,9 +102,7 @@ public class App : Application
             LogHelper.Error($"Lock 파일 처리 중 에러 : {ex.Message}");
         }
 
-        RequestedThemeVariant = ThemeVariant.Light;
-        //RequestedThemeVariant = CustomThemes.MsWordLight;
-
+        // RequestedThemeVariant = ThemeVariant.Light;
         ServiceCollection serviceCollection = new();
         ConfigureServices(serviceCollection);
         Services = serviceCollection.BuildServiceProvider();
@@ -132,7 +131,7 @@ public class App : Application
                     // ignored
                 }
 
-                LogHelper.Debug("Desktop : Complete : 프로그램 종료");
+                LogHelper.Debug("========== 프로그램 종료 End ==========");
                 LogHelper.Shutdown();
             };
         }
@@ -150,7 +149,7 @@ public class App : Application
             try
             {
                 Type[] types = a.GetTypes();
-#if RELEASE
+#if DEBUG
                 LogHelper.Debug($"AppService : Assembly {a.GetName().Name} has {types.Length} types.");
 #endif
                 return types;
@@ -170,7 +169,7 @@ public class App : Application
                 return Type.EmptyTypes;
             }
         }).ToList();
-#if RELEASE
+#if DEBUG
         LogHelper.Debug($"AppService : Total types collected: {allTypes.Count}");
 #endif
         foreach (Type? type in allTypes.Where(t => t is { IsClass: true, IsAbstract: false }))
@@ -187,9 +186,9 @@ public class App : Application
                 }
                 else
                 {
-                    foreach (Type iface in interfaces)
+                    foreach (Type iFace in interfaces)
                     {
-                        services.AddSingleton(iface, type);
+                        services.AddSingleton(iFace, type);
                     }
                 }
 
@@ -243,88 +242,14 @@ public class App : Application
             .ToList();
 
         LogHelper.Debug($"AppService : Main assembly loaded : {mainName}");
-        LogHelper.Debug($"AppService : Main axecutable path : {AppContext.BaseDirectory}");
+        LogHelper.Debug($"AppService : Main executable path : {AppContext.BaseDirectory}");
 
         foreach ((Assembly asm, int idx) in assemblies.Select((asm, idx) => (asm, idx)))
         {
             LogHelper.Debug($"AppService : Target detected {idx + 1} : {asm.GetName().Name}");
         }
 
-        // foreach (var item in assemblies.Select((asm, index) => new { asm, index }))
-        // {
-        //     LogHelper.Debug($"[{item.index + 1}] AppService : Target detected for auto-registration : {item.asm.GetName().Name}");
-        // }
-
-
         return assemblies;
-
-        // Assembly mainAssembly = Assembly.GetExecutingAssembly();
-        // string mainName = mainAssembly.GetName().Name ?? string.Empty;
-        // string[] excludeKeywords = ["Aot", "Native", "OtherDll", "Test"];
-        //
-        // List<Assembly> assemblies = AppDomain.CurrentDomain.GetAssemblies()
-        //     .Where(a =>
-        //     {
-        //         string name = a.GetName().Name ?? string.Empty;
-        //         return name.StartsWith(mainName, StringComparison.OrdinalIgnoreCase) &&
-        //                !excludeKeywords.Any(k => name.Contains(k, StringComparison.OrdinalIgnoreCase));
-        //     })
-        //     .ToList();
-        //
-        // LogHelper.Debug($"AppService : Main assembly loaded : {mainName} ...");
-        // LogHelper.Debug($"AppService : Main axecutable path : {AppContext.BaseDirectory} ...");
-        //
-        // foreach (Assembly assembly in assemblies)
-        // {
-        //     LogHelper.Debug($"AppService : Target detected for auto-registration : {assembly.GetName().Name} ... ");
-        // }
-        //
-        // return assemblies;
-
-        // string basePath = AppContext.BaseDirectory;
-        // Assembly mainAssembly = Assembly.GetExecutingAssembly();
-        // string mainName = mainAssembly.GetName().Name ?? string.Empty;
-        // string[] excludeKeywords = ["Aot", "Native", "OtherDll", "Test"];
-        //
-        // List<Assembly> assemblies = [];
-        // HashSet<string> loadedPaths = new(StringComparer.OrdinalIgnoreCase);
-        //
-        // assemblies.Add(mainAssembly);
-        // loadedPaths.Add(Path.GetFullPath(mainAssembly.Location));
-        // LogHelper.Debug($"AppService : 메인 Assembly Loaded : {mainAssembly.Location}");
-        //
-        // string searchPattern = $"{mainName}*.dll";
-        // string[] dllFiles = Directory.GetFiles(basePath, searchPattern, SearchOption.TopDirectoryOnly);
-        //
-        // foreach (string dll in dllFiles)
-        // {
-        //     string fullPath = Path.GetFullPath(dll);
-        //
-        //     if (loadedPaths.Contains(fullPath))
-        //     {
-        //         continue;
-        //     }
-        //
-        //     if (excludeKeywords.Any(k => dll.Contains(k, StringComparison.OrdinalIgnoreCase)))
-        //     {
-        //         continue;
-        //     }
-        //
-        //     try
-        //     {
-        //         Assembly assembly = Assembly.LoadFrom(fullPath);
-        //         assemblies.Add(assembly);
-        //         loadedPaths.Add(fullPath);
-        //
-        //         LogHelper.Debug($"AppService : 참조 Assembly Loaded : {fullPath}");
-        //     }
-        //     catch (Exception ex)
-        //     {
-        //         LogHelper.Error($"AppService : Failed to load assembly {fullPath}: {ex.Message}");
-        //     }
-        // }
-        //
-        // return assemblies;
     }
 
     private static void DisableAvaloniaDataAnnotationValidation()

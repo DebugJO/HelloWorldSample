@@ -6,6 +6,8 @@
         <PublishReadyToRun>true</PublishReadyToRun>
         <Version>1.0.0</Version>
         <Copyright>Copyright © 2026 devsight.kr</Copyright>
+        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+        <WarningsAsErrors>CS8600;CS8602;CS8603</WarningsAsErrors>
     </PropertyGroup>
 
     <ItemGroup>

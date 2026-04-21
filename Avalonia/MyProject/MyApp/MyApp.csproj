@@ -12,8 +12,17 @@
         <Version>1.0.0</Version>
         <Copyright>Copyright © 2026 devsight.kr</Copyright>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+        <WarningsAsErrors>CS8600;CS8602;CS8603</WarningsAsErrors>
+        <!-- 소스제네레이터 obj/Generated
+        <EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
+        <CompilerGeneratedFilesOutputPath>$(BaseIntermediateOutputPath)\Generated</CompilerGeneratedFilesOutputPath>
+        -->
     </PropertyGroup>
-
+    <!-- 소스제네레이터 obj/Generated
+    <ItemGroup>
+        <None Include="$(CompilerGeneratedFilesOutputPath)\**\*.cs" Visible="true"/>
+    </ItemGroup>
+    -->
     <ItemGroup>
         <AvaloniaResource Include="Assets\**"/>
     </ItemGroup>

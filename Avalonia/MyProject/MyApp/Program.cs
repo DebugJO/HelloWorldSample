@@ -13,6 +13,7 @@ namespace MyApp;
 internal sealed partial class Program
 {
     private static Mutex? _mutex;
+
     private const int SW_RESTORE = 9;
 
     [LibraryImport("user32.dll")]
@@ -30,7 +31,7 @@ internal sealed partial class Program
     [STAThread]
     public static void Main(string[] args)
     {
-        const string mutexName = @"Global\MyApp-devsight-2026 -001";
+        const string mutexName = @"Global\MyApp-devsight-2026-001";
         _mutex = new Mutex(true, mutexName, out bool isNewInstance);
 
         if (!isNewInstance)
@@ -42,6 +43,7 @@ internal sealed partial class Program
 
         try
         {
+            LogHelper.Debug("========== 프로그램 시작 Start ==========");
             LogHelper.Debug("Desktop : Start(1/3) ...");
             BuildAvaloniaApp().StartWithClassicDesktopLifetime(args);
         }
@@ -110,7 +112,7 @@ internal sealed partial class Program
    dotnet publish -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true
  */
 
-// [Window, MacOS, Linux(Desktop/DRM)]
+// [Window, macOS, Linux(Desktop/DRM)]
 //
 // internal sealed class Program
 // {
@@ -178,7 +180,7 @@ internal sealed partial class Program
 // }
 //
 
-// [Window, MacOS, Linux(Desktop/DRM)]
+// [Window, macOS, Linux(Desktop/DRM)]
 //
 // App.axml.cs
 // MainWindowViewModel vm = new();

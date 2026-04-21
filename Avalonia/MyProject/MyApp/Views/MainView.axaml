@@ -7,8 +7,7 @@
         xmlns:ex="clr-namespace:MyApp.WindowHelper.ThemeHelper"
         x:Class="MyApp.Views.MainView"
         x:DataType="vm:MainViewModel"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-        d:DataContext="{d:DesignInstance vm:MainViewModel}"
+        mc:Ignorable="d" d:DesignWidth="1920" d:DesignHeight="1038"
         Title="MyApp"
         UseLayoutRounding="True"
         ExtendClientAreaToDecorationsHint="True"
@@ -16,7 +15,8 @@
         ExtendClientAreaChromeHints="NoChrome"
         TransparencyLevelHint="None"
         Background="{DynamicResource SystemRegionBrush}"
-        ex:WindowCenter.CenterOnPrimary="True">
+        ex:WindowCenter.CenterOnPrimary="True"
+        MinWidth="1000" MinHeight="600">
 
     <Interaction.Behaviors>
         <EventTriggerBehavior EventName="Loaded">
@@ -30,6 +30,9 @@
         </EventTriggerBehavior>
     </Interaction.Behaviors>
 
+    <!-- <Design.DataContext> -->
+    <!--     <vm:MainViewModel  /> -->
+    <!-- </Design.DataContext> -->
 
     <Window.Styles>
         <Style Selector="Window">
@@ -141,7 +144,7 @@
         </Grid>
         <!-- 컨텐츠 영역 -->
         <DockPanel Grid.Row="2" Background="Transparent">
-            <Button Content="버튼테스트"
+            <Button Content="테스트버튼"
                     Command="{Binding ThemeChangeCommand}"
                     CommandParameter="{Binding $self}"
                     IsEnabled="{Binding !ThemeChangeCommand.IsRunning}"
@@ -162,12 +165,11 @@
                     <iconPacks:PackIconCodicons Kind="Comment" Width="12" Height="12" FontWeight="Bold"
                                                 Margin="8 0 4 0" VerticalAlignment="Center"
                                                 Foreground="{DynamicResource AccentBrush}" />
-                    <TextBlock Text="메시지ㆍ" FontWeight="Bold" 
+                    <TextBlock Text="메시지ㆍ" FontWeight="Bold"
                                Foreground="{DynamicResource AccentBrush}" />
                     <TextBlock Text="{Binding StatusMessage,
                                     Converter={StaticResource RemoveLineBreakConverter}}"
-                               TextWrapping="NoWrap" TextTrimming="CharacterEllipsis" 
-                            />
+                               TextWrapping="NoWrap" TextTrimming="CharacterEllipsis" />
                 </StackPanel>
             </StackPanel>
         </DockPanel>

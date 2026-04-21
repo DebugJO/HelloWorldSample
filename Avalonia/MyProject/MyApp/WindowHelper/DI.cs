@@ -53,13 +53,13 @@ public static class DI
     }
 
     private static readonly AsyncLocal<HashSet<Type>> _asyncResolutionStack = new();
+
     public static async Task<T> GetAsync<T>() where T : notnull
     {
         Type type = typeof(T);
         
-        // AsyncLocal 내부에 HashSet이 없다면 초기화
         _asyncResolutionStack.Value ??= [];
-        var stack = _asyncResolutionStack.Value;
+        HashSet<Type>? stack = _asyncResolutionStack.Value;
 
         if (stack.Contains(type))
         {
@@ -71,8 +71,6 @@ public static class DI
         try
         {
             stack.Add(type);
-            // 비동기 서비스 취득 로직 (예시: GetRequiredService는 보통 동기지만, 
-            // 만약 별도의 비동기 초기화 로직이 포함된 확장 메서드를 쓰신다면 유용합니다)
             return await Task.Run(() => App.Services.GetRequiredService<T>());
         }
         finally
@@ -80,7 +78,7 @@ public static class DI
             stack.Remove(type);
         }
     }
-    
+
     /// <summary>
     /// 타입(이름)으로  의존성 객체(인스턴스) 가져오기.
     /// 메뉴 버튼이 여러 개인데, 버튼마다 함수를 만들지 않고 CommandParameter에 이름만 넣어서 처리
