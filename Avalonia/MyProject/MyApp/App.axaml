@@ -8,7 +8,7 @@
     </Application.DataTemplates>
 
     <Application.Styles>
-        <FluentTheme />
+        <FluentTheme/>
         <Style Selector="TextBlock">
             <Setter Property="FontFamily" Value="맑은 고딕" />
             <Setter Property="FontSize" Value="12" />

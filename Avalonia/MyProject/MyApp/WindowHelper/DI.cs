@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Avalonia.Controls.ApplicationLifetimes;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -113,6 +114,12 @@ public static class DI
             _resolutionStack.Value.Remove(type);
         }
     }
+
+    public static IClassicDesktopStyleApplicationLifetime Desktop()
+    {
+        return App.Services.GetRequiredService<IClassicDesktopStyleApplicationLifetime>();
+    }
+
 }
 
 /* 블록 안의 코드는 컴파일 시점에 포함 안 함

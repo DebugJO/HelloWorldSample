@@ -1,15 +1,16 @@
-﻿using Avalonia;
-using Avalonia.Controls;
+﻿using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Input;
 using Avalonia.Threading;
-using Avalonia.VisualTree;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using MyApp.Controls;
 using MyApp.Messages;
 using MyApp.StateModels;
+using MyApp.Views;
+using MyApp.WindowHelper;
+using MyApp.WindowHelper.ThemeHelper;
 using MyAppLib.Helpers;
 using System;
 using System.ComponentModel;
@@ -62,13 +63,12 @@ public partial class MainViewModel : ViewModelBase
         _mainState = mainState;
 
         StatusMessage = _mainState.StatusMessage;
-        WindowState = mainState.WindowState;
+        WindowState = _mainState.WindowState;
         Theme = _mainState.Theme;
         FontSize = _mainState.FontSize;
         LastUserId = _mainState.LastUserId;
         LastUserPassword = _mainState.LastUserPassword;
         // Items = _state.Items;
-
         // CurrentPage =  DI.Get<Sub1ViewModel>();
         RegisterStatusMessage();
     }
@@ -93,17 +93,26 @@ public partial class MainViewModel : ViewModelBase
             _mainState.StatusMessage = value;
         }
 #if DEBUG
-        LogHelper.Info($"StatusMessage changed: {value}");
+        LogHelper.Info($"Message : StatusMessage changed : {value}");
 #endif
     }
 
-    private void UpdateConfig()
+    partial void OnWindowStateChanged(WindowState value)
     {
-        _mainState.Theme = Theme;
-        _mainState.WindowState = WindowState;
-        _mainState.FontSize = FontSize;
-        _mainState.LastUserId = LastUserId;
-        _mainState.LastUserPassword = LastUserPassword;
+        _mainState.WindowState = value;
+#if DEBUG
+        LogHelper.Info($"Message : WindowState changed : {value}");
+#endif
+    }
+
+    partial void OnThemeChanged(string value)
+    {
+        _mainState.Theme = value;
+        ThemeManager.ApplyTheme(Theme);
+
+#if DEBUG
+        LogHelper.Info($"Message : Theme changed : {value}");
+#endif
     }
 
     // public void ClickMenu2() => CurrentPage = DI.Get<Sub1ViewModel>();
@@ -157,50 +166,28 @@ public partial class MainViewModel : ViewModelBase
 
         try
         {
-            // AppConfigState configState = await mAppConfigService.Load();
-            // Theme = configState.Theme;
-            // FontSize = configState.FontSize;
-            // LastUserId = configState.LastUserId;
-            // LastUserPassword = configState.LastUserPassword;
-            //
-            // ApplyTheme(configState.Theme);
-            // UpdateConfig();
-            // LogHelper.Debug("AppService : AppConfig : Load ...");
+            MainView mainView = DI.Get<MainView>();
+            mainView.WindowState = WindowState.Normal;
+            ThemeManager.ApplyTheme(Theme);
+            mainView.Opacity = 1;
 
-            Result<MainState> loadResult = await _mainState.LoadAsync();
-
-            loadResult.Match(
-                state =>
-                {
-                    WindowState = state.WindowState;
-                    Theme = state.Theme;
-                    FontSize = state.FontSize;
-                    LastUserId = state.LastUserId;
-                    LastUserPassword = state.LastUserPassword;
-                    UpdateConfig();
-                    LogHelper.Info("AppConfig : 설정을 성공적으로 불러왔습니다.");
-                },
-                () => { LogHelper.Warn("AppConfig : 설정 파일이 없어 기본값을 사용합니다."); },
-                (error, _) => { LogHelper.Error($"AppConfig : 설정 파일 불러오기 에러 : ({error}"); }
-            );
-
-            StatusMessage = "데이터베이스 연결 중 ...";
+            SendState("데이터베이스 연결 중 ...");
             await Task.Delay(500);
-            StatusMessage = "데이터베이스 연결 완료";
+            SendState("데이터베이스 연결 완료");
             LogHelper.Debug("AppStart : 데이터베이스 연결 완료");
 
-            StatusMessage = "MQTT 브로커 접속 중...";
+            SendState("MQTT 브로커 접속 중...");
             await Task.Delay(500);
-            StatusMessage = " MQTT 브로커 접속 완료";
+            SendState(" MQTT 브로커 접속 완료");
             LogHelper.Debug("AppStart : MQTT 브로커 접속 완료");
 
-            StatusMessage = "서비스 시작 완료";
+            SendState("서비스 시작 완료");
             LogHelper.Debug("AppStart : 서비스 시작 완료");
         }
         catch (Exception ex)
         {
             LogHelper.Error($"AppStart : 자원 할당 시작 중 오류 : {ex.Message}");
-            throw;
+            throw new Exception(ex.Message);
         }
 
         LogHelper.Debug("AppStart : 자원 설정 완료");
@@ -253,9 +240,18 @@ public partial class MainViewModel : ViewModelBase
             // Task dbTask = _dbService.CloseAsync(cts.Token);
             // Task mqttTask = _mqttService.DisconnectAsync(cts.Token);
             CancellationToken token = cts.Token;
-            Task dbTask = Task.Run(async () => { await Task.Delay(500, token); }, token);
-            Task mqttTask = Task.Run(async () => { await Task.Delay(500, token); }, token);
+            Task dbTask = Task.Run(async () =>
+            {
+                SendState("데이터베이스 자원 해제 중...");
+                await Task.Delay(500, token);
+            }, token);
+            Task mqttTask = Task.Run(async () =>
+            {
+                SendState("MQTT 자원 해제 중...");
+                await Task.Delay(500, token);
+            }, token);
             await Task.WhenAny(Task.WhenAll(dbTask, mqttTask), Task.Delay(Timeout.Infinite, token));
+            SendState("서비스 해제 완료");
             LogHelper.Debug("AppStop : 서비스 해제 완료");
         }
         catch (OperationCanceledException)
@@ -277,10 +273,14 @@ public partial class MainViewModel : ViewModelBase
         LogHelper.Debug("AppStop : Shutdown 호출 : 윈도우 종료 요청");
         LogHelper.Flush();
 
-        if (Application.Current?.ApplicationLifetime is not IClassicDesktopStyleApplicationLifetime desktop)
-        {
-            return;
-        }
+        IClassicDesktopStyleApplicationLifetime desktop = DI.Desktop();
+
+        // desktop1.Shutdown();
+        //
+        //  if (Application.Current?.ApplicationLifetime is not IClassicDesktopStyleApplicationLifetime desktop)
+        //  {
+        //      return;
+        //  }
 
         _isForceClose = true;
         desktop.Shutdown();
@@ -315,10 +315,12 @@ public partial class MainViewModel : ViewModelBase
     [RelayCommand]
     private void TitleBarAction(PointerPressedEventArgs e)
     {
-        if (e.Source is not Visual visual || visual.GetVisualRoot() is not Window window)
-        {
-            return;
-        }
+        // if (e.Source is not Visual visual || visual.GetVisualRoot() is not Window window)
+        // {
+        //     return;
+        // }
+
+        MainView window = DI.Get<MainView>();
 
         PointerPointProperties pointerProps = e.GetCurrentPoint(window).Properties;
 
@@ -329,9 +331,11 @@ public partial class MainViewModel : ViewModelBase
 
         if (e.ClickCount == 2)
         {
-            window.WindowState = window.WindowState == WindowState.Maximized
+            WindowState = WindowState == WindowState.Maximized
                 ? WindowState.Normal
                 : WindowState.Maximized;
+
+            window.WindowState = WindowState;
         }
         else
         {
@@ -367,8 +371,13 @@ public partial class MainViewModel : ViewModelBase
 
         if (result == MsgBoxResult.Yes)
         {
-            // todo : 여기에 테마 및 상태 저장하고 종료 호출 : 변경된 것은 그때 마다 저장할 것
-            // SaveConfig();
+            Result<bool> config = await _mainState.SaveAsync(_mainState);
+
+            config.Match(
+                b => { LogHelper.Info(b ? "AppConfig : 설정 파일 저장 완료" : "AppConfig : 설정 파일 저장 실패"); },
+                () => { LogHelper.Warn("AppConfig : 설정 파일이 없어 기본값을 사용합니다."); },
+                (error, _) => { LogHelper.Error($"{error}"); }
+            );
 
             window.Close();
         }
@@ -382,15 +391,22 @@ public partial class MainViewModel : ViewModelBase
             return;
         }
 
-        UpdateConfig();
+        // Theme = ThemeManager.GetTheme(ETheme.Dark);
+        // _mainState.Theme = ThemeManager.GetTheme(ETheme.MsWordDark);;
+        // ThemeManager.ApplyTheme(ETheme.MsWordDark);
+        // _mainState.Theme = ThemeManager.GetTheme(ETheme.MsWordDark);
 
-        Result<bool> result = await _mainState.SaveAsync(_mainState);
+        // _mainState.Theme = ThemeManager.GetName()
 
-        result.Match(
-            b => { LogHelper.Info(b ? "AppConfig : 설정 파일 저장 완료" : "AppConfig : 설정 파일 저장 실패"); },
-            () => { LogHelper.Warn("AppConfig : 설정 파일이 없어 기본값을 사용합니다."); },
-            (error, _) => { LogHelper.Error($"{error}"); }
-        );
+        // Theme = ThemeManager.Dark;
+
+        // Result<bool> result = await _mainState.SaveAsync(_mainState);
+        //
+        // result.Match(
+        //     b => { LogHelper.Info(b ? "AppConfig : 설정 파일 저장 완료" : "AppConfig : 설정 파일 저장 실패"); },
+        //     () => { LogHelper.Warn("AppConfig : 설정 파일이 없어 기본값을 사용합니다."); },
+        //     (error, _) => { LogHelper.Error($"{error}"); }
+        // );
 
 
         //     
@@ -427,6 +443,8 @@ public partial class MainViewModel : ViewModelBase
         // _configService
         //
         // bool isSave = await _configService.Save();
+
+        Theme = ThemeManager.Light;
 
         // Theme = nameof(ThemeVariant.Dark);
         // ApplyTheme(Theme);

@@ -1,9 +1,4 @@
 using Avalonia.Controls;
-using Avalonia.Platform;
-using Avalonia.Threading;
-using MyAppLib.Helpers;
-using System;
-using System.Runtime.InteropServices;
 
 namespace MyApp.Views;
 
@@ -15,70 +10,186 @@ public partial class MainView : Window
     }
 }
 
+/* MainView.axml
+UseLayoutRounding="True"
+SystemDecorations="None"
+ExtendClientAreaToDecorationsHint="False"
+TransparencyLevelHint="none"
+ExtendClientAreaTitleBarHeightHint="-1"
+ExtendClientAreaChromeHints="NoChrome"
+WindowStartupLocation="CenterScreen"
+*/
+
 /*
-private delegate IntPtr WndProcDelegate(IntPtr hWnd, uint msg, IntPtr wParam, IntPtr lParam);
+    public MainView()
+    {
+        InitializeComponent();
+        ShowInTaskbar = false;
+        Opacity = 0;
+    }
 
-private static partial class Win32Native
-{
-    [LibraryImport("user32.dll", EntryPoint = "SetWindowLongPtrW")]
-    public static partial IntPtr SetWindowLongPtr64(IntPtr hWnd, int nIndex, IntPtr dwNewLong);
+    protected override void OnLoaded(RoutedEventArgs e)
+    {
+        base.OnLoaded(e);
 
-    [LibraryImport("user32.dll", EntryPoint = "SetWindowLongW")]
-    public static partial IntPtr SetWindowLong32(IntPtr hWnd, int nIndex, IntPtr dwNewLong);
+        Dispatcher.UIThread.Post(() =>
+        {
+            Opacity = 1;
+            ShowInTaskbar = true;
+        }, DispatcherPriority.Render);
+
+        IPlatformHandle? handle = TryGetPlatformHandle();
+
+        if (handle != null)
+        {
+            HookWndProc(handle.Handle);
+        }
+    }
+
+    private const int WM_NCCALCSIZE = 0x0083;
+
+    const int WM_NCHITTEST = 0x0084;
+    const int HTCLIENT = 1;
+    const int HTCAPTION = 2;
+    const int HTLEFT = 10;
+    const int HTRIGHT = 11;
+    const int HTTOP = 12;
+    const int HTTOPLEFT = 13;
+    const int HTTOPRIGHT = 14;
+    const int HTBOTTOM = 15;
+    const int HTBOTTOMLEFT = 16;
+    const int HTBOTTOMRIGHT = 17;
+
+    private IntPtr _oldWndProc;
+    private WndProcDelegate? _newWndProc;
+
+    private void HookWndProc(IntPtr hwnd)
+    {
+        _newWndProc = WndProc;
+        _oldWndProc = SetWindowLongPtr(hwnd, -4, _newWndProc);
+    }
+
+    private delegate IntPtr WndProcDelegate(IntPtr hWnd, int msg, IntPtr wParam, IntPtr lParam);
+
+    private IntPtr WndProc(IntPtr hWnd, int msg, IntPtr wParam, IntPtr lParam)
+    {
+        if (msg == WM_NCCALCSIZE)
+        {
+            return IsMaximized(hWnd) ? CallWindowProc(_oldWndProc, hWnd, msg, wParam, lParam) : IntPtr.Zero;
+        }
+
+        return msg switch
+        {
+            WM_NCCALCSIZE => IsMaximized(hWnd)
+                ? CallWindowProc(_oldWndProc, hWnd, msg, wParam, lParam)
+                : IntPtr.Zero,
+            WM_NCHITTEST => HitTest(hWnd, lParam),
+            _ => CallWindowProc(_oldWndProc, hWnd, msg, wParam, lParam)
+        };
+    }
+
+    private IntPtr HitTest(IntPtr hwnd, IntPtr lParam)
+    {
+        if (IsMaximized(hwnd))
+        {
+            return HTCLIENT;
+        }
+
+        int x = (short)(lParam.ToInt32() & 0xFFFF);
+        int y = (short)((lParam.ToInt32() >> 16) & 0xFFFF);
+
+        _ = GetWindowRect(hwnd, out RECT rect);
+        Point topLeft = new(rect.Left, rect.Top);
+        Size size = Bounds.Size;
+
+        const double border = 8;
+        bool left = x >= topLeft.X && x < topLeft.X + border;
+        bool right = x <= topLeft.X + size.Width && x > topLeft.X + size.Width - border;
+        bool top = y >= topLeft.Y && y < topLeft.Y + border;
+        bool bottom = y <= topLeft.Y + size.Height && y > topLeft.Y + size.Height - border;
+
+        switch (top)
+        {
+            case true when left:
+                return HTTOPLEFT;
+            case true when right:
+                return HTTOPRIGHT;
+        }
+
+        switch (bottom)
+        {
+            case true when left:
+                return HTBOTTOMLEFT;
+            case true when right:
+                return HTBOTTOMRIGHT;
+        }
+
+        if (left) return HTLEFT;
+        if (right) return HTRIGHT;
+        if (top) return HTTOP;
+        if (bottom) return HTBOTTOM;
+
+        const double titleBarHeight = 32;
+        const double buttonWidth = 120;
+        bool isInTitleBar = y >= topLeft.Y && y < topLeft.Y + titleBarHeight;
+        bool isInButtonArea = x > (topLeft.X + size.Width - buttonWidth);
+
+        if (isInButtonArea)
+        {
+            return HTCLIENT;
+        }
+
+        return isInTitleBar ? HTCAPTION : HTCLIENT;
+    }
 
     [LibraryImport("user32.dll")]
-    public static partial IntPtr CallWindowProcW(IntPtr lpPrevWndFunc, IntPtr hWnd, uint msg, IntPtr wParam, IntPtr lParam);
-}
+    [return: MarshalAs(UnmanagedType.Bool)]
+    private static partial bool GetWindowRect(IntPtr hWnd, out RECT rect);
 
-private const int GWL_WNDPROC = -4;
-private WndProcDelegate? _newWndProc;
-private IntPtr _oldWndProc = IntPtr.Zero;
+    [DllImport("user32.dll", EntryPoint = "SetWindowLongPtr")]
+    private static extern IntPtr SetWindowLongPtr(IntPtr hWnd, int nIndex, WndProcDelegate newProc);
 
-protected override void OnOpened(EventArgs e)
-{
-    base.OnOpened(e);
+    [DllImport("user32.dll")]
+    private static extern IntPtr CallWindowProc(IntPtr lpPrevWndFunc, IntPtr hWnd, int msg, IntPtr wParam, IntPtr lParam);
 
-    if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+    [LibraryImport("user32.dll")]
+    [return: MarshalAs(UnmanagedType.Bool)]
+    private static partial bool IsZoomed(IntPtr hWnd);
+
+    [LibraryImport("user32.dll")]
+    private static partial int GetSystemMetrics(int nIndex);
+
+    private bool IsMaximized(IntPtr hwnd)
     {
-        return;
+        return IsZoomed(hwnd);
     }
 
-    IPlatformHandle? platformHandle = TryGetPlatformHandle();
-
-    if (platformHandle == null)
+    private int GetResizeBorderThickness()
     {
-        return;
+        const int SM_CXSIZEFRAME = 32;
+        const int SM_CXPADDEDBORDER = 92;
+
+        return GetSystemMetrics(SM_CXSIZEFRAME) +
+               GetSystemMetrics(SM_CXPADDEDBORDER);
     }
 
-    IntPtr hWnd = platformHandle.Handle;
 
-    if (hWnd == IntPtr.Zero)
+    [StructLayout(LayoutKind.Sequential)]
+    struct NCCALCSIZE_PARAMS
     {
-        return;
+        public RECT rgrc0;
+        public RECT rgrc1;
+        public RECT rgrc2;
+        public IntPtr lppos;
     }
 
-    _newWndProc = MyWndProc;
-    IntPtr newWndProcPtr = Marshal.GetFunctionPointerForDelegate(_newWndProc);
 
-    _oldWndProc = IntPtr.Size == 8
-        ? Win32Native.SetWindowLongPtr64(hWnd, GWL_WNDPROC, newWndProcPtr)
-        : Win32Native.SetWindowLong32(hWnd, GWL_WNDPROC, newWndProcPtr);
-}
-
-private IntPtr MyWndProc(IntPtr hWnd, uint msg, IntPtr wParam, IntPtr lParam)
-{
-    const uint WM_QUERYENDSESSION = 0x0011;
-    const uint WM_ENDSESSION = 0x0016;
-
-    if (msg is not (WM_QUERYENDSESSION or WM_ENDSESSION))
+    [StructLayout(LayoutKind.Sequential)]
+    struct RECT
     {
-        return Win32Native.CallWindowProcW(_oldWndProc, hWnd, msg, wParam, lParam);
+        public int Left;
+        public int Top;
+        public int Right;
+        public int Bottom;
     }
-
-    LogHelper.Info("====== Windows 종료에 따른 프로그램 강제 종료 =====");
-    LogHelper.Flush();
-
-    Dispatcher.UIThread.Post(Close);
-    return new IntPtr(1);
-}
-*/
+}*/

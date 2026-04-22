@@ -93,7 +93,6 @@ internal sealed partial class Program
         {
             OverlayPopups = true,
             CompositionMode = [Win32CompositionMode.WinUIComposition, Win32CompositionMode.DirectComposition],
-            // ShouldRenderOnUIThread = true
         })
         // .LogToTrace();
         .AfterSetup(_ =>

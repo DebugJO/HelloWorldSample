@@ -10,13 +10,21 @@
         mc:Ignorable="d" d:DesignWidth="1920" d:DesignHeight="1038"
         Title="MyApp"
         UseLayoutRounding="True"
-        ExtendClientAreaToDecorationsHint="True"
+        TransparencyLevelHint="none"
         ExtendClientAreaTitleBarHeightHint="-1"
         ExtendClientAreaChromeHints="NoChrome"
-        TransparencyLevelHint="None"
+        WindowStartupLocation="CenterScreen"
         Background="{DynamicResource SystemRegionBrush}"
-        ex:WindowCenter.CenterOnPrimary="True"
-        MinWidth="1000" MinHeight="600">
+        MinWidth="1000" MinHeight="700"
+        ExtendClientAreaToDecorationsHint="True"
+        Opacity="0">
+    <!-- WindowState="{Binding WindowState}" -->
+    <!-- ex:WindowCenter.CenterOnPrimary="True" -->
+    <!-- SystemDecorations="None" -->
+
+    <!-- <Design.DataContext> -->
+    <!--     <vm:MainViewModel  /> -->
+    <!-- </Design.DataContext> -->
 
     <Interaction.Behaviors>
         <EventTriggerBehavior EventName="Loaded">
@@ -29,10 +37,6 @@
                                  PassEventArgsToCommand="True" />
         </EventTriggerBehavior>
     </Interaction.Behaviors>
-
-    <!-- <Design.DataContext> -->
-    <!--     <vm:MainViewModel  /> -->
-    <!-- </Design.DataContext> -->
 
     <Window.Styles>
         <Style Selector="Window">
@@ -175,3 +179,41 @@
         </DockPanel>
     </Grid>
 </Window>
+
+
+<!-- <ListBox ItemsSource="{Binding Users}"> -->
+<!--     <ListBox.Styles> -->
+<!--         <Style Selector="ListBoxItem"> -->
+<!--             <Setter Property="Template"> -->
+<!--                 <ControlTemplate> -->
+<!--                     <ContentPresenter Content="{TemplateBinding Content}" /> -->
+<!--                 </ControlTemplate> -->
+<!--             </Setter> -->
+<!--             <Setter Property="Interaction.Behaviors"> -->
+<!--                 <BehaviorCollection> -->
+<!--                     <EventTriggerBehavior EventName="Tapped"> -->
+<!--                         <InvokeCommandAction Command="{Binding $parent[ListBox].((MainViewModel)DataContext).ItemClickCommand}"  -->
+<!--                                              CommandParameter="{Binding}" /> -->
+<!--                     </EventTriggerBehavior> -->
+<!--                 </BehaviorCollection> -->
+<!--             </Setter> -->
+<!--         </Style> -->
+<!--     </ListBox.Styles> -->
+<!-- </ListBox> -->
+
+<!-- <ListBox ItemsSource="{Binding Users}"> -->
+<!--     <ListBox.ItemTemplate> -->
+<!--         <DataTemplate> -->
+<!--             <Grid Background="Transparent"> -->
+<!--                 <Interaction.Behaviors> -->
+<!--                     <EventTriggerBehavior EventName="PointerPressed"> -->
+<!--                         <InvokeCommandAction Command="{Binding $parent[ListBox].((MainViewModel)DataContext).ItemClickCommand}" -->
+<!--                                              CommandParameter="{Binding}" /> -->
+<!--                     </EventTriggerBehavior> -->
+<!--                 </Interaction.Behaviors> -->
+<!--                  -->
+<!--                 <TextBlock Text="{Binding Name}" /> -->
+<!--             </Grid> -->
+<!--         </DataTemplate> -->
+<!--     </ListBox.ItemTemplate> -->
+<!-- </ListBox> -->

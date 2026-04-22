@@ -16,7 +16,7 @@ public class MainState : IJsonConvertible
     [JsonConverter(typeof(JsonStringEnumConverter))]
     public WindowState WindowState { get; set; } = WindowState.Normal;
 
-    public string Theme { get; set; } = "Default";
+    public string Theme { get; set; } = "Dark";
     public double FontSize { get; set; } = 12.0;
     public string LastUserId { get; set; } = string.Empty;
     public string LastUserPassword { get; set; } = string.Empty;

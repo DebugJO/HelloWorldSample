@@ -27,7 +27,7 @@ public class App : Application
     {
         AvaloniaXamlLoader.Load(this);
     }
-    
+
     public override void OnFrameworkInitializationCompleted()
     {
         AppDomain.CurrentDomain.UnhandledException += (_, args) =>
@@ -102,7 +102,6 @@ public class App : Application
             LogHelper.Error($"AppService : [비정상 종료 감지] Lock 파일 처리 중 에러 : {ex.Message}");
         }
 
-        // RequestedThemeVariant = ThemeVariant.Light;
         ServiceCollection serviceCollection = new();
         ConfigureServices(serviceCollection);
         Services = serviceCollection.BuildServiceProvider();
@@ -111,7 +110,7 @@ public class App : Application
         {
             LogHelper.Debug("Desktop : Start(3/3) ...");
             DisableAvaloniaDataAnnotationValidation();
-
+            
             MainView view = Services.GetRequiredService<MainView>();
             MainViewModel viewModel = Services.GetRequiredService<MainViewModel>();
             view.DataContext = viewModel;
@@ -135,8 +134,8 @@ public class App : Application
                 LogHelper.Debug("========== 프로그램 종료 End ==========");
                 LogHelper.Shutdown();
             };
-            
-            AppDomain.CurrentDomain.ProcessExit += (s, e) => 
+
+            AppDomain.CurrentDomain.ProcessExit += (s, e) =>
             {
                 LogHelper.Fatal($"AppStop : [비정상 종료 감지] Process Kill : {s} / {e}");
                 LogHelper.Shutdown();
@@ -221,7 +220,15 @@ public class App : Application
             }
             else if (type != null && type.Name.EndsWith("View"))
             {
-                services.AddTransient(type);
+                if (type.Name is "MainView" or "ShellView")
+                {
+                    services.AddSingleton(type);
+                }
+                else
+                {
+                    services.AddTransient(type);
+                }
+          
                 LogHelper.Debug($"AppService : View registered : {type.Name}");
             }
         }
