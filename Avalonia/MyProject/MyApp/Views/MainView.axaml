@@ -10,26 +10,35 @@
         mc:Ignorable="d" d:DesignWidth="1920" d:DesignHeight="1038"
         Title="MyApp"
         UseLayoutRounding="True"
-        TransparencyLevelHint="none"
+        TransparencyLevelHint="None"
         ExtendClientAreaTitleBarHeightHint="-1"
         ExtendClientAreaChromeHints="NoChrome"
         WindowStartupLocation="CenterScreen"
         Background="{DynamicResource SystemRegionBrush}"
         MinWidth="1000" MinHeight="700"
-        ExtendClientAreaToDecorationsHint="True"
+        ExtendClientAreaToDecorationsHint="False"
+        SystemDecorations="None"
         Opacity="0">
     <!-- WindowState="{Binding WindowState}" -->
     <!-- ex:WindowCenter.CenterOnPrimary="True" -->
     <!-- SystemDecorations="None" -->
+    <!-- {DynamicResource SystemRegionBrush} -->
+    <!-- TransparencyLevelHint="none" -->
 
     <!-- <Design.DataContext> -->
     <!--     <vm:MainViewModel  /> -->
     <!-- </Design.DataContext> -->
+    
+    <!-- <Window.Transitions> -->
+    <!-- <Transitions> -->
+    <!--     <DoubleTransition Property="Opacity" Duration="0:0:0.5"/> -->
+    <!-- </Transitions> -->
+    <!-- </Window.Transitions> -->
 
     <Interaction.Behaviors>
         <EventTriggerBehavior EventName="Loaded">
-            <InvokeCommandAction Command="{Binding AppStartCommand}"
-                                 PassEventArgsToCommand="True" />
+            <InvokeCommandAction Command="{Binding AppStartCommand}" 
+                                 PassEventArgsToCommand="True"/>
         </EventTriggerBehavior>
 
         <EventTriggerBehavior EventName="Closing">
@@ -148,11 +157,11 @@
         </Grid>
         <!-- 컨텐츠 영역 -->
         <DockPanel Grid.Row="2" Background="Transparent">
-            <Button Content="테스트버튼"
+            <Button Content="테스트버튼" Width="110"
                     Command="{Binding ThemeChangeCommand}"
                     CommandParameter="{Binding $self}"
                     IsEnabled="{Binding !ThemeChangeCommand.IsRunning}"
-                    ex:ButtonBusy.BusyText="동작중..."
+                    ex:ButtonBusy.BusyText="동작중 ..."
                     ex:AttachedButton.Icon="Github" Classes="HasIcon"
                     ex:ButtonBusy.IsBusy="{Binding ThemeChangeCommand.IsRunning}" />
             <ContentControl Content="{Binding CurrentPage}" />

@@ -13,11 +13,11 @@ public class MainState : IJsonConvertible
     [JsonIgnore]
     public string StatusMessage { get; set; } = string.Empty;
 
+    public string Theme { get; set; } = "Light";
+
     [JsonConverter(typeof(JsonStringEnumConverter))]
     public WindowState WindowState { get; set; } = WindowState.Normal;
 
-    public string Theme { get; set; } = "Dark";
-    public double FontSize { get; set; } = 12.0;
     public string LastUserId { get; set; } = string.Empty;
     public string LastUserPassword { get; set; } = string.Empty;
 
@@ -46,7 +46,6 @@ public class MainState : IJsonConvertible
         catch (Exception ex)
         {
             string error = $"AppConfig : Failed to load config file : {ex.Message}";
-            LogHelper.Error(error);
             return Result<MainState>.Failure(error);
         }
     }
@@ -71,7 +70,6 @@ public class MainState : IJsonConvertible
         catch (Exception ex)
         {
             string error = $"AppConfig : Failed to save config file : {ex.Message}";
-            LogHelper.Error(error);
             return Result<bool>.Failure(error);
         }
     }

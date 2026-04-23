@@ -110,12 +110,12 @@ public class App : Application
         {
             LogHelper.Debug("Desktop : Start(3/3) ...");
             DisableAvaloniaDataAnnotationValidation();
-            
+
             MainView view = Services.GetRequiredService<MainView>();
             MainViewModel viewModel = Services.GetRequiredService<MainViewModel>();
             view.DataContext = viewModel;
             desktop.MainWindow = view;
-            
+
             desktop.Exit += (_, _) =>
             {
                 try
@@ -220,15 +220,15 @@ public class App : Application
             }
             else if (type != null && type.Name.EndsWith("View"))
             {
-                if (type.Name is "MainView" or "ShellView")
-                {
-                    services.AddSingleton(type);
-                }
-                else
-                {
-                    services.AddTransient(type);
-                }
-          
+                // if (type.Name is "MainView" or "ShellView")
+                // {
+                //     services.AddSingleton(type);
+                // }
+                // else
+                // {
+                //     services.AddTransient(type);
+                // }
+                services.AddTransient(type);
                 LogHelper.Debug($"AppService : View registered : {type.Name}");
             }
         }

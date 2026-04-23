@@ -1,4 +1,5 @@
 using Avalonia.Controls;
+using Avalonia.Interactivity;
 
 namespace MyApp.Views;
 
@@ -21,6 +22,7 @@ WindowStartupLocation="CenterScreen"
 */
 
 /*
+{
     public MainView()
     {
         InitializeComponent();

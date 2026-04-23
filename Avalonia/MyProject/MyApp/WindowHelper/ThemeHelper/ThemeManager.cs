@@ -1,5 +1,10 @@
 ﻿using Avalonia;
+using Avalonia.Controls;
+using Avalonia.Media;
 using Avalonia.Styling;
+using MyApp.Views;
+using MyAppLib.Helpers;
+using System;
 
 namespace MyApp.WindowHelper.ThemeHelper;
 
@@ -18,19 +23,6 @@ public static class ThemeManager
         app?.RequestedThemeVariant = GetVariant(theme);
     }
 
-    public static string GetTheme(ETheme theme)
-    {
-        return theme switch
-        {
-            ETheme.Light => GetName(ThemeVariant.Light),
-            ETheme.Dark => GetName(ThemeVariant.Dark),
-            ETheme.DeepBlue => GetName(CustomThemes.DeepBlue),
-            ETheme.MsWordLight => GetName(CustomThemes.MsWordLight),
-            ETheme.MsWordDark => GetName(CustomThemes.MsWordDark),
-            _ => GetName(ThemeVariant.Default)
-        };
-    }
-
     // app.RequestedThemeVariant = ThemeManager.GetVariant(mainState.Theme);
     public static ThemeVariant GetVariant(string name)
     {
@@ -47,7 +39,7 @@ public static class ThemeManager
 
     // var currentVariant = Application.Current.RequestedThemeVariant;
     // string themeName = ThemeManager.GetName(currentVariant);
-    private static string GetName(ThemeVariant variant)
+    public static string GetName(ThemeVariant variant)
     {
         return variant switch
         {
@@ -59,13 +51,78 @@ public static class ThemeManager
             _ => Default
         };
     }
+
+    // IBrush? themeBrush = ThemeManager.GetThemeBrush(Theme, "DangerBrush");
+    // mainView.Background = themeBrush;
+    public static IBrush? GetThemeBrush(string themeName, string resourceName, bool systemRegionBrush = false)
+    {
+        try
+        {
+            if (systemRegionBrush)
+            {
+                return themeName switch
+                {
+                    Light => Brush.Parse("#F3F2F1"),
+                    Dark => Brush.Parse("#21252B"),
+                    DeepBlue => Brush.Parse("#0A192F"),
+                    MsWordLight => Brush.Parse("#F3F2F1"),
+                    MsWordDark => Brush.Parse("#2B579A"),
+                    _ => Brushes.Transparent
+                };
+            }
+
+            MainView mainView = DI.Get<MainView>();
+            ThemeVariant themeVariant = GetVariant(themeName);
+
+            if (mainView.TryFindResource(resourceName, themeVariant, out object? res)
+                && res is IBrush themeBrush)
+            {
+                return themeBrush;
+            }
+
+            return null;
+        }
+        catch (Exception ex)
+        {
+            LogHelper.Error($"Theme Manager : x : {ex.Message}");
+            return null;
+        }
+    }
+
+    // IBrush themeBrush = ThemeManager.GetSystemBrush(Theme);
+    // mainView.Background = themeBrush;
+    public static IBrush GetSystemBrush(string themeName)
+    {
+        return themeName switch
+        {
+            Light => Brush.Parse("#F3F2F1"),
+            Dark => Brush.Parse("#21252B"),
+            DeepBlue => Brush.Parse("#0A192F"),
+            MsWordLight => Brush.Parse("#F3F2F1"),
+            MsWordDark => Brush.Parse("#2B579A"),
+            _ => Brush.Parse("#0078D4"),
+        };
+    }
 }
 
-public enum ETheme
-{
-    Light,
-    Dark,
-    DeepBlue,
-    MsWordLight,
-    MsWordDark
-}
+// public static string GetTheme(ETheme theme)
+// {
+//     return theme switch
+//     {
+//         ETheme.Light => GetName(ThemeVariant.Light),
+//         ETheme.Dark => GetName(ThemeVariant.Dark),
+//         ETheme.DeepBlue => GetName(CustomThemes.DeepBlue),
+//         ETheme.MsWordLight => GetName(CustomThemes.MsWordLight),
+//         ETheme.MsWordDark => GetName(CustomThemes.MsWordDark),
+//         _ => GetName(ThemeVariant.Default)
+//     };
+// }
+
+// public enum ETheme
+// {
+//     Light,
+//     Dark,
+//     DeepBlue,
+//     MsWordLight,
+//     MsWordDark
+// }

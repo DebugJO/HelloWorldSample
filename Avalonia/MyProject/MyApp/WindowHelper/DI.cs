@@ -1,4 +1,5 @@
-﻿using Avalonia.Controls.ApplicationLifetimes;
+﻿using Avalonia;
+using Avalonia.Controls.ApplicationLifetimes;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -58,7 +59,7 @@ public static class DI
     public static async Task<T> GetAsync<T>() where T : notnull
     {
         Type type = typeof(T);
-        
+
         _asyncResolutionStack.Value ??= [];
         HashSet<Type>? stack = _asyncResolutionStack.Value;
 
@@ -78,6 +79,11 @@ public static class DI
         {
             stack.Remove(type);
         }
+    }
+
+    public static IClassicDesktopStyleApplicationLifetime? Desktop()
+    {
+        return Application.Current?.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime;
     }
 
     /// <summary>
@@ -114,12 +120,6 @@ public static class DI
             _resolutionStack.Value.Remove(type);
         }
     }
-
-    public static IClassicDesktopStyleApplicationLifetime Desktop()
-    {
-        return App.Services.GetRequiredService<IClassicDesktopStyleApplicationLifetime>();
-    }
-
 }
 
 /* 블록 안의 코드는 컴파일 시점에 포함 안 함
