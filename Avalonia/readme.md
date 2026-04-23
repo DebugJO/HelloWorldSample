@@ -105,6 +105,71 @@ private async Task<string> GetDelayedTextAsync()
 |**범위 (Range)**|`Slider`, `Progress`|**ValueChanged**|수치가 변경될 때 (볼륨, 진행률 제어)|
 |**스크롤 (Scroll)**|`ScrollViewer`|**ScrollChanged**|스크롤 위치 변경 (무한 스크롤, 헤더 고정)|
 
+### 아발로니아(Avalonia) UI에서 특정 컨트롤을 기준으로 위(조상), 아래(자손), 혹은 최상위(뿌리)를 찾는 방법
+
+```cs
+//바로 위 부모 찾기 (VisualParent)
+var parent = visual.VisualParent; // 직계 시각적 부모
+```
+```cs
+// 특정 타입의 조상 찾기 (FindAncestorOfType<T>)
+// 나를 포함해서 위로 올라가며 가장 가까운 Grid 찾기
+var parentGrid = visual.FindAncestorOfType<Grid>(); 
+
+// 나를 제외하고 순수하게 위에서만 찾으려면 (bool includeSelf 인자 사용)
+var parentGrid = visual.FindAncestorOfType<Grid>(includeSelf: false);
+```
+
+```cs
+/최상위 뿌리 찾기 (GetVisualRoot)
+var root = visual.GetVisualRoot(); // 보통 Window 객체 반환
+if (root is Window window) { /* 창 제어 */ }
+```
+
+```cs
+// 이름으로 직접 찾기 (FindControl)
+// window 내부에서 이름이 "MyList"인 컨트롤 찾기
+var target = window.FindControl<ListBox>("MyList");
+```
+
+```cs
+// 타입으로 자손들 찾기 (FindDescendantOfType<T>)
+// 내 아래에 있는 자식들 중 첫 번째로 발견되는 Button 찾기
+var firstButton = visual.FindDescendantOfType<Button>();
+```
+
+```cs
+// 커맨드 객체가 DockPanel 이라고 가정
+
+if (e.Source is DockPanel dockPanel)
+{
+    // 이제 dockPanel 변수로 직접 조작 가능
+    dockPanel.Background = Brushes.Red; 
+}
+
+if (e.Source is Control control) 
+{
+    var window = control.GetVisualRoot() as Window;
+    // window.BeginMoveDrag(e); // 창 드래그 실행
+}
+
+if (e.Source is Visual visual)
+{
+	// DockPanel을 감싸고 있는 바로 위 부모
+    var parent = visual.VisualParent; 
+}
+
+if (e.Source is Visual visual)
+{
+    var nearestGrid = visual.FindAncestorOfType<Grid>(); 
+}
+
+if (e.Source is Visual visual && visual.GetVisualRoot() is Window window)
+{
+    var targetGrid = window.FindControl<Grid>("MyTargetGrid");
+}
+```
+
 ### ResourceDictionary와 Styles 차이
 
 |구분|ResourceDictionary|Styles|
