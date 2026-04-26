@@ -80,6 +80,26 @@ dotnet publish -c Release -r win-x64 --self-contained true -p:PublishSingleFile=
 dotnet publish -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true -p:IncludeAllContentForSelfExtract=true
 ```
 
+### NET 글로벌 도구 (Global Tool) 관리
+
+|**기능**|**명령어**|**설명**|
+|---|---|---|
+|**설치**|`dotnet tool install -g <도구이름>`|도구를 전역으로 설치|
+|**목록 확인**|`dotnet tool list -g`|설치된 모든 전역 도구 확인|
+|**업데이트**|`dotnet tool update -g <도구이름>`|도구를 최신 버전으로 업데이트|
+|**삭제**|`dotnet tool uninstall -g <도구이름>`|도구 제거|
+
+### 패키지 및 빌드 정리 (Cleanup)
+
+```bash
+dotnet clean
+dotnet nuget locals all --clear
+dotnet restore
+dotnet add package <패키지이름>
+dotnet remove package <패키지이름>
+dotnet build
+```
+
 ### .NET 경로 API
 
 |API 종류|SingleFile 배포 시 결과|신뢰도|특징 및 한계|
