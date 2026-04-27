@@ -8,8 +8,7 @@
 7. enum 앞에는 E붙임
 8. private 멤버 변수 앞에는 m붙이고, 나머지 파스칼 케이스 사용
 
-http://lonpeach.com/2017/12/24/CSharp-Coding-Standard/ 
-https://namu.wiki/w/%EC%BD%94%EB%94%A9%20%EC%8A%A4%ED%83%80%EC%9D%BC
+["C# 코딩 표준", http://lonpeach.com/2017/12/24/CSharp-Coding-Standard/ ](https://docs.popekim.com/ko/coding-standards/csharp)
 
 카멜 표기법과 파스칼 표기법을 적절하게 조합하여,
 1. 변수명이나 함수명은 카멜 표기법을 따르고 클래스명은 파스칼 표기법을 따르는 작성 스타일, 
