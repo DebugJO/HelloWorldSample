@@ -4,16 +4,30 @@
 3. 모든 메소드 이름은 파스칼 케이스 사용
 4. 네임스페이스는 파스칼 케이스 사용
 5. boolean 변수 앞에 b붙이고, 프로퍼트에 앞에 is 붙임
-6. 인터페이스 앞에는 I를 붙임
-7. enum 앞에는 E붙임
-8. private 멤버 변수 앞에는 m붙이고, 나머지 파스칼 케이스 사용
+6. boolean(접두사) : Is, Has, Can, Should
+7. 인터페이스 앞에는 I를 붙임
+8. enum 앞에는 E붙임
+9. private 멤버 변수 앞에는 m붙이고, 나머지 파스칼 케이스 사용
+10. 2글자 약어는 모두 대문자로 씁니다. (예: IOStream, System.IO)
+11. 3글자 이상의 약어는 PascalCase 규칙을 따릅니다. (예: HtmlHelper, XmlDocument) : 풀네임 권장
 
 ["C# 코딩 표준", http://lonpeach.com/2017/12/24/CSharp-Coding-Standard/ ](https://docs.popekim.com/ko/coding-standards/csharp)
 
-카멜 표기법과 파스칼 표기법을 적절하게 조합하여,
-1. 변수명이나 함수명은 카멜 표기법을 따르고 클래스명은 파스칼 표기법을 따르는 작성 스타일, 
-2. 혹은 변수명은 카멜로 표기하고 함수와 클래스명은 파스칼로 표기하는 작성 스타일이 대세이다. 
-3. 전자는 Java, 후자는 C++(C#)에서 주로 볼 수 있는 스타일이다.
+### 주요 네이밍 컨벤션 요약 표
+
+| 대상 (Identifier) | 표기법 (Casing) | 예시 (Example) | 비고 (Notes) |
+| :--- | :--- | :--- | :--- |
+| **Class (클래스)** | PascalCase | `UserProfile`, `OrderManager` | 명사 또는 명사구 사용 |
+| **Interface (인터페이스)** | PascalCase | `IMyInterface`, `IDisposable` | 항상 접두사 **`I`**를 붙임 |
+| **Struct (구조체)** | PascalCase | `Point`, `Address` | |
+| **Record (레코드)** | PascalCase | `UserRecord` | |
+| **Enum (열거형)** | PascalCase | `FileMode`, `HttpState` | 단수형 명사 사용 (Flags는 복수형) |
+| **Enum Member** | PascalCase | `Red`, `RunningState` | |
+| **Method (메서드)** | PascalCase | `CalculateTotal()`, `GetData()` | 동사 또는 동사구 사용 |
+| **Property (속성)** | PascalCase | `FirstName`, `IsActive` | 명사, 형용사 사용 |
+| **Event (이벤트)** | PascalCase | `Click`, `ValueChanged` | |
+| **Namespace (네임스페이스)** | PascalCase | `System.Text`, `MyCompany.Project` | `회사명.제품명.모듈명` 권장 |
+| **Public Field** | PascalCase | `TotalCount` | 가급적 Property 사용 권장 |
 
 ### LINQ Tutorial
 * [LINQ Tutorial-kudvenkat](https://www.youtube.com/playlist?list=PL6n9fhu94yhWi8K02Eqxp3Xyh_OmQ0Rp6)
