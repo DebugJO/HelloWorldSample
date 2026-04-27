@@ -3,10 +3,10 @@
 2. 지역 변수 이름과 함수 매개 변수에 카멜 케이스 사용
 3. 모든 메소드 이름은 파스칼 케이스 사용
 4. 네임스페이스는 파스칼 케이스 사용
-5. boolean 변수 앞에 b붙이고, 프로퍼트에 앞에 is 붙임
-6. boolean(접두사) : Is, Has, Can, Should
+5. boolean 변수 앞에 **b** 붙이고, 프로퍼트에 앞에 **is** 붙임
+6. boolean(접두사) : **Is, Has, Can, Should** 프로퍼티 또는 소문자 필드
 7. 인터페이스 앞에는 I를 붙임
-8. enum 앞에는 E붙임
+8. enum 앞에는 E붙임 (참고) : 파스칼 스타일 사용 가능
 9. private 멤버 변수 앞에는 m붙이고, 나머지 파스칼 케이스 사용
 10. 2글자 약어는 모두 대문자로 씁니다. (예: IOStream, System.IO)
 11. 3글자 이상의 약어는 PascalCase 규칙을 따릅니다. (예: HtmlHelper, XmlDocument) : 풀네임 권장
