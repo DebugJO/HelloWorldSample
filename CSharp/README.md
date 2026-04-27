@@ -1,3 +1,7 @@
+```bash
+dotnet publish -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true
+```
+
 ### C# 코딩스타일
 1. 클래스 및 구조체에 파스칼 케이스 사용
 2. 지역 변수 이름과 함수 매개 변수에 카멜 케이스 사용
@@ -34,6 +38,18 @@
 | **Constant (상수)** | PascalCase | `MaxRetryCount` | C#은 상수도 PascalCase 권장 |
 | **Static Field (Readonly)** | PascalCase | `DefaultTimeout` | |
 | **Generic Type Parameter** | PascalCase | `T`, `TValue`, `TSession` | 접두사 **`T`** 사용 |
+
+### 필드 네이밍
+
+|구분|네이밍 패턴|예시 (Field Name)|비고|
+|---|---|---|---|
+|**외부 서비스 (DI)**|`_` + **역할명**|`_userService`  <br>`_orderRepository`  <br>`_emailSender`|주로 인터페이스(`I`)를 주입받으며, `readonly`와 함께 사용|
+|**논리 상태 (bool)**|`_` + **be동사/조동사**|`_isCompleted`  <br>`_canExecute`  <br>`_hasToken`|객체의 현재 상태나 권한을 나타낼 때 사용|
+|**수치/양 (numeric)**|`_` + **단위/성격**|`_retryCount`  <br>`_totalAmount`  <br>`_maxCapacity`|`Count`, `Amount`, `Index` 등을 접미사로 활용|
+|**단순 정보 (string/val)**|`_` + **명사**|`_userName`  <br>`_accessKey`  <br>`_lastErrorMessage`|가장 기본적인 데이터 형태|
+|**복합 데이터 (Object)**|`_` + **State/Info**|`_searchState`  <br>`_connectionConfig`  <br>`_userProfile`|여러 필드를 묶은 객체나 설정값|
+|**임시/캐시 (Cache)**|`_` + **cached/temp**|`_cachedData`  <br>`_tempFilePath`|로직 내에서 잠시 보유하는 데이터|
+
 
 ### LINQ Tutorial
 * [LINQ Tutorial-kudvenkat](https://www.youtube.com/playlist?list=PL6n9fhu94yhWi8K02Eqxp3Xyh_OmQ0Rp6)
