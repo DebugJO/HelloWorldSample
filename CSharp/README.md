@@ -35,77 +35,6 @@
 | **Static Field (Readonly)** | PascalCase | `DefaultTimeout` | |
 | **Generic Type Parameter** | PascalCase | `T`, `TValue`, `TSession` | 접두사 **`T`** 사용 |
 
-Enum (열거형) 예제 
-
-```cs
-[Flags]
-public enum UserPermissions
-{
-    None = 0,      // 0000
-    Read = 1,      // 0001
-    Write = 2,     // 0010
-    Execute = 4,   // 0100
-    Admin = Read | Write | Execute // 0111 (모든 권한)
-}
-
-//값 추가 (|):
-var myPerm = UserPermissions.Read | UserPermissions.Write;
-//포함 확인 (HasFlag):
-if (myPerm.HasFlag(UserPermissions.Read)) { ... }
-//값 제거 (^ 또는 & ~):
-myPerm &= ~UserPermissions.Write;
-```
-
-```cs
-[Flags]
-public enum Status
-{
-    None   = 0,      // 0000
-    Open   = 1 << 0, // 0001 (1)
-    Locked = 1 << 1, // 0010 (2)
-    Alert  = 1 << 2, // 0100 (4)
-    Fixed  = 1 << 3  // 1000 (8)
-}
-
-// 결과: 0101 (5)
-Status myStatus = Status.Open | Status.Alert; 
-
-// 2. 특정 상태 포함 여부 확인 (HasFlag 또는 AND 연산)
-bool isAlert = myStatus.HasFlag(Status.Alert); // true
-bool isLocked = (myStatus & Status.Locked) != 0; // false
-
-// 결과: 1101 (13) -> Open, Alert, Fixed
-myStatus |= Status.Fixed; 
-
-// 결과: 1100 (12) -> Alert, Fixed
-myStatus &= ~Status.Open;
-
-// 상태 반전 (XOR 연산)
-myStatus ^= Status.Locked;
-
-// 비트 시프트 연산자 사용
-[Flags]
-public enum MySettings
-{
-    None   = 0,
-    Opt1   = 1 << 0, // 1
-    Opt2   = 1 << 1, // 2
-    Opt3   = 1 << 2, // 4
-    Opt4   = 1 << 3, // 8
-    Opt5   = 1 << 4, // 16
-    Opt6   = 1 << 5, // 32
-    Opt7   = 1 << 6, // 64
-    Opt8   = 1 << 7  // 128
-}
-```
-
-|구분|일반 Enum|[Flags] Enum|
-|---|---|---|
-|**선택 방식**|상호 배타적 (단일 선택)|다중 선택 가능 (조합)|
-|**값 할당**|0, 1, 2, 3... (순차적)|1, 2, 4, 8... (2의 거듭제곱)|
-|**출력 (ToString)**|매칭되는 이름 하나만 출력|결합된 모든 이름을 쉼표로 출력|
-|**주요 목적**|요일, 무지개 색깔, 상태 단계|권한 설정, 다중 옵션, 체크박스 상태|
-
 ### LINQ Tutorial
 * [LINQ Tutorial-kudvenkat](https://www.youtube.com/playlist?list=PL6n9fhu94yhWi8K02Eqxp3Xyh_OmQ0Rp6)
 
@@ -258,6 +187,79 @@ dotnet build
 
 심볼 이름 바꾸기 : `ctrl + R, R` : 의미 중심
 단순 바꾸기 : `ctrl + H` : 글자 중심
+
+---
+
+Enum (열거형) 예제 
+
+```cs
+[Flags]
+public enum UserPermissions
+{
+    None = 0,      // 0000
+    Read = 1,      // 0001
+    Write = 2,     // 0010
+    Execute = 4,   // 0100
+    Admin = Read | Write | Execute // 0111 (모든 권한)
+}
+
+//값 추가 (|):
+var myPerm = UserPermissions.Read | UserPermissions.Write;
+//포함 확인 (HasFlag):
+if (myPerm.HasFlag(UserPermissions.Read)) { ... }
+//값 제거 (^ 또는 & ~):
+myPerm &= ~UserPermissions.Write;
+```
+
+```cs
+[Flags]
+public enum Status
+{
+    None   = 0,      // 0000
+    Open   = 1 << 0, // 0001 (1)
+    Locked = 1 << 1, // 0010 (2)
+    Alert  = 1 << 2, // 0100 (4)
+    Fixed  = 1 << 3  // 1000 (8)
+}
+
+// 결과: 0101 (5)
+Status myStatus = Status.Open | Status.Alert; 
+
+// 2. 특정 상태 포함 여부 확인 (HasFlag 또는 AND 연산)
+bool isAlert = myStatus.HasFlag(Status.Alert); // true
+bool isLocked = (myStatus & Status.Locked) != 0; // false
+
+// 결과: 1101 (13) -> Open, Alert, Fixed
+myStatus |= Status.Fixed; 
+
+// 결과: 1100 (12) -> Alert, Fixed
+myStatus &= ~Status.Open;
+
+// 상태 반전 (XOR 연산)
+myStatus ^= Status.Locked;
+
+// 비트 시프트 연산자 사용
+[Flags]
+public enum MySettings
+{
+    None   = 0,
+    Opt1   = 1 << 0, // 1
+    Opt2   = 1 << 1, // 2
+    Opt3   = 1 << 2, // 4
+    Opt4   = 1 << 3, // 8
+    Opt5   = 1 << 4, // 16
+    Opt6   = 1 << 5, // 32
+    Opt7   = 1 << 6, // 64
+    Opt8   = 1 << 7  // 128
+}
+```
+
+|구분|일반 Enum|[Flags] Enum|
+|---|---|---|
+|**선택 방식**|상호 배타적 (단일 선택)|다중 선택 가능 (조합)|
+|**값 할당**|0, 1, 2, 3... (순차적)|1, 2, 4, 8... (2의 거듭제곱)|
+|**출력 (ToString)**|매칭되는 이름 하나만 출력|결합된 모든 이름을 쉼표로 출력|
+|**주요 목적**|요일, 무지개 색깔, 상태 단계|권한 설정, 다중 옵션, 체크박스 상태|
 
 ---
 
