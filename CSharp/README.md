@@ -28,6 +28,12 @@
 | **Event (이벤트)** | PascalCase | `Click`, `ValueChanged` | |
 | **Namespace (네임스페이스)** | PascalCase | `System.Text`, `MyCompany.Project` | `회사명.제품명.모듈명` 권장 |
 | **Public Field** | PascalCase | `TotalCount` | 가급적 Property 사용 권장 |
+| **Private Field** | camelCase | `_orderCount`, `_userService` | 접두사 **`_` (언더바)** 사용 |
+| **Parameter (매개변수)** | camelCase | `userName`, `itemCount` | |
+| **Local Variable (지역 변수)** | camelCase | `index`, `tempResult` | |
+| **Constant (상수)** | PascalCase | `MaxRetryCount` | C#은 상수도 PascalCase 권장 |
+| **Static Field (Readonly)** | PascalCase | `DefaultTimeout` | |
+| **Generic Type Parameter** | PascalCase | `T`, `TValue`, `TSession` | 접두사 **`T`** 사용 |
 
 ### LINQ Tutorial
 * [LINQ Tutorial-kudvenkat](https://www.youtube.com/playlist?list=PL6n9fhu94yhWi8K02Eqxp3Xyh_OmQ0Rp6)
