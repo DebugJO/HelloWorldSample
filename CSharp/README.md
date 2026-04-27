@@ -190,7 +190,7 @@ dotnet build
 
 ---
 
-Enum (열거형) 예제 
+### Enum (열거형) 예제 
 
 ```cs
 [Flags]
