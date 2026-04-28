@@ -511,9 +511,10 @@ public void ProcessPayment(Order order)
 
     <Window.Styles>
         <Style Selector="Window:windows-only">
-            <Setter Property="WindowStartupLocation" Value="CenterScreen" />
+            <Setter Property="ExtendClientAreaTitleBarHeightHint" Value="0" />
             <Setter Property="WindowDecorations" Value="None" />
             <Setter Property="Padding" Value="-1" />
+            <Setter Property="WindowStartupLocation" Value="CenterScreen" />
         </Style>
         <Style Selector="Window:windows-only WindowDrawnDecorations /template/ Panel#PART_OverlayWrapper">
             <Setter Property="IsVisible" Value="False" />
