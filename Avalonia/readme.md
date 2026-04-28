@@ -525,6 +525,7 @@ public void ProcessPayment(Order order)
             <Setter Property="IsVisible" Value="False" />
         </Style>
     </Window.Styles>
+
     <TextBlock Text="{CompiledBinding Greeting}" HorizontalAlignment="Center" VerticalAlignment="Center" />
 </Window>
 ```
