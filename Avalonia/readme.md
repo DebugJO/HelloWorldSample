@@ -493,3 +493,55 @@ public void ProcessPayment(Order order)
 |**`ContextIdle`**|3|**추천.** 현재 하려던 UI 작업(그리기 등)이 **완전히 끝난 직후**에 호출됩니다.|
 |**`ApplicationIdle`**|2|앱 전체가 아무 일도 안 하고 멍 때릴 때 실행됩니다.|
 |**`SystemIdle`**|1|**가장 낮음.** OS 자체가 완전히 한가해질 때까지 기다립니다.|
+
+### Avalonia 12 TitleBar Example
+
+```xml
+<Window.Styles>
+    <Style Selector="WindowDrawnDecorations /template/ Button#PART_FullScreenButton">
+        <Setter Property="IsVisible" Value="False" />
+        <Setter Property="Width" Value="0" />
+        <Setter Property="MinWidth" Value="0" />
+        <Setter Property="Margin" Value="0" />
+    </Style>
+    <Style Selector="WindowDrawnDecorations /template/ Button#PART_MinimizeButton">
+        <Setter Property="IsVisible" Value="False" />
+        <Setter Property="Width" Value="0" />
+        <Setter Property="MinWidth" Value="0" />
+        <Setter Property="Margin" Value="0" />
+    </Style>
+    <Style Selector="WindowDrawnDecorations /template/ Button#PART_MaximizeButton">
+        <Setter Property="IsVisible" Value="False" />
+        <Setter Property="Width" Value="0" />
+        <Setter Property="MinWidth" Value="0" />
+        <Setter Property="Margin" Value="0" />
+    </Style>
+    <Style Selector="WindowDrawnDecorations /template/ Button#PART_CloseButton">
+        <Setter Property="IsVisible" Value="False" />
+        <Setter Property="Width" Value="0" />
+        <Setter Property="MinWidth" Value="0" />
+        <Setter Property="Margin" Value="0" />
+    </Style>
+
+    <Style Selector="WindowDrawnDecorations /template/ StackPanel#PART_OverlayPanel">
+        <Setter Property="Background" Value="Red" />
+        <Setter Property="IsVisible" Value="False" />
+        <Setter Property="Width" Value="0" />
+        <Setter Property="Height" Value="0" />
+    </Style>
+
+    <Style Selector="WindowDrawnDecorations /template/ Panel#PART_TitleTextPanel">
+        <Setter Property="Background" Value="CadetBlue" />
+        <Setter Property="IsVisible" Value="False" />
+        <Setter Property="Width" Value="0" />
+        <Setter Property="Height" Value="0" />
+    </Style>
+    
+    <Style Selector="WindowDrawnDecorations /template/ Panel#PART_TitleTextPanel > TextBlock">
+        <Setter Property="Background" Value="BlueViolet" />
+        <Setter Property="IsVisible" Value="True" />
+        <Setter Property="Width" Value="0" />
+        <Setter Property="Margin" Value="0" />
+    </Style>
+</Window.Styles>
+```
