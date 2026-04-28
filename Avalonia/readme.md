@@ -497,56 +497,54 @@ public void ProcessPayment(Order order)
 ### Avalonia 12 TitleBar Example
 
 ```xml
+<!-- AvaloniaApplication1 : 프로젝트명 -->
 <Window xmlns="https://github.com/avaloniaui"
-        ExtendClientAreaToDecorationsHint="True"
-        ExtendClientAreaTitleBarHeightHint="0"
-        Padding="-1">
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:AvaloniaApplication1.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="AvaloniaApplication1.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        ExtendClientAreaToDecorationsHint="True">
 
-<Window.Styles>
-    <Style Selector="WindowDrawnDecorations /template/ Button#PART_FullScreenButton">
-        <Setter Property="IsVisible" Value="False" />
-        <Setter Property="Width" Value="0" />
-        <Setter Property="MinWidth" Value="0" />
-        <Setter Property="Margin" Value="0" />
-    </Style>
-    <Style Selector="WindowDrawnDecorations /template/ Button#PART_MinimizeButton">
-        <Setter Property="IsVisible" Value="False" />
-        <Setter Property="Width" Value="0" />
-        <Setter Property="MinWidth" Value="0" />
-        <Setter Property="Margin" Value="0" />
-    </Style>
-    <Style Selector="WindowDrawnDecorations /template/ Button#PART_MaximizeButton">
-        <Setter Property="IsVisible" Value="False" />
-        <Setter Property="Width" Value="0" />
-        <Setter Property="MinWidth" Value="0" />
-        <Setter Property="Margin" Value="0" />
-    </Style>
-    <Style Selector="WindowDrawnDecorations /template/ Button#PART_CloseButton">
-        <Setter Property="IsVisible" Value="False" />
-        <Setter Property="Width" Value="0" />
-        <Setter Property="MinWidth" Value="0" />
-        <Setter Property="Margin" Value="0" />
-    </Style>
+    <Window.Styles>
+        <Style Selector="Window:windows-only">
+            <Setter Property="WindowStartupLocation" Value="CenterScreen" />
+            <Setter Property="WindowDecorations" Value="None" />
+            <Setter Property="Padding" Value="-1" />
+        </Style>
+        <Style Selector="Window:windows-only WindowDrawnDecorations /template/ Panel#PART_OverlayWrapper">
+            <Setter Property="IsVisible" Value="False" />
+        </Style>
 
-    <Style Selector="WindowDrawnDecorations /template/ StackPanel#PART_OverlayPanel">
-        <Setter Property="Background" Value="Red" />
-        <Setter Property="IsVisible" Value="False" />
-        <Setter Property="Width" Value="0" />
-        <Setter Property="Height" Value="0" />
-    </Style>
+        <Style Selector="Window:windows-only WindowDrawnDecorations /template/ Panel#PART_UnderlayWrapper">
+            <Setter Property="IsVisible" Value="False" />
+        </Style>
+        <Style Selector="Window:windows-only WindowDrawnDecorations:has-fullscreen /template/ Panel">
+            <Setter Property="IsVisible" Value="False" />
+        </Style>
+    </Window.Styles>
+    <TextBlock Text="{CompiledBinding Greeting}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+</Window>
+```
 
-    <Style Selector="WindowDrawnDecorations /template/ Panel#PART_TitleTextPanel">
-        <Setter Property="Background" Value="CadetBlue" />
-        <Setter Property="IsVisible" Value="False" />
-        <Setter Property="Width" Value="0" />
-        <Setter Property="Height" Value="0" />
-    </Style>
-    
-    <Style Selector="WindowDrawnDecorations /template/ Panel#PART_TitleTextPanel > TextBlock">
-        <Setter Property="Background" Value="BlueViolet" />
-        <Setter Property="IsVisible" Value="True" />
-        <Setter Property="Width" Value="0" />
-        <Setter Property="Margin" Value="0" />
-    </Style>
-</Window.Styles>
+```cs
+public partial class MainWindow : Window
+{
+    public MainWindow()
+    {
+        InitializeComponent();
+
+        if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+        {
+            PseudoClasses.Set(":windows-only", true);
+        }
+    }
+
+    private void TopLevel_OnOpened(object? sender, EventArgs e)
+    {
+        Dispatcher.UIThread.Post(() => { WindowDecorations = WindowDecorations.Full; }, DispatcherPriority.ContextIdle);
+    }
+}
 ```
