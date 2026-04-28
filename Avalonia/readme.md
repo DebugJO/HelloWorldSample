@@ -497,6 +497,11 @@ public void ProcessPayment(Order order)
 ### Avalonia 12 TitleBar Example
 
 ```xml
+<Window xmlns="https://github.com/avaloniaui"
+        ExtendClientAreaToDecorationsHint="True"
+        ExtendClientAreaTitleBarHeightHint="0"
+        Padding="-1">
+
 <Window.Styles>
     <Style Selector="WindowDrawnDecorations /template/ Button#PART_FullScreenButton">
         <Setter Property="IsVisible" Value="False" />
