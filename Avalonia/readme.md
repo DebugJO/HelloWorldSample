@@ -506,7 +506,8 @@ public void ProcessPayment(Order order)
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="AvaloniaApplication1.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
-        ExtendClientAreaToDecorationsHint="True">
+        ExtendClientAreaToDecorationsHint="True"
+        Opened="OnOpened">
 
     <Window.Styles>
         <Style Selector="Window:windows-only">
@@ -543,7 +544,7 @@ public partial class MainWindow : Window
         }
     }
 
-    private void TopLevel_OnOpened(object? sender, EventArgs e)
+    private void OnOpened(object? sender, EventArgs e)
     {
         Dispatcher.UIThread.Post(() => { WindowDecorations = WindowDecorations.Full; }, DispatcherPriority.ContextIdle);
     }
