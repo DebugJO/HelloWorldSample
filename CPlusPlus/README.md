@@ -127,6 +127,10 @@ void HelloWorld::GetName() const
     cout << "Hello World! : " + this->name << endl;
 }
 
+// Jekyll 에 Bundler 사용하기
+bundle install
+bundle exec jekyll serve
+bundle exec jekyll serve --livereload
 ```
 
 ### char(기본자료형), string(클래스) 비교
