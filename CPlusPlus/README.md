@@ -46,8 +46,10 @@ qt6-webengine // 용량 큼 주의(필요할 때만 설치)
 // 검색
 pacman -Ss qt6
 pacman -Ss ucrt
+
 // 설치된 패키지 확인
 pacman -Qs qt6
+
 // 의존성
 pactree mingw-w64-ucrt-x86_64-qt6-base
 
