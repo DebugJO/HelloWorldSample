@@ -1,3 +1,64 @@
+### msys2 ucrt64
+
+```bash
+pacman -Syu
+
+pacman -S --needed \
+mingw-w64-ucrt-x86_64-gcc \
+mingw-w64-ucrt-x86_64-clang \
+mingw-w64-ucrt-x86_64-cmake \
+mingw-w64-ucrt-x86_64-ninja \
+mingw-w64-ucrt-x86_64-gdb \
+mingw-w64-ucrt-x86_64-lldb \
+mingw-w64-ucrt-x86_64-pkgconf \
+mingw-w64-ucrt-x86_64-python \
+mingw-w64-ucrt-x86_64-meson \
+git \
+make
+
+// 추가
+pacman -S --needed \
+mingw-w64-ucrt-x86_64-clang-tools-extra \
+mingw-w64-ucrt-x86_64-ccache
+
+// clang-tools-extra 에 다음 3개 포함
+clangd
+clang-tidy
+clang-format
+
+// qt 기본
+pacman -S --needed \
+mingw-w64-ucrt-x86_64-qt6-base \
+mingw-w64-ucrt-x86_64-qt6-tools
+
+// qt ui 개발 추가
+pacman -S --needed \
+mingw-w64-ucrt-x86_64-qt6-svg \
+mingw-w64-ucrt-x86_64-qt6-imageformats \
+mingw-w64-ucrt-x86_64-qt6-5compat
+
+// qt 추가 옵션
+pacman -S --needed \
+mingw-w64-ucrt-x86_64-qt6-multimedia
+qt6-webengine // 용량 큼 주의(필요할 때만 설치)
+
+
+// 검색
+pacman -Ss qt6
+pacman -Ss ucrt
+// 설치된 패키지 확인
+pacman -Qs qt6
+// 의존성
+pactree mingw-w64-ucrt-x86_64-qt6-base
+
+pacman -S --needed \
+mingw-w64-ucrt-x86_64-ntldd
+
+ntldd myapp.exe
+objdump -p myapp.exe | grep DLL
+llvm-objdump -p myapp.exe
+```
+
 ### 기본 소스 헤더 분리 예제
 
 ```cpp
