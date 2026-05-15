@@ -42,6 +42,7 @@ pacman -S --needed \
 mingw-w64-ucrt-x86_64-qt6-multimedia
 qt6-webengine // 용량 큼 주의(필요할 때만 설치)
 
+pacman -S --needed mingw-w64-ucrt-x86_64-sqlite3
 
 // 검색
 pacman -Ss qt6
