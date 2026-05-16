@@ -45,6 +45,22 @@ async function handleSave() {
 }
 ```
 
+**rust로 프로젝트 생성**
+
+```
+cargo install create-tauri-app --locked
+cargo create-tauri-app
+cd 프로젝트
+cargo install tauri-cli --locked
+cargo tauri dev
+cargo tauri build
+
+// 옵션(설치한 유틸 업데이트)
+cargo install cargo-update
+cargo install-update -a
+cargo install --list
+```
+
 ### bun ts electron
 
 Electrobun : 하단 문서 참조
