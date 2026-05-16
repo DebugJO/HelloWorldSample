@@ -117,7 +117,7 @@ import { Component } from '@angular/core';
       font-size: 10px;
       color: #333333;
       border-radius: 4px;
-      -webkit-app-region: no-drag; /* 🎯 드래그 영역과 버튼 클릭 영역을 확실히 분리 */
+      -webkit-app-region: no-drag; 
     }
     .control-btn:hover {
       background: rgba(0, 0, 0, 0.1);
@@ -129,8 +129,6 @@ import { Component } from '@angular/core';
   `]
 })
 export class TitlebarComponent {
-
-  // 🎯 @tauri-apps/api 정적 임포트 에러를 완전히 우회하는 v2 윈도우 제어 방식
   private async getWindow() {
     const { getCurrentWindow } = await import('@tauri-apps/api/window');
     return getCurrentWindow();
@@ -145,7 +143,7 @@ export class TitlebarComponent {
   async maximize(event: MouseEvent) {
     event.stopPropagation();
     const win = await this.getWindow();
-    await win.toggleMaximize(); // 최대화/이전크기 복원 토글
+    await win.toggleMaximize(); 
   }
 
   async close(event: MouseEvent) {
@@ -160,20 +158,19 @@ src/app/app.component.ts
 
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { invoke } from '@tauri-apps/api/core'; // 🎯 Tauri 백엔드 통신용 함수
-import { TitlebarComponent } from './titlebar'; // 🎯 커스텀 타이틀바
+import { invoke } from '@tauri-apps/api/core'; 
+import { TitlebarComponent } from './titlebar';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, TitlebarComponent], // 🎯 타이틀바 컴포넌트 등록
+  imports: [RouterOutlet, TitlebarComponent], 
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
 export class AppComponent {
   title = 'my-tauri-app';
-  
-  // 🎯 HTML이 애타게 찾던 변수와 함수를 다시 정의해 줍니다.
+
   greetingMessage = "";
 
   greet(event: SubmitEvent, name: string): void {
