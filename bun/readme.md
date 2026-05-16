@@ -1,3 +1,48 @@
+### Tauri
+
+```bash
+bun create tauri-app@latest
+cd my-tauri-app
+bun install
+bun tauri dev
+bun tauri build
+```
+
+|**성능 지표**|**Electron**|**Electrobun**|**Tauri**|
+|---|---|---|---|
+|**최종 빌드 용량**|130MB ~ 150MB|20MB ~ 30MB|7MB ~ 10MB|
+|**메모리(RAM) 점유율**|120MB ~ 180MB|40MB ~ 60MB|30MB ~ 50MB|
+|**초기 실행 속도 (Startup)**|느림 (브라우저 로딩 필요)|매우 빠름 (Bun의 초고속 시동)|매우 빠름 (Rust 바이너리 시동)|
+|**백엔드 실행 속도**|보통 (Node.js)|빠름 (Bun 런타임)|압도적 (Native Rust 기계어)|
+
+```ts
+// src/components/Counter.tsx
+import { useState } from "react";
+
+export default function Counter() {
+  const [count, setCount] = useState(0);
+
+  return (
+    <div className="p-4 core-box">
+      <p>현재 카운트: {count}</p>
+      <button onClick={() => setCount(count + 1)} className="btn-primary">
+        증가
+      </button>
+    </div>
+  );
+}
+```
+
+```rust
+import { invoke } from "@tauri-apps/api/core";
+
+// 클릭 시 Rust 백엔드에 파일 저장을 요청하는 함수
+async function handleSave() {
+  const result = await invoke("save_to_local_disk", { data: "저장할 내용" });
+  alert(result);
+}
+```
+
 ### bun ts electron
 
 Electrobun : 하단 문서 참조
