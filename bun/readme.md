@@ -87,6 +87,18 @@ greetBtn?.addEventListener("click", async () => {
 });
 ```
 
+```xml
+<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <OutputType>WinExe</OutputType>
+        <TargetFramework>net10.0</TargetFramework>
+        <PublishReadyToRun>true</PublishReadyToRun>
+        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+        <WarningsAsErrors>CS8600;CS8602;CS8603</WarningsAsErrors>
+    </PropertyGroup>
+</Project>
+```
+
 
 ### bun ts electron
 
