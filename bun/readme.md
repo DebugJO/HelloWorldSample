@@ -15,6 +15,8 @@ bun tauri build
 |**초기 실행 속도 (Startup)**|느림 (브라우저 로딩 필요)|매우 빠름 (Bun의 초고속 시동)|매우 빠름 (Rust 바이너리 시동)|
 |**백엔드 실행 속도**|보통 (Node.js)|빠름 (Bun 런타임)|압도적 (Native Rust 기계어)|
 
+#### rust
+
 ```ts
 // src/components/Counter.tsx
 import { useState } from "react";
@@ -42,6 +44,49 @@ async function handleSave() {
   alert(result);
 }
 ```
+
+#### dotnet
+
+```cs
+using System;
+using TauriDotNet; // Tauri-NET 라이브러리
+
+namespace MyTauriApp
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            TauriApp.Builder()
+                .RegisterCommand("greet", Greet)
+                .Run();
+        }
+
+        [TauriCommand]
+        public static string Greet(string name)
+        {
+            return $"Hello, {name}! C# .NET 백엔드";
+        }
+    }
+}
+```
+
+```ts
+import { invoke } from "@tauri-apps/api/core";
+
+const nameInput = document.querySelector("#name-input") as HTMLInputElement;
+const greetBtn = document.querySelector("#greet-btn");
+const greetMsg = document.querySelector("#greet-msg");
+
+greetBtn?.addEventListener("click", async () => {
+  const response = await invoke<string>("greet", { name: nameInput.value });
+  
+  if (greetMsg) {
+    greetMsg.textContent = response;
+  }
+});
+```
+
 
 ### bun ts electron
 
