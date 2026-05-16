@@ -45,60 +45,6 @@ async function handleSave() {
 }
 ```
 
-#### dotnet
-
-```cs
-using System;
-using TauriDotNet; // Tauri-NET 라이브러리
-
-namespace MyTauriApp
-{
-    class Program
-    {
-        static void Main(string[] args)
-        {
-            TauriApp.Builder()
-                .RegisterCommand("greet", Greet)
-                .Run();
-        }
-
-        [TauriCommand]
-        public static string Greet(string name)
-        {
-            return $"Hello, {name}! C# .NET 백엔드";
-        }
-    }
-}
-```
-
-```ts
-import { invoke } from "@tauri-apps/api/core";
-
-const nameInput = document.querySelector("#name-input") as HTMLInputElement;
-const greetBtn = document.querySelector("#greet-btn");
-const greetMsg = document.querySelector("#greet-msg");
-
-greetBtn?.addEventListener("click", async () => {
-  const response = await invoke<string>("greet", { name: nameInput.value });
-  
-  if (greetMsg) {
-    greetMsg.textContent = response;
-  }
-});
-```
-
-```xml
-<Project Sdk="Microsoft.NET.Sdk">
-    <PropertyGroup>
-        <OutputType>WinExe</OutputType>
-        <TargetFramework>net10.0</TargetFramework>
-        <PublishReadyToRun>true</PublishReadyToRun>
-        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-        <WarningsAsErrors>CS8600;CS8602;CS8603</WarningsAsErrors>
-    </PropertyGroup>
-</Project>
-```
-
 
 ### bun ts electron
 
