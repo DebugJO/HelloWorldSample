@@ -45,17 +45,6 @@ async function handleSave() {
 }
 ```
 
-
-### Tauri v2 + React + TS + Vite 스택 요약
-
-|**기술 구성 요소**|**담당 역할 (Role)**|**핵심 강점 (Key Strengths)**|**존재 이유 (Why here?)**|
-|---|---|---|---|
-|**Tauri v2**<br><br>  <br><br>_(App Shell & Backend)_|• 앱의 외각 틀(윈도우) 형성<br><br>  <br><br>• OS 네이티브 기능 제어<br><br>  <br><br>• Rust 기반 백엔드 로직 처리|• **9MB 수준**의 초경량 용량<br><br>  <br><br>• 매우 적은 메모리(RAM) 점유<br><br>  <br><br>• 강력한 모바일(iOS/Android) 지원|일렉트론의 무거운 크롬 엔진을 걷어내고, 시스템 자원을 최소한으로 쓰는 단단한 뼈대를 제공|
-|**React**<br><br>  <br><br>_(UI Library)_|• 화면에 보여지는 UI 컴포넌트 설계<br><br>  <br><br>• 사용자 인터페이스 상태 관리|• 전 세계 1위의 압도적 생태계<br><br>  <br><br>• 검증된 컴포넌트 재사용성<br><br>  <br><br>• 풍부한 UI 라이브러리 활용 가능|가장 많은 오픈소스 자원과 예제를 가지고 있어, 원하는 화면 레이아웃과 기능을 가장 빠르게 구현|
-|**TypeScript**<br><br>  <br><br>_(Language)_|• 정적 타입 지정을 통한 코드 안정성 확보|• 컴파일 단계에서 오타/버그 차단<br><br>  <br><br>• 코드 자동 완성 기능 극대화<br><br>  <br><br>• 대규모 프로젝트 유지보수 용이|프론트엔드와 Rust 백엔드 간에 데이터를 주고받을 때, 데이터 규격을 명확히 하여 휴먼 에러를 완벽히 막아줌|
-|**Vite**<br><br>  <br><br>_(Build Engine)_|• 초고속 개발 서버 구동<br><br>  <br><br>• 소스코드 실시간 반영 (HMR)<br><br>  <br><br>• 최종 배포용 파일 최적화 빌드|• **0.1초대**의 눈부신 코드 반영 속도<br><br>  <br><br>• 내부 컴파일러(Esbuild)의 압도적 성능<br><br>  <br><br>• 복잡한 설정 없는 쾌적함|CMake나 Webpack 같은 복잡한 빌드 설정에서 벗어나, 저장 즉시 화면이 바뀌는 개발 속도|
-
-
 ### bun ts electron
 
 Electrobun : 하단 문서 참조
