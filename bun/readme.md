@@ -75,7 +75,7 @@ bun add [라이브러리명]
 bun build ./index.ts --compile --outfile my-app.exe
 ```
 
-react + typescript
+### react + typescript
 
 ```bash
 npx @quick-start/create-electron my-electron-app --template react-ts
