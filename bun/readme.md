@@ -76,10 +76,10 @@ bun build ./index.ts --compile --outfile my-app.exe
 ```
 
 ```bash
-bun create @quick-start/electron my-electron-app
+npx @quick-start/create-electron my-electron-app --template react-ts
 cd my-electron-app
 bun install
-bun dev
+bun run dev
 bun run build:win
 ```
 ### 예제
